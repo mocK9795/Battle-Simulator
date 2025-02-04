@@ -5,10 +5,12 @@ public class Player : MonoBehaviour
 {
     public string nation;
     Camera mainCamera;
+    VisualEffects effects;
 
 	private void Start()
 	{
 		mainCamera = GetComponent<Camera>();
+        effects = FindFirstObjectByType<VisualEffects>();
 	}
 
 	public Warrior GetSelectedWarrior()
@@ -37,6 +39,7 @@ public class Player : MonoBehaviour
 
         if (value.canceled)
         {
+            effects.ClearArrow();
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
             if (GlobalData.selectedWarrior == null) return;
@@ -48,4 +51,17 @@ public class Player : MonoBehaviour
             GlobalData.selectedWarrior = null;
         }
     }
+
+    public Vector2 WorldPosition(Vector2 position)
+    {
+        return mainCamera.ScreenToWorldPoint(position);
+    }
+
+	private void Update()
+	{
+		if (GlobalData.mouseDown)
+        {
+            effects.DrawArrow(WorldPosition(GlobalData.mouseClickStartPoint), WorldPosition(GlobalData.mousePosition));
+        }
+	}
 }

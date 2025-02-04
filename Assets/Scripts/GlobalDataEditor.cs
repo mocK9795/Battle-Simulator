@@ -10,6 +10,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float rotateAccuracy;
 	public float minScale;
 	public float friction;
+	public float healthToScaleRatio;
 
 	private void OnValidate()
 	{
@@ -19,6 +20,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.rotateAccuracy = rotateAccuracy;
 		GlobalData.minScale = minScale;
 		GlobalData.friction = friction;
+		GlobalData.healthToScaleRatio = healthToScaleRatio;
 	}
 
 	public void GetMousePosition(InputAction.CallbackContext value)
@@ -40,6 +42,7 @@ public static class GlobalData
 	public static bool mouseDown;
 	public static float minScale;
 	public static float friction;
+	public static float healthToScaleRatio;
 
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
 }

@@ -6,6 +6,7 @@ public class Announcement : MonoBehaviour
     public TMP_Text message;
     public float showTime;
     public float shake;
+	public Color messageColor;
 
 	float showTimer;
 
@@ -14,6 +15,8 @@ public class Announcement : MonoBehaviour
         if (showTimer < showTime)
         {
 			showTimer += Time.deltaTime;
+			messageColor.a = 1 - (showTimer / showTime);
+			message.color = messageColor;
 		}
 		else
 		{
@@ -27,4 +30,10 @@ public class Announcement : MonoBehaviour
 		message.text = announcement;
 		message.gameObject.SetActive(true);
     }
+
+	[ContextMenu("Test Announce")]
+	public void DefaultAnnounce()
+	{
+		Announce(message.text);
+	}
 }

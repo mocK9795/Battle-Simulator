@@ -54,6 +54,7 @@ public class Warrior : MonoBehaviour
 		}
 
 		body.linearVelocity = Vector2.ClampMagnitude(body.linearVelocity, speed);
+		transform.localScale = Vector3.ClampMagnitude(transform.localScale, Mathf.Max(health / GlobalData.healthToScaleRatio, GlobalData.minScale));
 	}
 
 	public void SetTargetFromOffset(Vector2 offset)
@@ -96,6 +97,5 @@ public class Warrior : MonoBehaviour
 		enemy.health -= damage * Time.deltaTime;
 		hasAttacked = true;
 		body.linearVelocity -= speed * forward * -1;
-		transform.localScale = Mathf.Max(health / maxHealth, GlobalData.minScale) * maxScale;
 	}
 }
