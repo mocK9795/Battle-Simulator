@@ -1,4 +1,3 @@
-using JetBrains.Annotations;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -54,7 +53,7 @@ public class Warrior : MonoBehaviour
 		}
 
 		body.linearVelocity = Vector2.ClampMagnitude(body.linearVelocity, speed);
-		transform.localScale = Vector3.ClampMagnitude(transform.localScale, Mathf.Max(health / GlobalData.healthToScaleRatio, GlobalData.minScale));
+		transform.localScale = maxScale * Mathf.Max(health / GlobalData.healthToScaleRatio, GlobalData.minScale);
 	}
 
 	public void SetTargetFromOffset(Vector2 offset)

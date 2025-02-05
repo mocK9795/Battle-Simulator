@@ -1318,6 +1318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   battleName: Battle Of Grasslands
+  battleStats: 'France VS Britain '
   width: 0.1
   arrowColor: {r: 0.4014872, g: 0.7129947, b: 0.8805031, a: 1}
 --- !u!114 &1494520457
@@ -1333,9 +1334,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: {fileID: 2012953769}
-  showTime: 10
+  showTime: 2
   shake: 1
   messageColor: {r: 1, g: 1, b: 1, a: 0}
+  isAnnouncing: 0
 --- !u!1 &1825325726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1562,7 +1564,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2012953769
 MonoBehaviour:
   m_ObjectHideFlags: 0

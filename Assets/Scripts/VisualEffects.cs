@@ -5,6 +5,7 @@ using UnityEngine;
 public class VisualEffects : MonoBehaviour
 {
 	public string battleName;
+	public string battleStats;
 	public float width;
 	public Color arrowColor = Color.white;
     LineRenderer lineRenderer = null;
@@ -16,6 +17,7 @@ public class VisualEffects : MonoBehaviour
 		SetLineRendererSettings();
 
 		announcement = GetComponent<Announcement>();
+		announcement.announcementComplete = OnAnnouncementComplete;
 		announcement.Announce(battleName);
 	}
 
@@ -43,5 +45,11 @@ public class VisualEffects : MonoBehaviour
 		lineRenderer.endWidth = width;
 		lineRenderer.startColor = arrowColor;
 		lineRenderer.endColor = arrowColor;
+	}
+
+	public void OnAnnouncementComplete()
+	{
+		announcement.Announce(battleStats);
+		announcement.announcementComplete = null;
 	}
 }
