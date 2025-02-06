@@ -8,7 +8,6 @@ public class Warrior : MonoBehaviour
 	public float health;
 	public float speed;
 	public float damage;
-	public float agility;
 
 	public Vector2 target;
 	float maxHealth;
@@ -26,9 +25,10 @@ public class Warrior : MonoBehaviour
 		body = GetComponent<Rigidbody2D>();
 		body.gravityScale = 0;
 		body.linearDamping = GlobalData.friction;
-		
-		maxHealth = health;
-		maxScale = transform.localScale;
+
+		target = transform.position;
+
+		Rescale();
 	}
 
 	public void Update()
@@ -40,7 +40,7 @@ public class Warrior : MonoBehaviour
 		//}
 		UpdateTargetAngle();
 		RotateTowardsTarget();
-		if (!(Vector2.Distance(position, target) < GlobalData.moveAccuracy))
+		if (Vector2.Distance(position, target) > GlobalData.moveAccuracy)
 		{
 			body.linearVelocity += speed * forward;
 		}
@@ -53,7 +53,7 @@ public class Warrior : MonoBehaviour
 		}
 
 		body.linearVelocity = Vector2.ClampMagnitude(body.linearVelocity, speed);
-		transform.localScale = maxScale * Mathf.Max(health / GlobalData.healthToScaleRatio, GlobalData.minScale);
+		SetScale();
 	}
 
 	public void SetTargetFromOffset(Vector2 offset)
@@ -95,6 +95,27 @@ public class Warrior : MonoBehaviour
 
 		enemy.health -= damage * Time.deltaTime;
 		hasAttacked = true;
-		body.linearVelocity -= speed * forward * -1;
+		body.linearVelocity -= speed * forward * GlobalData.knockbackRatio;
+		target = Vector2.Lerp(target, GlobalData.vector3(enemy.transform.position), Mathf.Clamp01(Time.deltaTime));
 	}
+
+	[ContextMenu("Set Scale")]
+	public void Rescale()
+	{
+		maxScale = transform.localScale;
+		maxScale = Vector2.ClampMagnitude(maxScale, 1);
+		SetScale();
+	}
+
+	public void SetScale()
+	{
+		transform.localScale = maxScale * Mathf.Max(health / GlobalData.healthToScaleRatio, GlobalData.minScale);
+	}
+
+	private void OnValidate()
+	{
+		Rescale();
+	}
+
+
 }

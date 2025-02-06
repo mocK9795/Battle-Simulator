@@ -20,7 +20,7 @@ public class Announcement : MonoBehaviour
 		{
 			showTimer += Time.deltaTime;
 			if (showTimer < fadeIn) messageColor.a = (showTimer / fadeIn);
-			else if (showTimer > fadeOut) messageColor.a = 1 - ((showTimer - showTime) / fadeOut);
+			else if (showTimer > fadeOut) messageColor.a = 1 - ((showTimer - fadeOut) / (showTime - fadeOut));
 			message.color = messageColor;
 			isAnnouncing = true;
 		}

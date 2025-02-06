@@ -21,7 +21,7 @@ public class Nation : MonoBehaviour
 	[ContextMenu("Set Army As Child")]
 	public void SetArmyAsChild()
 	{
-		Warrior[] warriors = FindObjectsByType<Warrior>(FindObjectsSortMode.None);
+		Warrior[] warriors = BattleManager.GetAllWarriors();
 		foreach (Warrior warrior in warriors)
 		{
 			if (warrior.nation != nation) continue;

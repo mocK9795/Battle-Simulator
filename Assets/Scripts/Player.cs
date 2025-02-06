@@ -4,35 +4,33 @@ using UnityEngine.InputSystem;
 public class Player : MonoBehaviour
 {
     public string nation;
+    public float lookSpeed;
     Camera mainCamera;
     VisualEffects effects;
 
-	private void Start()
-	{
-		mainCamera = GetComponent<Camera>();
+    private void Start()
+    {
+        mainCamera = GetComponent<Camera>();
         effects = FindFirstObjectByType<VisualEffects>();
-	}
+    }
 
-	public Warrior GetSelectedWarrior()
+    public Warrior GetSelectedWarrior()
     {
         Vector2 mousePosition = mainCamera.ScreenToWorldPoint(GlobalData.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
-        print(hit.point);
-
         if (hit.collider != null)
         {
-            Debug.Log("Object Selected: " + hit.collider.name);
             return hit.collider.GetComponent<Warrior>();
         }
 
         return null;
     }
 
-	public void OnClick(InputAction.CallbackContext value) 
-	{
+    public void OnClick(InputAction.CallbackContext value)
+    {
         GlobalData.mouseDown = !value.canceled;
-        if (value.started) { 
+        if (value.started) {
             GlobalData.mouseClickStartPoint = GlobalData.mousePosition;
             GlobalData.selectedWarrior = GetSelectedWarrior();
         }
@@ -57,11 +55,17 @@ public class Player : MonoBehaviour
         return mainCamera.ScreenToWorldPoint(position);
     }
 
-	private void Update()
-	{
-		if (GlobalData.mouseDown)
+    private void Update()
+    {
+        if (GlobalData.mouseDown && GlobalData.selectedWarrior != null)
         {
             effects.DrawArrow(WorldPosition(GlobalData.mouseClickStartPoint), WorldPosition(GlobalData.mousePosition));
         }
-	}
+    }
+
+    public void OnLook(InputAction.CallbackContext value)
+    {
+        if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null) return;
+        transform.position += GlobalData.Inverse( value.ReadValue<Vector2>() ) * Time.deltaTime * lookSpeed;
+    }
 }
