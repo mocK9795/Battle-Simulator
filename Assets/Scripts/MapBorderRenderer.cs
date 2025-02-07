@@ -1,0 +1,159 @@
+using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
+
+[RequireComponent(typeof(LineRenderer))]
+public class MapBorderRenderer : MonoBehaviour
+{
+    public float scale;
+    public Texture2D map;
+    [Tooltip("The color to draw a border for")]
+    public Color outlineColor;
+    public enum OutlineMode {ConvexHull, NearestPoint};
+    public OutlineMode outlineMode;
+    public LineRenderer lineRenderer;
+
+    public static Color[,] GetPixelData(Texture2D map)
+    {
+        if (map == null)
+        {
+            print("Map Provided Is Null");
+            return null;
+        }
+
+        Color[] colorData1D = map.GetPixels();
+        int width = map.width;
+        int height = map.height;
+
+        Color[,] colorData2D = new Color[width, height];
+        for (int y = 0; y < height; y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                colorData2D[x, y] = colorData1D[y * width + x];
+            }
+        }
+
+        return colorData2D;
+    }
+
+    public static bool IsBorderPixel(int x, int y, Color[,] map)
+    {
+        int width = map.GetLength(0);
+        int height = map.GetLength(1);
+
+        if (x == 0) return true;
+        if (y == 0) return true;
+        if (x == width - 1) return true;
+        if (y == height - 1)return true;
+
+        Color centerColor = map[x, y];
+        Color topColor = map[x, y - 1];
+        Color bottomColor = map[x, y + 1];
+        Color rightColor = map[x + 1, y];
+        Color leftColor = map[x - 1, y];
+
+        if (centerColor == topColor && centerColor == bottomColor && centerColor == rightColor && centerColor == leftColor) return false;
+        else return true;
+    }
+
+    [ContextMenu("Render Border")]
+    public void DrawMapBorder()
+    {
+        List<Vector2> borderPoints = new List<Vector2>();
+        Color[,] pixelData = GetPixelData(map);
+        int width = pixelData.GetLength(0);
+        int height = pixelData.GetLength(1);
+
+        for (int y = 0; y < height;y++)
+        {
+            for (int x = 0; x < width;x++)
+            {
+                if (pixelData[x, y] != outlineColor) continue;
+                if (IsBorderPixel(x, y, pixelData))
+                {
+                    borderPoints.Add(new Vector2(x, y) * scale + GlobalData.vector2(transform.position));
+                }
+            }
+        }
+
+        List<Vector2> orderedPoints = new List<Vector2>();
+		if (outlineMode == OutlineMode.ConvexHull)
+        {
+            orderedPoints = GetConvexHull(borderPoints);
+        }
+        else if (outlineMode == OutlineMode.NearestPoint)
+        {
+            orderedPoints = SortByNearestPoint(borderPoints);
+        }
+
+		Vector3[] positions = new Vector3[orderedPoints.Count];
+		for (int i = 0; i < orderedPoints.Count; i++)
+		{
+			positions[i] = GlobalData.vector3(orderedPoints[i]);
+		}
+
+		lineRenderer.positionCount = positions.Length;
+		lineRenderer.SetPositions(positions);
+	}
+
+	public static List<Vector2> GetConvexHull(List<Vector2> points)
+	{
+		// Sort the points lexicographically (by x, then by y)
+		points.Sort((a, b) => a.x == b.x ? a.y.CompareTo(b.y) : a.x.CompareTo(b.x));
+
+		// Remove duplicates
+		points = new List<Vector2>(new HashSet<Vector2>(points));
+
+		if (points.Count <= 1)
+			return points;
+
+		List<Vector2> hull = new List<Vector2>();
+
+		// Build lower hull
+		foreach (Vector2 p in points)
+		{
+			while (hull.Count >= 2 && Cross(hull[hull.Count - 2], hull[hull.Count - 1], p) <= 0)
+				hull.RemoveAt(hull.Count - 1);
+			hull.Add(p);
+		}
+
+		// Build upper hull
+		int t = hull.Count + 1;
+		for (int i = points.Count - 1; i >= 0; i--)
+		{
+			Vector2 p = points[i];
+			while (hull.Count >= t && Cross(hull[hull.Count - 2], hull[hull.Count - 1], p) <= 0)
+				hull.RemoveAt(hull.Count - 1);
+			hull.Add(p);
+		}
+
+		hull.RemoveAt(hull.Count - 1);
+
+		return hull;
+	}
+	private static float Cross(Vector2 o, Vector2 a, Vector2 b)
+	{
+		return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
+	}
+	public static List<Vector2> SortByNearestPoint(List<Vector2> points)
+	{
+		if (points == null || points.Count == 0)
+			return points;
+
+		List<Vector2> sortedPoints = new List<Vector2>();
+		Vector2 currentPoint = points[0];
+		sortedPoints.Add(currentPoint);
+		points.RemoveAt(0);
+
+		while (points.Count > 0)
+		{
+			Vector2 nearestPoint = points.OrderBy(p => Vector2.Distance(currentPoint, p)).First();
+			sortedPoints.Add(nearestPoint);
+			points.Remove(nearestPoint);
+			currentPoint = nearestPoint;
+		}
+
+		return sortedPoints;
+	}
+}

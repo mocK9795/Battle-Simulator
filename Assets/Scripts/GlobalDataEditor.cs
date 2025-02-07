@@ -54,6 +54,7 @@ public static class GlobalData
 	public static float knockbackRatio;
 
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
+	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
 	public static Vector3 Inverse(Vector3 value) 
 	{
 		value.x = -value.x;

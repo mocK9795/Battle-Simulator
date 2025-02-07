@@ -10,6 +10,8 @@ public class VisualEffects : MonoBehaviour
 	public Color arrowColor = Color.white;
     LineRenderer lineRenderer = null;
 	Announcement announcement = null;
+	[Space(1)]
+	public string errorName;
 
 	private void Start()
 	{
@@ -51,5 +53,11 @@ public class VisualEffects : MonoBehaviour
 	{
 		announcement.Announce(battleStats);
 		announcement.announcementComplete = null;
+	}
+
+	[ContextMenu("Show Error")]
+	public void ShowError()
+	{
+		throw new System.Exception(errorName);
 	}
 }
