@@ -1,18 +1,34 @@
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
-[RequireComponent(typeof(LineRenderer))]
 public class MapBorderRenderer : MonoBehaviour
 {
     public float scale;
+    public float lineWidth;
+    [Range(0f, 1f)]
+    public float transparency;
+    public Material borderMaterial;
     public Texture2D map;
-    [Tooltip("The color to draw a border for")]
-    public Color outlineColor;
     public enum OutlineMode {ConvexHull, NearestPoint};
     public OutlineMode outlineMode;
-    public LineRenderer lineRenderer;
 
+    [ContextMenu("Draw Borders")]
+    public void DrawAllBorders()
+    {
+        RemoveBorders();
+        Color[,] pixelData = GetPixelData(map);
+        Color[] uniqueColors = GetMapColors(pixelData);
+        LineRenderer[] lineRenderers = CreateLineRenderers(uniqueColors);
+
+        for (int i = 0; i < uniqueColors.Length; i++)
+        {
+            Color color = uniqueColors[i];
+            LineRenderer lineRenderer = lineRenderers[i];
+            DrawMapBorderFromColor(pixelData, lineRenderer, color);
+        }
+    }
     public static Color[,] GetPixelData(Texture2D map)
     {
         if (map == null)
@@ -36,7 +52,6 @@ public class MapBorderRenderer : MonoBehaviour
 
         return colorData2D;
     }
-
     public static bool IsBorderPixel(int x, int y, Color[,] map)
     {
         int width = map.GetLength(0);
@@ -56,12 +71,24 @@ public class MapBorderRenderer : MonoBehaviour
         if (centerColor == topColor && centerColor == bottomColor && centerColor == rightColor && centerColor == leftColor) return false;
         else return true;
     }
+    public Color[] GetMapColors(Color[,] pixelData)
+    {
+        List<Color> uniqueColors = new List<Color>();
 
-    [ContextMenu("Render Border")]
-    public void DrawMapBorder()
+        for (int i = 0; i < pixelData.GetLength(0); i++)
+        {
+            for (int j = 0; j < pixelData.GetLength(1); j++)
+            {
+                if (uniqueColors.Contains(pixelData[i, j])) continue;
+                uniqueColors.Add(pixelData[i, j]);
+            } 
+        }
+
+        return uniqueColors.ToArray();
+    }
+    public void DrawMapBorderFromColor(Color[,] pixelData ,LineRenderer lineRenderer, Color outlineColor)
     {
         List<Vector2> borderPoints = new List<Vector2>();
-        Color[,] pixelData = GetPixelData(map);
         int width = pixelData.GetLength(0);
         int height = pixelData.GetLength(1);
 
@@ -95,8 +122,8 @@ public class MapBorderRenderer : MonoBehaviour
 
 		lineRenderer.positionCount = positions.Length;
 		lineRenderer.SetPositions(positions);
+        SetBorderCollision(orderedPoints, lineRenderer.gameObject);
 	}
-
 	public static List<Vector2> GetConvexHull(List<Vector2> points)
 	{
 		// Sort the points lexicographically (by x, then by y)
@@ -156,4 +183,46 @@ public class MapBorderRenderer : MonoBehaviour
 
 		return sortedPoints;
 	}
+    public LineRenderer[] CreateLineRenderers(Color[] uniqueColors)
+    {
+        List<LineRenderer> renderers = new List<LineRenderer>();
+
+        foreach (Color color in uniqueColors)
+        {
+            GameObject lineRendererObject = new GameObject(color.ToString());
+            LineRenderer lineRenderer = lineRendererObject.AddComponent<LineRenderer>();
+            lineRenderer.transform.parent = transform;
+            lineRenderer.material = borderMaterial;
+            lineRenderer.loop = true;
+            lineRenderer.startWidth = lineWidth; lineRenderer.endWidth = lineWidth;
+            Color showColor = color; if (showColor.a > transparency) showColor.a = transparency;
+            lineRenderer.startColor = showColor; lineRenderer.endColor = showColor;
+            renderers.Add(lineRenderer);
+        }
+
+        return renderers.ToArray();
+    }
+
+    [ContextMenu("Remove Borders")]
+    public void RemoveBorders()
+    {
+        LineRenderer[] lineRenderers = GetComponentsInChildren<LineRenderer>();
+
+        for (int i = 0; i < lineRenderers.Length; i++)
+        {
+            DestroyImmediate(lineRenderers[i].gameObject);
+        }
+    }
+
+    // Border points not including looping
+    public void SetBorderCollision(List<Vector2> borderPoints, GameObject parentObject)
+    {
+        borderPoints.Add(borderPoints[0]);
+
+        EdgeCollider2D collider = parentObject.AddComponent<EdgeCollider2D>();
+        collider.isTrigger = true;
+        collider.points = borderPoints.ToArray();
+
+        Border border = collider.AddComponent<Border>();
+    }
 }

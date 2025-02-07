@@ -1,10 +1,14 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEngine.Rendering.DebugUI;
 
 public class Player : MonoBehaviour
 {
     public string nation;
-    public float lookSpeed;
+    float lookSpeed;
+    public float zoomSpeed;
+    public float minZoom;
+    public float maxZoom;
     Camera mainCamera;
     VisualEffects effects;
 
@@ -12,6 +16,7 @@ public class Player : MonoBehaviour
     {
         mainCamera = GetComponent<Camera>();
         effects = FindFirstObjectByType<VisualEffects>();
+        lookSpeed = mainCamera.orthographicSize;
     }
 
     public Warrior GetSelectedWarrior()
@@ -68,4 +73,15 @@ public class Player : MonoBehaviour
         if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null) return;
         transform.position += GlobalData.Inverse( value.ReadValue<Vector2>() ) * Time.deltaTime * lookSpeed;
     }
+
+    public void OnZoom(InputAction.CallbackContext value)
+    {
+        OnZoom(-value.ReadValue<Vector2>().y);
+    }
+	public void OnZoom(float zoomValue)
+    {
+		mainCamera.orthographicSize = mainCamera.orthographicSize + zoomValue * zoomSpeed;
+        mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, minZoom, maxZoom);
+        lookSpeed = mainCamera.orthographicSize;
+	}
 }

@@ -64,6 +64,7 @@
     <Compile Include="Assets\Scripts\Nation.cs" />
     <Compile Include="Assets\Scripts\BattleManager.cs" />
     <Compile Include="Assets\Scripts\MapBorderRenderer.cs" />
+    <Compile Include="Assets\Scripts\Border\Border.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Warrior.cs" />
     <Compile Include="Assets\Scripts\Announcement.cs" />
