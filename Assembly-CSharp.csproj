@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Warrior.cs" />
     <Compile Include="Assets\Scripts\Announcement.cs" />
+    <Compile Include="Assets\Scripts\Structures\Capital.cs" />
     <Compile Include="Assets\Scripts\GlobalDataEditor.cs" />
     <Compile Include="Assets\Scripts\VisualEffects.cs" />
   </ItemGroup>

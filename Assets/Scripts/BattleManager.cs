@@ -1,8 +1,10 @@
-using JetBrains.Annotations;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
+	public enum GroupMode { Nation, Dump };
+	public GroupMode groupMode;
+
 	public Vector2 warriorSpread;
 	public Sprite warriorSprite;
 	public NationData[] nations;
@@ -11,12 +13,23 @@ public class BattleManager : MonoBehaviour
 	[ContextMenu("Create Nations From Data")]
 	public void CreateNations ()
 	{
-		foreach (NationData nationData in nations) {
-			GameObject nationObject = new GameObject(nationData.name);
+		Border[] borders = FindObjectsByType<Border>(FindObjectsSortMode.None);
+
+		for (int i = 0; i<nations.Length; i++) {
+			NationData nationData = nations[i];
+
+			GameObject nationObject;
+			if (i >= borders.Length) nationObject = new GameObject(nationData.name);
+			else { nationObject = borders[i].gameObject; borders[i].gameObject.name = nationData.name; }
+
 			Nation nation = nationObject.AddComponent<Nation>();
 			nation.nation = nationData.name;
 
-			Color nationColor = nationData.color; nationColor.a = 1;
+			Color nationColor; 
+			if (i < borders.Length) nationColor = borders[i].color;
+            else nationColor = Color.white;
+            nationColor.a = 1;
+			
 			nation.nationColor = nationColor;
 		}
 	}
@@ -49,8 +62,8 @@ public class BattleManager : MonoBehaviour
 		Nation[] allNations = GetAllNations();
 		foreach (Nation nation in allNations)
 		{
-			nation.SetArmyAsChild();
-			nation.SetChildColor();
+			nation.SetArmy();
+			nation.SetArmyColor();
 		}
 	}
 
@@ -87,6 +100,28 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
+	[ContextMenu("Group Warriors")]
+	public void GroupWarriors()
+	{
+		Warrior[] warriors = GetAllWarriors();
+		Nation[] nations = GetAllNations();
+		
+		foreach (Warrior warrior in warriors)
+		{
+			if (groupMode == GroupMode.Dump)
+			{
+				warrior.transform.parent = transform;
+				continue;
+			}
+
+			foreach (Nation nation in nations)
+			{
+				if (warrior.nation != nation.nation) continue;
+				warrior.transform.parent = nation.transform;
+			}
+		}
+	}
+
 	public static Nation[] GetAllNations()
 	{
 		return FindObjectsByType<Nation>(FindObjectsSortMode.None);
@@ -95,13 +130,17 @@ public class BattleManager : MonoBehaviour
 	{
 		return FindObjectsByType<Warrior>(FindObjectsSortMode.None);
 	}
+
+	public static Color GetNationColor()
+	{
+		return Color.white;
+	}
 }
 
 [System.Serializable]
 public struct NationData
 {
 	public string name;
-	public Color color;
 }
 
 [System.Serializable]

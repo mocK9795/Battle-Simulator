@@ -79,6 +79,7 @@ public class MapBorderRenderer : MonoBehaviour
         {
             for (int j = 0; j < pixelData.GetLength(1); j++)
             {
+                if (pixelData[i, j].a < transparency) continue;
                 if (uniqueColors.Contains(pixelData[i, j])) continue;
                 uniqueColors.Add(pixelData[i, j]);
             } 
@@ -213,16 +214,34 @@ public class MapBorderRenderer : MonoBehaviour
             DestroyImmediate(lineRenderers[i].gameObject);
         }
     }
-
-    // Border points not including looping
     public void SetBorderCollision(List<Vector2> borderPoints, GameObject parentObject)
     {
-        borderPoints.Add(borderPoints[0]);
-
-        EdgeCollider2D collider = parentObject.AddComponent<EdgeCollider2D>();
+        PolygonCollider2D collider = parentObject.AddComponent<PolygonCollider2D>();
         collider.isTrigger = true;
         collider.points = borderPoints.ToArray();
 
-        Border border = collider.AddComponent<Border>();
+        parentObject.AddComponent<Border>();
     }
+	public static Color[,] ChangeColorOwnership(Color[,] colorMap, Color targetColor,  Color changeColor, Vector2Int coordinate, float radius)
+	{
+		int width = colorMap.GetLength(0);
+		int height = colorMap.GetLength(1);
+		float radiusSquared = radius * radius;
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				Vector2Int currentCoord = new Vector2Int(x, y);
+				float distanceSquared = (currentCoord - coordinate).sqrMagnitude;
+
+				if (distanceSquared <= radiusSquared && colorMap[x, y] == targetColor)
+				{
+					colorMap[x, y] = changeColor;
+				}
+			}
+		}
+
+		return colorMap;
+	}
 }

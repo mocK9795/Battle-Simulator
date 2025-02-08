@@ -47,8 +47,8 @@ public class Player : MonoBehaviour
 
             if (GlobalData.selectedWarrior == null) return;
 
-            Vector2 clickStart = mainCamera.ScreenToWorldPoint(GlobalData.mouseClickStartPoint);
-            Vector2 clickEnd = mainCamera.ScreenToWorldPoint(GlobalData.mouseClickEndPoint);
+            Vector2 clickStart = WorldPosition(GlobalData.mouseClickStartPoint);
+            Vector2 clickEnd = WorldPosition(GlobalData.mouseClickEndPoint);
             GlobalData.selectedWarrior.SetTargetFromOffset(clickEnd - clickStart);
 
             GlobalData.selectedWarrior = null;

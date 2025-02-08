@@ -2,17 +2,17 @@ using UnityEngine;
 
 public class Border : MonoBehaviour
 {
-	public string nation;
-    Announcement announcer;
-
-	private void Start()
-	{
-		announcer = FindFirstObjectByType<Announcement>();
-	}
-
-	private void OnCollisionExit2D(Collision2D collision)
-	{
-		announcer.Announce(nation);
-		print("Entering " + nation);
+	public Color color {
+		get
+		{
+			LineRenderer lineRenderer = GetComponent<LineRenderer>();
+			return Color.Lerp(lineRenderer.startColor, lineRenderer.endColor, 0.5f);
+		}
+		set
+		{
+			LineRenderer lineRenderer = GetComponent<LineRenderer>();
+			lineRenderer.startColor = value;
+			lineRenderer.endColor = value;
+		}
 	}
 }
