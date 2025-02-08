@@ -27,6 +27,7 @@ public class Warrior : MonoBehaviour
 		body.linearDamping = GlobalData.friction;
 
 		target = transform.position;
+		maxHealth = health;
 
 		Rescale();
 	}

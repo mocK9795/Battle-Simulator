@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MapBorderRenderer : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class MapBorderRenderer : MonoBehaviour
     public Texture2D map;
     public enum OutlineMode {ConvexHull, NearestPoint};
     public OutlineMode outlineMode;
+
+    public RawImage miniMapImage;
 
     [ContextMenu("Draw Borders")]
     public void DrawAllBorders()
@@ -146,6 +149,7 @@ public class MapBorderRenderer : MonoBehaviour
     public Vector2 mapToWorld(int x, int y) { return new Vector2(x, y) * scale + GlobalData.vector2(transform.position); }
 	public Vector2Int worldToMap(Vector2 position) {
         Vector2 rawPosition = position / scale - GlobalData.vector2(transform.position);
+        print(rawPosition);
 		return new Vector2Int(Mathf.RoundToInt(rawPosition.x), Mathf.RoundToInt(rawPosition.y)); 
     }
     public static List<Vector2> GetConvexHull(List<Vector2> points)
@@ -267,12 +271,17 @@ public class MapBorderRenderer : MonoBehaviour
 
 		return colorMap;
 	}
-
     public void ChangeColorOwnership(Color targetColor, Color changeColor, Vector2Int coordinate, float radius)
     {
         Color[,] pixelData = GetPixelData(map);
         pixelData = ChangeColorOwnership(pixelData, targetColor, changeColor, coordinate, radius);
         map = SetPixelData(map, pixelData);
+
+        miniMapImage.texture = map;
         DrawAllBorders();
     }
+	private void Start()
+	{
+        miniMapImage.texture = map;
+	}
 }
