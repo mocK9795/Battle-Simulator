@@ -10,7 +10,7 @@ public class Warrior : MonoBehaviour
 	public float damage;
 
 	public Vector2 target;
-	float maxHealth;
+	[HideInInspector()] public float maxHealth;
 	Vector3 maxScale;
 	bool hasAttacked = false;
 	Rigidbody2D body;
@@ -20,7 +20,7 @@ public class Warrior : MonoBehaviour
 	float targetAngle;
 	float currentAngle;
 
-	private void Start()
+	public void Start()
 	{
 		body = GetComponent<Rigidbody2D>();
 		body.gravityScale = 0;
@@ -85,7 +85,7 @@ public class Warrior : MonoBehaviour
 		print(currentAngle);
 	}
 
-	private void OnCollisionStay2D(Collision2D collision)
+	public void OnCollisionStay2D(Collision2D collision)
 	{
 		if (hasAttacked) return;
 		if (collision.collider == null) return;

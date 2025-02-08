@@ -131,9 +131,15 @@ public class BattleManager : MonoBehaviour
 		return FindObjectsByType<Warrior>(FindObjectsSortMode.None);
 	}
 
-	public static Color GetNationColor()
+	public static Nation GetNation(string nationName)
 	{
-		return Color.white;
+		Nation[] allNations = GetAllNations();
+		foreach (Nation nation in allNations)
+		{
+			if (nation.nation == nationName) return nation;
+		}
+
+		return null;
 	}
 }
 

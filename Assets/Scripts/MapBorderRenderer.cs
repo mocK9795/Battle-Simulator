@@ -52,6 +52,24 @@ public class MapBorderRenderer : MonoBehaviour
 
         return colorData2D;
     }
+
+    public static Texture2D SetPixelData(Texture2D map, Color[,] pixelData)
+    {
+        int width = map.width;
+        int height = map.height;
+
+        Color[] pixelData1D = new Color[width * height];
+        for (int y = 0; y < height;y++)
+        {
+            for (int x = 0; x < width; x++)
+            {
+                pixelData1D[y*width + x] = pixelData[x, y];
+            } 
+        }
+
+        map.SetPixels(pixelData1D);
+        return map;
+    }
     public static bool IsBorderPixel(int x, int y, Color[,] map)
     {
         int width = map.GetLength(0);
@@ -100,7 +118,7 @@ public class MapBorderRenderer : MonoBehaviour
                 if (pixelData[x, y] != outlineColor) continue;
                 if (IsBorderPixel(x, y, pixelData))
                 {
-                    borderPoints.Add(new Vector2(x, y) * scale + GlobalData.vector2(transform.position));
+                    borderPoints.Add(mapToWorld(x, y));
                 }
             }
         }
@@ -125,7 +143,12 @@ public class MapBorderRenderer : MonoBehaviour
 		lineRenderer.SetPositions(positions);
         SetBorderCollision(orderedPoints, lineRenderer.gameObject);
 	}
-	public static List<Vector2> GetConvexHull(List<Vector2> points)
+    public Vector2 mapToWorld(int x, int y) { return new Vector2(x, y) * scale + GlobalData.vector2(transform.position); }
+	public Vector2Int worldToMap(Vector2 position) {
+        Vector2 rawPosition = position / scale - GlobalData.vector2(transform.position);
+		return new Vector2Int(Mathf.RoundToInt(rawPosition.x), Mathf.RoundToInt(rawPosition.y)); 
+    }
+    public static List<Vector2> GetConvexHull(List<Vector2> points)
 	{
 		// Sort the points lexicographically (by x, then by y)
 		points.Sort((a, b) => a.x == b.x ? a.y.CompareTo(b.y) : a.x.CompareTo(b.x));
@@ -244,4 +267,12 @@ public class MapBorderRenderer : MonoBehaviour
 
 		return colorMap;
 	}
+
+    public void ChangeColorOwnership(Color targetColor, Color changeColor, Vector2Int coordinate, float radius)
+    {
+        Color[,] pixelData = GetPixelData(map);
+        pixelData = ChangeColorOwnership(pixelData, targetColor, changeColor, coordinate, radius);
+        map = SetPixelData(map, pixelData);
+        DrawAllBorders();
+    }
 }

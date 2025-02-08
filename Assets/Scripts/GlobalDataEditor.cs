@@ -12,6 +12,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float friction;
 	public float healthToScaleRatio;
 	public float knockbackRatio;
+	public float capitalChangeHealth = 10;
 
 	private void OnValidate()
 	{
@@ -29,6 +30,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.friction = friction;
 		GlobalData.healthToScaleRatio = healthToScaleRatio;
 		GlobalData.knockbackRatio = knockbackRatio;
+		GlobalData.capitalChangeHealth = capitalChangeHealth;
 	}
 
 	public void GetMousePosition(InputAction.CallbackContext value)
@@ -52,6 +54,8 @@ public static class GlobalData
 	public static float friction;
 	public static float healthToScaleRatio;
 	public static float knockbackRatio;
+	public static float capitalChangeHealth = 10;
+
 
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
 	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
