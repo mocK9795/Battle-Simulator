@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -23,8 +23,8 @@ public class MapBorderRenderer : MonoBehaviour
         RemoveBorders();
         Color[,] pixelData = GetPixelData(map);
         Color[] uniqueColors = GetMapColors(pixelData);
-        LineRenderer[] lineRenderers = CreateLineRenderers(uniqueColors);
-
+        LineRenderer[] lineRenderers = GetLineRenderers(uniqueColors);
+        
         for (int i = 0; i < uniqueColors.Length; i++)
         {
             Color color = uniqueColors[i];
@@ -55,7 +55,6 @@ public class MapBorderRenderer : MonoBehaviour
 
         return colorData2D;
     }
-
     public static Texture2D SetPixelData(Texture2D map, Color[,] pixelData)
     {
         int width = map.width;
@@ -71,6 +70,7 @@ public class MapBorderRenderer : MonoBehaviour
         }
 
         map.SetPixels(pixelData1D);
+        map.Apply();
         return map;
     }
     public static bool IsBorderPixel(int x, int y, Color[,] map)
@@ -101,7 +101,13 @@ public class MapBorderRenderer : MonoBehaviour
             for (int j = 0; j < pixelData.GetLength(1); j++)
             {
                 if (pixelData[i, j].a < transparency) continue;
-                if (uniqueColors.Contains(pixelData[i, j])) continue;
+                bool found = false;
+                foreach (Color color in uniqueColors)
+                {
+                    if (!color.CompareRGB(pixelData[i, j])) continue;
+                    found = true; break;
+                }
+                if (found) continue;
                 uniqueColors.Add(pixelData[i, j]);
             } 
         }
@@ -148,8 +154,7 @@ public class MapBorderRenderer : MonoBehaviour
 	}
     public Vector2 mapToWorld(int x, int y) { return new Vector2(x, y) * scale + GlobalData.vector2(transform.position); }
 	public Vector2Int worldToMap(Vector2 position) {
-        Vector2 rawPosition = position / scale - GlobalData.vector2(transform.position);
-        print(rawPosition);
+        Vector2 rawPosition = position / scale - GlobalData.vector2(transform.position) / scale;
 		return new Vector2Int(Mathf.RoundToInt(rawPosition.x), Mathf.RoundToInt(rawPosition.y)); 
     }
     public static List<Vector2> GetConvexHull(List<Vector2> points)
@@ -211,21 +216,38 @@ public class MapBorderRenderer : MonoBehaviour
 
 		return sortedPoints;
 	}
-    public LineRenderer[] CreateLineRenderers(Color[] uniqueColors)
+    public LineRenderer[] GetLineRenderers(Color[] uniqueColors)
     {
-        List<LineRenderer> renderers = new List<LineRenderer>();
+        List<LineRenderer> renderers = new(GetComponentsInChildren<LineRenderer>());
+        List<LineRenderer> availableRenderers = new(renderers);
 
-        foreach (Color color in uniqueColors)
+
+        for (int i = 0; i < uniqueColors.Length; i++)
         {
-            GameObject lineRendererObject = new GameObject(color.ToString());
-            LineRenderer lineRenderer = lineRendererObject.AddComponent<LineRenderer>();
+            Color color = uniqueColors[i];
+            LineRenderer lineRenderer = null;
+
+            foreach (LineRenderer renderer in availableRenderers)
+            {
+                if (renderer.startColor.CompareRGB(color)) continue;
+                lineRenderer = renderer;
+                availableRenderers.Remove(renderer);
+                break;
+            } 
+
+			if (lineRenderer == null)
+            {
+                GameObject lineRendererObject = new GameObject(color.ToString());
+                lineRenderer = lineRendererObject.AddComponent<LineRenderer>();
+				renderers.Add(lineRenderer);
+			}
+
             lineRenderer.transform.parent = transform;
             lineRenderer.material = borderMaterial;
             lineRenderer.loop = true;
             lineRenderer.startWidth = lineWidth; lineRenderer.endWidth = lineWidth;
             Color showColor = color; if (showColor.a > transparency) showColor.a = transparency;
             lineRenderer.startColor = showColor; lineRenderer.endColor = showColor;
-            renderers.Add(lineRenderer);
         }
 
         return renderers.ToArray();
@@ -238,16 +260,18 @@ public class MapBorderRenderer : MonoBehaviour
 
         for (int i = 0; i < lineRenderers.Length; i++)
         {
-            DestroyImmediate(lineRenderers[i].gameObject);
+            lineRenderers[i].positionCount = 0;
         }
     }
     public void SetBorderCollision(List<Vector2> borderPoints, GameObject parentObject)
     {
-        PolygonCollider2D collider = parentObject.AddComponent<PolygonCollider2D>();
+		PolygonCollider2D collider = parentObject.GetComponent<PolygonCollider2D>();
+        if (collider == null) collider = parentObject.AddComponent<PolygonCollider2D>();
         collider.isTrigger = true;
         collider.points = borderPoints.ToArray();
 
-        parentObject.AddComponent<Border>();
+        Border border = parentObject.GetComponent<Border>();
+        if (border == null) parentObject.AddComponent<Border>();
     }
 	public static Color[,] ChangeColorOwnership(Color[,] colorMap, Color targetColor,  Color changeColor, Vector2Int coordinate, float radius)
 	{
@@ -262,9 +286,9 @@ public class MapBorderRenderer : MonoBehaviour
 				Vector2Int currentCoord = new Vector2Int(x, y);
 				float distanceSquared = (currentCoord - coordinate).sqrMagnitude;
 
-				if (distanceSquared <= radiusSquared && colorMap[x, y] == targetColor)
+				if (distanceSquared <= radiusSquared && colorMap[x, y] == RGB(targetColor))
 				{
-					colorMap[x, y] = changeColor;
+					colorMap[x, y] = RGB(changeColor);
 				}
 			}
 		}
@@ -284,4 +308,8 @@ public class MapBorderRenderer : MonoBehaviour
 	{
         miniMapImage.texture = map;
 	}
+
+    public static Color RGB(Color c) { c.a = 1; return c; }
 }
+
+
