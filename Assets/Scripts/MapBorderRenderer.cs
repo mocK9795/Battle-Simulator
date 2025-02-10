@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +13,7 @@ public class MapBorderRenderer : MonoBehaviour
     public float transparency;
     public Material borderMaterial;
     public Texture2D map;
-    public enum OutlineMode {ConvexHull, NearestPoint};
+    public enum OutlineMode {ConvexHull, NearestPoint, Default};
     public OutlineMode outlineMode;
 
     public RawImage miniMapImage;
@@ -22,17 +23,63 @@ public class MapBorderRenderer : MonoBehaviour
     {
         RemoveBorders();
         Color[,] pixelData = GetPixelData(map);
-        Color[] uniqueColors = GetMapColors(pixelData);
-        LineRenderer[] lineRenderers = GetLineRenderers(uniqueColors);
-        
-        for (int i = 0; i < uniqueColors.Length; i++)
+        Nation[] nations = BattleManager.GetAllNations();
+        var rawBorderPoints = BorderDetection.GetBorderPoints(map);
+        var mergedBorderPoints = MergeBordersByColor(rawBorderPoints, pixelData);
+        Color[] borderColors = mergedBorderPoints.Keys.ToArray();
+        Dictionary<Nation, int> nationLineRendererCounts = new();
+        Dictionary<Nation, List<List<Vector2Int>>> nationBorderPoints = new();
+        for (int i = 0; i < nations.Length; i++)
         {
-            Color color = uniqueColors[i];
-            LineRenderer lineRenderer = lineRenderers[i];
-            DrawMapBorderFromColor(pixelData, lineRenderer, color);
+            Nation nation = nations[i];
+            nation.nationColor = borderColors[i];
+            nationBorderPoints.Add(nation, mergedBorderPoints[nation.nationColor]);
+            nationLineRendererCounts.Add(nation, nationBorderPoints[nation].Count);
+		}
+		var lineRenderers = GetLineRenderers(nationLineRendererCounts);
+
+        for (int n = 0; n < nations.Length; n++)
+        {
+            Nation nation = nations[n];
+            print(lineRenderers[nation].Count); print(nationBorderPoints[nation].Count);
+            for (int i = 0; i < lineRenderers[nation].Count; i++)
+            {
+                if (nationBorderPoints[nation].Count <= i) break;
+                DrawMapBorder(lineRenderers[nation][i], nationBorderPoints[nation][i]);
+            }
         }
     }
-    public static Color[,] GetPixelData(Texture2D map)
+
+	public Dictionary<Color, List<List<Vector2Int>>> MergeBordersByColor(List<List<Vector2Int>> regions, Color[,] pixelData)
+	{
+		Dictionary<Color, List<List<Vector2Int>>> mergedBorders = new Dictionary<Color, List<List<Vector2Int>>>();
+
+		foreach (var region in regions)
+		{
+            if (region.Count < 1) continue;
+			Color regionColor = pixelData[region[0].x, region[0].y];
+
+            if (regionColor.a < transparency) continue;
+
+			if (!mergedBorders.ContainsKey(regionColor))
+			{
+				mergedBorders[regionColor] = new List<List<Vector2Int>>();
+			}
+
+			mergedBorders[regionColor].Add(region);
+		}
+
+		return mergedBorders;
+	}
+
+	public Vector2 mapToWorld(int x, int y) { return new Vector2(x, y) * scale + GlobalData.vector2(transform.position); }
+	public Vector2Int worldToMap(Vector2 position)
+	{
+		Vector2 rawPosition = position / scale - GlobalData.vector2(transform.position) / scale;
+		return new Vector2Int(Mathf.RoundToInt(rawPosition.x), Mathf.RoundToInt(rawPosition.y));
+	}
+
+	public static Color[,] GetPixelData(Texture2D map)
     {
         if (map == null)
         {
@@ -114,50 +161,8 @@ public class MapBorderRenderer : MonoBehaviour
 
         return uniqueColors.ToArray();
     }
-    public void DrawMapBorderFromColor(Color[,] pixelData ,LineRenderer lineRenderer, Color outlineColor)
-    {
-        List<Vector2> borderPoints = new List<Vector2>();
-        int width = pixelData.GetLength(0);
-        int height = pixelData.GetLength(1);
 
-        for (int y = 0; y < height;y++)
-        {
-            for (int x = 0; x < width;x++)
-            {
-                if (pixelData[x, y] != outlineColor) continue;
-                if (IsBorderPixel(x, y, pixelData))
-                {
-                    borderPoints.Add(mapToWorld(x, y));
-                }
-            }
-        }
-
-        List<Vector2> orderedPoints = new List<Vector2>();
-		if (outlineMode == OutlineMode.ConvexHull)
-        {
-            orderedPoints = GetConvexHull(borderPoints);
-        }
-        else if (outlineMode == OutlineMode.NearestPoint)
-        {
-            orderedPoints = SortByNearestPoint(borderPoints);
-        }
-
-		Vector3[] positions = new Vector3[orderedPoints.Count];
-		for (int i = 0; i < orderedPoints.Count; i++)
-		{
-			positions[i] = GlobalData.vector3(orderedPoints[i]);
-		}
-
-		lineRenderer.positionCount = positions.Length;
-		lineRenderer.SetPositions(positions);
-        SetBorderCollision(orderedPoints, lineRenderer.gameObject);
-	}
-    public Vector2 mapToWorld(int x, int y) { return new Vector2(x, y) * scale + GlobalData.vector2(transform.position); }
-	public Vector2Int worldToMap(Vector2 position) {
-        Vector2 rawPosition = position / scale - GlobalData.vector2(transform.position) / scale;
-		return new Vector2Int(Mathf.RoundToInt(rawPosition.x), Mathf.RoundToInt(rawPosition.y)); 
-    }
-    public static List<Vector2> GetConvexHull(List<Vector2> points)
+	public static List<Vector2> GetConvexHull(List<Vector2> points)
 	{
 		// Sort the points lexicographically (by x, then by y)
 		points.Sort((a, b) => a.x == b.x ? a.y.CompareTo(b.y) : a.x.CompareTo(b.x));
@@ -216,41 +221,66 @@ public class MapBorderRenderer : MonoBehaviour
 
 		return sortedPoints;
 	}
-    public LineRenderer[] GetLineRenderers(Color[] uniqueColors)
+
+	public void DrawMapBorder(LineRenderer lineRenderer, List<Vector2Int> mapBorderPoints)
     {
-        List<LineRenderer> renderers = new(GetComponentsInChildren<LineRenderer>());
-        List<LineRenderer> availableRenderers = new(renderers);
+        List<Vector2> borderPoints = new List<Vector2>();
 
-
-        for (int i = 0; i < uniqueColors.Length; i++)
-        {
-            Color color = uniqueColors[i];
-            LineRenderer lineRenderer = null;
-
-            foreach (LineRenderer renderer in availableRenderers)
-            {
-                if (renderer.startColor.CompareRGB(color)) continue;
-                lineRenderer = renderer;
-                availableRenderers.Remove(renderer);
-                break;
-            } 
-
-			if (lineRenderer == null)
-            {
-                GameObject lineRendererObject = new GameObject(color.ToString());
-                lineRenderer = lineRendererObject.AddComponent<LineRenderer>();
-				renderers.Add(lineRenderer);
-			}
-
-            lineRenderer.transform.parent = transform;
-            lineRenderer.material = borderMaterial;
-            lineRenderer.loop = true;
-            lineRenderer.startWidth = lineWidth; lineRenderer.endWidth = lineWidth;
-            Color showColor = color; if (showColor.a > transparency) showColor.a = transparency;
-            lineRenderer.startColor = showColor; lineRenderer.endColor = showColor;
+        foreach (var point in mapBorderPoints) { 
+            borderPoints.Add(mapToWorld(point.x, point.y));
         }
 
-        return renderers.ToArray();
+		if (outlineMode == OutlineMode.ConvexHull)
+        {
+            borderPoints = GetConvexHull(borderPoints);
+        }
+        else if (outlineMode == OutlineMode.NearestPoint)
+        {
+            borderPoints = SortByNearestPoint(borderPoints);
+        }
+
+		Vector3[] positions = new Vector3[borderPoints.Count];
+		for (int i = 0; i < borderPoints.Count; i++)
+		{
+			positions[i] = GlobalData.vector3(borderPoints[i]);
+		}
+
+		lineRenderer.positionCount = positions.Length;
+		lineRenderer.SetPositions(positions);
+        SetBorderCollision(borderPoints, lineRenderer.gameObject);
+	}
+    public Dictionary<Nation, List<LineRenderer>> GetLineRenderers(Dictionary<Nation, int> creationCount)
+    {
+        Nation[] nations = BattleManager.GetAllNations();
+		Dictionary<Nation, List<LineRenderer>> renderers = new();
+        foreach (Nation nation in nations)
+        {
+            renderers.Add(nation, new(nation.GetComponentsInChildren<LineRenderer>()));
+        }
+
+        foreach (Nation nation in nations)
+        {
+            for (int i = 0; i < creationCount[nation]; i++)
+            {
+                LineRenderer lineRenderer;
+                if (renderers[nation].Count <= i)
+                {
+                    GameObject renderParent = new GameObject("Border");
+                    lineRenderer = renderParent.AddComponent<LineRenderer>();
+                    renderParent.transform.parent = nation.transform;
+                    renderers[nation].Add(lineRenderer);
+                }
+                else lineRenderer = renderers[nation][i];
+
+				lineRenderer.material = borderMaterial;
+				lineRenderer.loop = true;
+				lineRenderer.startWidth = lineWidth; lineRenderer.endWidth = lineWidth;
+				Color showColor = nation.nationColor; if (showColor.a > transparency) showColor.a = transparency;
+				lineRenderer.startColor = showColor; lineRenderer.endColor = showColor;
+			}
+        }
+
+        return renderers;
     }
 
     [ContextMenu("Remove Borders")]

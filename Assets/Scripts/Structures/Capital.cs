@@ -12,7 +12,7 @@ public class Capital : Warrior
 	private new void Start()
 	{
 		base.Start();
-		borderRenderer = FindAnyObjectByType<MapBorderRenderer>();
+		borderRenderer = FindFirstObjectByType<MapBorderRenderer>();
 		CircleCollider2D sphere = GetComponent<CircleCollider2D>();
 		if (sphere != null) controllRadius = sphere.radius;
 	}
@@ -26,9 +26,9 @@ public class Capital : Warrior
 			if (lastAttacker == null) { health = GlobalData.capitalChangeHealth; return; }
 
 			Nation country = BattleManager.GetNation(nation);
-			Color nationColor = country.GetComponent<Border>().color;
+			Color nationColor = country.GetColorFromBorder();
 			Nation enemyCountry = BattleManager.GetNation(lastAttacker.nation);
-			Color enemyColor = enemyCountry.GetComponent<Border>().color;
+			Color enemyColor = enemyCountry.GetColorFromBorder();
 
 			borderRenderer.ChangeColorOwnership(nationColor, enemyColor, borderRenderer.worldToMap(transform.position), controllRadius);
 

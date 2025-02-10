@@ -45,9 +45,10 @@ public class Nation : MonoBehaviour
 	}
 
 	[ContextMenu("Get Color")] 
-	public void GetColorFromBorder()
+	public Color GetColorFromBorder()
 	{
-		nationColor = GetComponent<Border>().color;
+		nationColor = GetComponentInChildren<Border>().color;
+		return nationColor;
 	}
 
 	public float GetArmyHealth()
