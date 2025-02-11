@@ -10,6 +10,8 @@ public class BattleManager : MonoBehaviour
 	public NationData[] nations;
 	public WarriorData[] warriors;
 
+	public MapBorderRenderer borderRenderer;
+
 	[ContextMenu("Create Nations From Data")]
 	public void CreateNations ()
 	{
@@ -119,6 +121,16 @@ public class BattleManager : MonoBehaviour
 				if (warrior.nation != nation.nation) continue;
 				warrior.transform.parent = nation.transform;
 			}
+		}
+	}
+
+	[ContextMenu("Group Nations")]
+	public void GroupNations()
+	{
+		var allNations = GetAllNations();
+		foreach (var nation in allNations)
+		{
+			nation.transform.parent = borderRenderer.transform;
 		}
 	}
 

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
 public class GlobalDataEditor : MonoBehaviour
 {
@@ -59,6 +60,9 @@ public static class GlobalData
 
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
 	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
+	public static Vector2Int vector2Int(Vector2 vector2) { return new Vector2Int(Mathf.RoundToInt(vector2.x), Mathf.RoundToInt(vector2.y)); }
+	public static Vector2 vector2(Vector2Int vector2Int) { return new Vector2(vector2Int.x, vector2Int.y); } 
+
 	public static Vector3 Inverse(Vector3 value) 
 	{
 		value.x = -value.x;
@@ -66,9 +70,20 @@ public static class GlobalData
 		value.z = -value.z;
 		return value;
 	}
-
 	public static Vector3 Inverse(Vector2 value)
 	{
 		return Inverse(vector3(value));
+	}
+	public static List<Vector2> listVector2(List<Vector2Int> points)
+	{
+		List<Vector2> nonIntPoints = new();
+		foreach (Vector2Int point in points) { nonIntPoints.Add(new Vector2(point.x, point.y)); }
+		return nonIntPoints;
+	}
+	public static List<Vector2Int> listVector2Int(List<Vector2> points)
+	{
+		List<Vector2Int> intPoints = new();
+		foreach (Vector2 point in points) { intPoints.Add(new Vector2Int(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y))); }
+		return intPoints;
 	}
 }
