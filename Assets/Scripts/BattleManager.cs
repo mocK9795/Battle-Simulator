@@ -2,8 +2,10 @@ using UnityEngine;
 
 public class BattleManager : MonoBehaviour
 {
-	public enum GroupMode { Nation, Dump };
-	public GroupMode groupMode;
+	public enum WarriorGroupMode { Nation, Dump };
+	public enum NationGroupMode { Manager, Border, Map};
+	public WarriorGroupMode warriorGroupMode;
+	public NationGroupMode nationGroupMode;
 
 	public Vector2 warriorSpread;
 	public Sprite warriorSprite;
@@ -11,6 +13,7 @@ public class BattleManager : MonoBehaviour
 	public WarriorData[] warriors;
 
 	public MapBorderRenderer borderRenderer;
+	public GameObject map;
 
 	[ContextMenu("Create Nations From Data")]
 	public void CreateNations ()
@@ -110,7 +113,7 @@ public class BattleManager : MonoBehaviour
 		
 		foreach (Warrior warrior in warriors)
 		{
-			if (groupMode == GroupMode.Dump)
+			if (warriorGroupMode == WarriorGroupMode.Dump)
 			{
 				warrior.transform.parent = transform;
 				continue;
@@ -130,7 +133,18 @@ public class BattleManager : MonoBehaviour
 		var allNations = GetAllNations();
 		foreach (var nation in allNations)
 		{
-			nation.transform.parent = borderRenderer.transform;
+			if (nationGroupMode == NationGroupMode.Border)
+			{
+				nation.transform.parent = borderRenderer.transform;
+			}
+			if (nationGroupMode == NationGroupMode.Map)
+			{
+				nation.transform.parent = map.transform;
+			}
+			if (nationGroupMode == NationGroupMode.Manager)
+			{
+				nation.transform.parent = transform;
+			}
 		}
 	}
 

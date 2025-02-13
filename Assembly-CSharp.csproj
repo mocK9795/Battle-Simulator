@@ -63,6 +63,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\Nation.cs" />
     <Compile Include="Assets\Scripts\BattleManager.cs" />
+    <Compile Include="Assets\Scripts\Border\MapRenderer.cs" />
     <Compile Include="Assets\Scripts\MapBorderRenderer.cs" />
     <Compile Include="Assets\Scripts\Border\Border.cs" />
     <Compile Include="Assets\Scripts\Border\BorderPointOrdering.cs" />

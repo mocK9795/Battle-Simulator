@@ -25,6 +25,7 @@ public class Nation : MonoBehaviour
 	[ContextMenu("Set Army")]
 	public void SetArmy()
 	{
+		warriors.Clear();
 		Warrior[] allWarriors = BattleManager.GetAllWarriors();
 		foreach (Warrior warrior in allWarriors)
 		{

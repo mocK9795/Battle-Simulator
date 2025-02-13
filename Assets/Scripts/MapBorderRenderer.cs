@@ -40,7 +40,6 @@ public class MapBorderRenderer : MonoBehaviour
         for (int n = 0; n < nations.Length; n++)
         {
             Nation nation = nations[n];
-            print(lineRenderers[nation].Count); print(nationBorderPoints[nation].Count);
             for (int i = 0; i < lineRenderers[nation].Count; i++)
             {
                 if (nationBorderPoints[nation].Count <= i) break;
@@ -105,7 +104,9 @@ public class MapBorderRenderer : MonoBehaviour
     }
     public static Texture2D SetPixelData(Texture2D map, Color[,] pixelData)
     {
-        int width = map.width;
+		map.filterMode = FilterMode.Point;
+
+		int width = map.width;
         int height = map.height;
 
         Color[] pixelData1D = new Color[width * height];
@@ -162,72 +163,6 @@ public class MapBorderRenderer : MonoBehaviour
 
         return uniqueColors.ToArray();
     }
-    public static List<Vector2> GetConvexHull(List<Vector2> points)
-    {
-        // Sort the points lexicographically (by x, then by y)
-        points.Sort((a, b) => a.x == b.x ? a.y.CompareTo(b.y) : a.x.CompareTo(b.x));
-
-        // Remove duplicates
-        points = new List<Vector2>(new HashSet<Vector2>(points));
-
-        if (points.Count <= 1)
-            return points;
-
-        List<Vector2> hull = new List<Vector2>();
-
-        // Build lower hull
-        foreach (Vector2 p in points)
-        {
-            while (hull.Count >= 2 && Cross(hull[hull.Count - 2], hull[hull.Count - 1], p) <= 0)
-                hull.RemoveAt(hull.Count - 1);
-            hull.Add(p);
-        }
-
-        // Build upper hull
-        int t = hull.Count + 1;
-        for (int i = points.Count - 1; i >= 0; i--)
-        {
-            Vector2 p = points[i];
-            while (hull.Count >= t && Cross(hull[hull.Count - 2], hull[hull.Count - 1], p) <= 0)
-                hull.RemoveAt(hull.Count - 1);
-            hull.Add(p);
-        }
-
-        hull.RemoveAt(hull.Count - 1);
-
-        return hull;
-    }
-    public static List<Vector2Int> GetConvexHull(List<Vector2Int> points)
-    {
-        List<Vector2> nonIntPoints = GlobalData.listVector2(points);
-        var nonIntHull = GetConvexHull(nonIntPoints);
-        return GlobalData.listVector2Int(nonIntHull);
-    }
-
-    private static float Cross(Vector2 o, Vector2 a, Vector2 b)
-	{
-		return (a.x - o.x) * (b.y - o.y) - (a.y - o.y) * (b.x - o.x);
-	}
-	public static List<Vector2> SortByNearestPoint(List<Vector2> points)
-	{
-		if (points == null || points.Count == 0)
-			return points;
-
-		List<Vector2> sortedPoints = new List<Vector2>();
-		Vector2 currentPoint = points[0];
-		sortedPoints.Add(currentPoint);
-		points.RemoveAt(0);
-
-		while (points.Count > 0)
-		{
-			Vector2 nearestPoint = points.OrderBy(p => Vector2.Distance(currentPoint, p)).First();
-			sortedPoints.Add(nearestPoint);
-			points.Remove(nearestPoint);
-			currentPoint = nearestPoint;
-		}
-
-		return sortedPoints;
-	}
 
 	public void DrawMapBorder(LineRenderer lineRenderer, List<Vector2Int> mapBorderPoints)
     {
@@ -235,11 +170,11 @@ public class MapBorderRenderer : MonoBehaviour
 
 		if (outlineMode == OutlineMode.ConvexHull)
         {
-            borderPoints = GetConvexHull(borderPoints);
+            borderPoints = BorderPointOrdering.GetConvexHull(borderPoints);
         }
         else if (outlineMode == OutlineMode.NearestPoint)
         {
-            borderPoints = SortByNearestPoint(borderPoints);
+            borderPoints = BorderPointOrdering.SortByNearestPoint(borderPoints);
         }
         else if (outlineMode == OutlineMode.Polygon)
         {
