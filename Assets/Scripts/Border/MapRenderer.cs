@@ -56,8 +56,8 @@ public class MapRenderer : MonoBehaviour
 	{
 		float xScale = transform.localScale.x;
 		float yScale = transform.localScale.y;
-		return new(Mathf.RoundToInt(position.x / xScale * 10) + map.width / 2 - 2,
-			Mathf.RoundToInt(position.y / yScale * 10) + map.height / 2 + 5);
+		return new(Mathf.RoundToInt(position.x / xScale * 10) + map.width / 2,
+			Mathf.RoundToInt(position.y / yScale * 10) + map.height / 2);
 	}
 
 	private void OnValidate()
