@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -55,12 +57,55 @@ public class MapRenderer : MonoBehaviour
 		float xScale = transform.localScale.x;
 		float yScale = transform.localScale.y;
 		return new(Mathf.RoundToInt(position.x / xScale * 10) + map.width / 2 - 2,
-			Mathf.RoundToInt(position.y / yScale * 10) + map.height / 2 + 4);
+			Mathf.RoundToInt(position.y / yScale * 10) + map.height / 2 + 5);
 	}
 
 	private void OnValidate()
 	{
 		if (mapRenderer == null) return;
 		mapRenderer.sharedMaterial.color = mapColor;
+	}
+
+	[ContextMenu("Assign Nation Colors")]
+	public void AssignNationColors()
+	{
+		Color[] colors = GetUniqueColors(MapBorderRenderer.GetPixelData(map));
+		List<Nation> nations = new(BattleManager.GetAllNations());
+		
+		foreach (Color color in colors)
+		{
+			if (nations.Count == 0) break;
+			Nation nearestNation = nations[0];
+			foreach (Nation nation in nations)
+			{
+				if (GlobalData.Closest(nearestNation.nationColor, nation.nationColor, color) != nation.nationColor) continue;
+				nearestNation = nation;
+			}
+
+			nearestNation.nationColor = color;
+			nations.Remove(nearestNation);
+		}
+	}
+
+	public Color[] GetUniqueColors(Color[,] pixelData) {
+		List<Color> uniqueColors = new List<Color>();
+
+		for (int i = 0; i < pixelData.GetLength(0); i++)
+		{
+			for (int j = 0; j < pixelData.GetLength(1); j++)
+			{
+				if (pixelData[i, j].a < mapColor.a) continue;
+				bool found = false;
+				foreach (Color color in uniqueColors)
+				{
+					if (!color.CompareRGB(pixelData[i, j])) continue;
+					found = true; break;
+				}
+				if (found) continue;
+				uniqueColors.Add(pixelData[i, j]);
+			}
+		}
+
+		return uniqueColors.ToArray();
 	}
 } 

@@ -32,7 +32,7 @@ public class BattleManager : MonoBehaviour
 
 			Color nationColor; 
 			if (i < borders.Length) nationColor = borders[i].color;
-            else nationColor = Color.white;
+            else nationColor = nationData.color;
             nationColor.a = 1;
 			
 			nation.nationColor = nationColor;
@@ -42,21 +42,28 @@ public class BattleManager : MonoBehaviour
 	[ContextMenu("Create Warriors From Data")]
 	public void CreateArmies()
 	{
+		Nation[] allNations = GetAllNations();
+		string[] nationNames = new string[allNations.Length];
+		for (int i = 0; i<allNations.Length; i++) { nationNames[i] = allNations[i].nation; }
+
 		foreach (WarriorData warriorData in warriors)
 		{
 			for (int i = 0; i < warriorData.count; i++)
 			{
-				GameObject warriorObject = new GameObject(warriorData.nation);
-				Warrior warrior = warriorObject.AddComponent<Warrior>();
-				warrior.nation = warriorData.nation; 
-				warrior.health = warriorData.health;
-				warrior.damage = warriorData.damage;
-				warrior.speed = warriorData.speed;
+				foreach (string nationName in nationNames)
+				{
+					GameObject warriorObject = new GameObject(nationName + " " + i.ToString());
+					Warrior warrior = warriorObject.AddComponent<Warrior>();
+					warrior.nation = nationName;
+					warrior.health = warriorData.health;
+					warrior.damage = warriorData.damage;
+					warrior.speed = warriorData.speed;
 
-				SpriteRenderer renderer = warriorObject.AddComponent<SpriteRenderer>();
-				renderer.sprite = warriorSprite;
+					SpriteRenderer renderer = warriorObject.AddComponent<SpriteRenderer>();
+					renderer.sprite = warriorSprite;
 
-				warriorObject.AddComponent<BoxCollider2D>();
+					warriorObject.AddComponent<BoxCollider2D>();
+				}
 			}	
 		}
 	}
@@ -173,12 +180,12 @@ public class BattleManager : MonoBehaviour
 public struct NationData
 {
 	public string name;
+	public Color color;
 }
 
 [System.Serializable]
 public struct WarriorData
 {
-	public string nation;
 	public float health;
 	public float speed;
 	public float damage;
