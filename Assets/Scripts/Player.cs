@@ -11,11 +11,13 @@ public class Player : MonoBehaviour
     public float maxZoom;
     Camera mainCamera;
     VisualEffects effects;
+    BattleManager battle;
 
     private void Start()
     {
         mainCamera = GetComponent<Camera>();
         effects = FindFirstObjectByType<VisualEffects>();
+        battle = FindFirstObjectByType<BattleManager>();
         lookSpeed = mainCamera.orthographicSize;
     }
 
@@ -84,4 +86,17 @@ public class Player : MonoBehaviour
         mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, minZoom, maxZoom);
         lookSpeed = mainCamera.orthographicSize;
 	}
+
+    public void MarchArmy() 
+    {
+        var playerNation = BattleManager.GetNation(nation);
+        foreach (var warrior in playerNation.GetArmy())
+        {
+			Vector2 start = warrior.transform.position;
+			Vector2 mousePosition = WorldPosition(GlobalData.mouseClickEndPoint);
+            warrior.SetTargetFromOffset(mousePosition - start);
+        }
+    }
+
+    public void MarchArmy(InputAction.CallbackContext value) { if (value.canceled) MarchArmy(); }
 }

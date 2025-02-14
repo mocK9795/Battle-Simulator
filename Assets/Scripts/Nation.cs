@@ -52,6 +52,12 @@ public class Nation : MonoBehaviour
 		return nationColor;
 	}
 
+	public Warrior[] GetArmy()
+	{
+		SetArmy();
+		return warriors.ToArray();
+	}
+
 	public float GetArmyHealth()
 	{
 		float totalHealth = 0;
