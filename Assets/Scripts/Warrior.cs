@@ -19,6 +19,7 @@ public class Warrior : MonoBehaviour
 	Vector2 forward { get { return new Vector2(transform.right.x, transform.right.y); } }
 	float targetAngle;
 	float currentAngle;
+	[HideInInspector()] public bool rescale = true;
 
 	public void Start()
 	{
@@ -29,7 +30,10 @@ public class Warrior : MonoBehaviour
 		target = transform.position;
 		maxHealth = health;
 
-		Rescale();
+		if (rescale)
+		{
+			Rescale();
+		}
 	}
 
 	public void Update()

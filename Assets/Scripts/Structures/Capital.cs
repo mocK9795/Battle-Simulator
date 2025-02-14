@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Capital : Warrior
@@ -12,15 +13,32 @@ public class Capital : Warrior
 	BattleManager battleManager;
 	Warrior lastAttacker = null;
 
+	public CircleCollider2D GetCollider()
+	{
+		CircleCollider2D[] spheres = GetComponents<CircleCollider2D>();
+		if (spheres.Length == 2) return (spheres[0].radius < spheres[1].radius) ? spheres[0] : spheres[1];
+		return null;
+	}
+
+	public CircleCollider2D GetController()
+	{
+		CircleCollider2D[] spheres = GetComponents<CircleCollider2D>();
+		if (spheres.Length == 2) return (spheres[0].radius > spheres[1].radius) ? spheres[0] : spheres[1];
+		return null;
+	}
+
 
 	private new void Start()
 	{
+		rescale = false;
 		base.Start();
 		borderRenderer = FindFirstObjectByType<MapBorderRenderer>();
 		mapRenderer = FindFirstObjectByType<MapRenderer>();
 		battleManager =  FindFirstObjectByType<BattleManager>();
-		CircleCollider2D sphere = GetComponent<CircleCollider2D>();
-		if (sphere != null) controllRadius = sphere.radius;
+		CircleCollider2D[] sphere = GetComponents<CircleCollider2D>();
+		float maxRadius = float.MinValue;
+		foreach (CircleCollider2D c in sphere) {maxRadius = Mathf.Max(maxRadius, c.radius); }
+		if (sphere.Length > 0) controllRadius = maxRadius;
 	}
 
 	private new void Update()
@@ -32,9 +50,9 @@ public class Capital : Warrior
 			if (lastAttacker == null) { health = GlobalData.capitalChangeHealth; return; }
 
 			Nation country = BattleManager.GetNation(nation);
-			Color nationColor = country.GetColorFromBorder();
+			Color nationColor = country.nationColor;
 			Nation enemyCountry = BattleManager.GetNation(lastAttacker.nation);
-			Color enemyColor = enemyCountry.GetColorFromBorder();
+			Color enemyColor = enemyCountry.nationColor;
 
 			if (mapEffects == MapEffects.Border)
 			{
@@ -68,5 +86,10 @@ public class Capital : Warrior
 	{
 		mapRenderer = FindFirstObjectByType<MapRenderer>();
 		print(mapRenderer.MapPosition(transform.position));
+	}
+
+	private void OnValidate()
+	{
+		
 	}
 }

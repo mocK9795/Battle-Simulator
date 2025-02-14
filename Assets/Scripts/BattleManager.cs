@@ -4,13 +4,24 @@ public class BattleManager : MonoBehaviour
 {
 	public enum WarriorGroupMode { Nation, Dump };
 	public enum NationGroupMode { Manager, Border, Map};
+	[Header("Grouping")]
 	public WarriorGroupMode warriorGroupMode;
 	public NationGroupMode nationGroupMode;
 
+	[Header("Misc Data")]
 	public Vector2 warriorSpread;
 	public Sprite warriorSprite;
+	public Sprite capitalSprite;
+	[Header("Capital Scaling")]
+	public float capitalScale;
+	public float capitalColliderScale;
+	public float capitalControllScale;
+	public bool autoScaleCapitals;
+
+	[Header("Creation Data")]
 	public NationData[] nations;
 	public WarriorData[] warriors;
+	public CapitalData capitalData;
 
 	public MapBorderRenderer borderRenderer;
 	public GameObject map;
@@ -54,18 +65,42 @@ public class BattleManager : MonoBehaviour
 				{
 					GameObject warriorObject = new GameObject(nationName + " " + i.ToString());
 					Warrior warrior = warriorObject.AddComponent<Warrior>();
-					warrior.nation = nationName;
-					warrior.health = warriorData.health;
-					warrior.damage = warriorData.damage;
-					warrior.speed = warriorData.speed;
-
-					SpriteRenderer renderer = warriorObject.AddComponent<SpriteRenderer>();
-					renderer.sprite = warriorSprite;
-
-					warriorObject.AddComponent<BoxCollider2D>();
+					warrior = SetWarriorData(warrior, warriorData, nationName, true);
 				}
 			}	
 		}
+	}
+
+	public Warrior SetWarriorData(Warrior warrior, WarriorData data, string nation , bool createColliders = false)
+	{
+		warrior.nation = nation;
+		warrior.health = data.health;
+		warrior.damage = data.damage;
+		warrior.speed = data.speed;
+
+		SpriteRenderer renderer = warrior.gameObject.AddComponent<SpriteRenderer>();
+		renderer.sprite = warriorSprite;
+
+		if (createColliders ) { warrior.gameObject.AddComponent<BoxCollider2D>(); }
+
+		return warrior;
+	}
+
+	[ContextMenu("Create Capitals From Data")]
+	public void CreateCapitals() 
+	{
+		Nation[] allNations = GetAllNations();
+		foreach (Nation nation in allNations)
+		{
+			GameObject capitalObject = new GameObject(nation.nation + " Capital");
+			Capital capital = capitalObject.AddComponent<Capital>();
+			capital = (Capital) SetWarriorData(capital, capitalData.data, nation.nation);
+			var collider = capitalObject.AddComponent<CircleCollider2D>();
+			var sizeControll = capitalObject.AddComponent<CircleCollider2D>();
+			sizeControll.isTrigger = true;
+		}
+
+		SetWarriorNationData();
 	}
 
 	[ContextMenu("Sync Nations And Warriors")]
@@ -112,6 +147,13 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
+	[ContextMenu("Delete Capitals")]
+	public void RemoveCapitals()
+	{
+		var capitals = GetAllCapitals();
+		foreach (var cap in capitals) {DestroyImmediate(cap.gameObject);}
+	}
+
 	[ContextMenu("Group Warriors")]
 	public void GroupWarriors()
 	{
@@ -155,6 +197,36 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
+	[ContextMenu("Set Warrior Sprite")]
+	public void SetWarriorSprite()
+	{
+		var allWarriors = GetAllWarriors();
+		foreach (var warrior in allWarriors) { warrior.GetComponent<SpriteRenderer>().sprite = warriorSprite; }
+		SetCapitalSprite();
+	}
+
+	[ContextMenu("Set Capital Sprite")]
+	public void SetCapitalSprite()
+	{
+		var capitals = GetAllCapitals();
+		foreach (var capital in capitals) {capital.GetComponent<SpriteRenderer>().sprite = capitalSprite;}
+	}
+
+	public void ScaleCapital()
+	{
+		var capitals = GetAllCapitals();
+		foreach (var capital in capitals) {
+			capital.transform.localScale = Vector3.one * capitalScale;
+			capital.GetCollider().radius = capitalColliderScale;
+			capital.GetController().radius = capitalControllScale;
+		}
+	}
+
+	private void OnValidate()
+	{
+		if (autoScaleCapitals) ScaleCapital();
+	}
+
 	public static Nation[] GetAllNations()
 	{
 		return FindObjectsByType<Nation>(FindObjectsSortMode.None);
@@ -162,6 +234,11 @@ public class BattleManager : MonoBehaviour
 	public static Warrior[] GetAllWarriors()
 	{
 		return FindObjectsByType<Warrior>(FindObjectsSortMode.None);
+	}
+
+	public static Capital[] GetAllCapitals()
+	{
+		return FindObjectsByType<Capital>(FindObjectsSortMode.None);
 	}
 
 	public static Nation GetNation(string nationName)
@@ -190,4 +267,23 @@ public struct WarriorData
 	public float speed;
 	public float damage;
 	public int count;
+
+	public WarriorData(float health, float speed, float damage, int count) : this()
+	{
+		this.health = health;
+		this.speed = speed;
+		this.damage = damage;
+		this.count = count;
+	}
+}
+
+[System.Serializable]
+public struct CapitalData
+{
+	public float health;
+	public WarriorData data
+	{
+		get { return new WarriorData(health, 0, 0, 1); }
+		set { health = value.health; }
+	}
 }
