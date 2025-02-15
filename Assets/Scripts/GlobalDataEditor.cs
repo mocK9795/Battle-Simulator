@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
+using UnityEngine.Rendering;
 
 public class GlobalDataEditor : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float healthToScaleRatio;
 	public float knockbackRatio;
 	public float capitalChangeHealth = 10;
+	public float aiWarriorAttackRange;
 
 	private void OnValidate()
 	{
@@ -32,6 +34,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.healthToScaleRatio = healthToScaleRatio;
 		GlobalData.knockbackRatio = knockbackRatio;
 		GlobalData.capitalChangeHealth = capitalChangeHealth;
+		GlobalData.aiWarriorAttackRange = aiWarriorAttackRange;
 	}
 
 	public void GetMousePosition(InputAction.CallbackContext value)
@@ -56,6 +59,7 @@ public static class GlobalData
 	public static float healthToScaleRatio;
 	public static float knockbackRatio;
 	public static float capitalChangeHealth = 10;
+	public static float aiWarriorAttackRange;
 
 
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }

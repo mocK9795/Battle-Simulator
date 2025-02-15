@@ -20,6 +20,8 @@ public class Warrior : MonoBehaviour
 	float targetAngle;
 	float currentAngle;
 	[HideInInspector()] public bool rescale = true;
+	[HideInInspector()] public bool useAi = true;
+	[HideInInspector()] public bool isAttacking = false;
 
 	public void Start()
 	{
@@ -38,11 +40,6 @@ public class Warrior : MonoBehaviour
 
 	public void Update()
 	{
-		//if (Mathf.RoundToInt(currentAngle / GlobalData.rotateAccuracy) == Mathf.RoundToInt(targetAngle / GlobalData.rotateAccuracy))
-		//{
-		//	RotateTowardsTarget();
-		//	body.linearVelocity = Vector2.zero;
-		//}
 		UpdateTargetAngle();
 		RotateTowardsTarget();
 		if (Vector2.Distance(position, target) > GlobalData.moveAccuracy)
@@ -58,12 +55,50 @@ public class Warrior : MonoBehaviour
 		}
 
 		body.linearVelocity = Vector2.ClampMagnitude(body.linearVelocity, speed);
-		SetScale();
+		if (rescale)
+		{
+			SetScale();
+		}
+
+		if (useAi)
+		{
+			isAttacking = false;
+			AttackEnemy();
+		}
+	}
+
+	public void AttackEnemy()
+	{
+		var enemy = GetNearestEnemy();
+		if (enemy == null) return;
+		isAttacking = true;
+		SetTarget(enemy.transform.position);
+	}
+
+	public Warrior GetNearestEnemy()
+	{
+		var nearbyObjects = Physics2D.OverlapCircleAll(transform.position, GlobalData.aiWarriorAttackRange);
+		foreach (var obj in nearbyObjects)
+		{
+			if (obj.gameObject.GetInstanceID() == gameObject.GetInstanceID()) continue;
+			Warrior warrior = obj.GetComponent<Warrior>();
+			if (warrior == null) continue;
+			if (warrior.nation == nation) continue;
+			return warrior;
+		}
+
+		return null;
 	}
 
 	public void SetTargetFromOffset(Vector2 offset)
 	{
 		target = position + offset;
+		UpdateTargetAngle();
+	}
+
+	public void SetTarget(Vector2 target)
+	{
+		this.target = target;
 		UpdateTargetAngle();
 	}
 
@@ -76,8 +111,6 @@ public class Warrior : MonoBehaviour
 
 	public void RotateTowardsTarget()
 	{
-		//currentAngle = Mathf.Lerp(transform.eulerAngles.z, targetAngle, Mathf.Clamp01(Time.deltaTime * agility));
-		//transform.rotation = Quaternion.Euler(0, 0, currentAngle);
 		transform.rotation = Quaternion.Euler(0, 0, targetAngle);
 	}
 

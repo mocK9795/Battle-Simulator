@@ -19,6 +19,12 @@ public class Player : MonoBehaviour
         effects = FindFirstObjectByType<VisualEffects>();
         battle = FindFirstObjectByType<BattleManager>();
         lookSpeed = mainCamera.orthographicSize;
+
+        Nation playerNation = BattleManager.GetNation(nation);
+        foreach (var warrior in playerNation.GetArmy())
+        {
+            warrior.useAi = false;
+        }
     }
 
     public Warrior GetSelectedWarrior()

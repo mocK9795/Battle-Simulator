@@ -255,6 +255,17 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
+	[ContextMenu("Attach AI To All")]
+	public void AttachAI()
+	{
+		Nation[] allNations = GetAllNations();
+		foreach (Nation nation in allNations)
+		{
+			var ai = nation.gameObject.AddComponent<AI>();
+			ai.nation = nation;
+		}
+	}
+
 	public void ScaleCapital()
 	{
 		var capitals = GetAllCapitals();

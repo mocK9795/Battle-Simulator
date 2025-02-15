@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 39974634}
   - component: {fileID: 39974635}
+  - component: {fileID: 39974636}
   m_Layer: 0
   m_Name: Austria
   m_TagString: Untagged
@@ -176,6 +177,19 @@ MonoBehaviour:
   nation: Austria
   nationColor: {r: 1, g: 1, b: 1, a: 1}
   health: 0
+--- !u!114 &39974636
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 39974633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 39974635}
 --- !u!1 &123487455
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +345,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &123487460
 Rigidbody2D:
   serializedVersion: 5
@@ -513,6 +529,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &175575982
 Rigidbody2D:
   serializedVersion: 5
@@ -695,6 +713,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &218923567
 Rigidbody2D:
   serializedVersion: 5
@@ -793,7 +813,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 1.16
 --- !u!58 &272257857
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -904,6 +924,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0.49999997
   healRate: 0
   mapEffects: 1
@@ -1089,6 +1111,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &280281322
 Rigidbody2D:
   serializedVersion: 5
@@ -1187,7 +1211,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 2.13
 --- !u!58 &292217345
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1298,6 +1322,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -1510,6 +1536,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -1695,6 +1723,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &420657255
 Rigidbody2D:
   serializedVersion: 5
@@ -1877,6 +1907,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &426141370
 Rigidbody2D:
   serializedVersion: 5
@@ -2059,6 +2091,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &443638641
 Rigidbody2D:
   serializedVersion: 5
@@ -2241,6 +2275,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &466070552
 Rigidbody2D:
   serializedVersion: 5
@@ -2423,6 +2459,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &480267927
 Rigidbody2D:
   serializedVersion: 5
@@ -2605,6 +2643,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &513691962
 Rigidbody2D:
   serializedVersion: 5
@@ -2827,6 +2867,7 @@ MonoBehaviour:
   healthToScaleRatio: 10
   knockbackRatio: 0
   capitalChangeHealth: 10
+  aiWarriorAttackRange: 2.5
 --- !u!4 &535515196
 Transform:
   m_ObjectHideFlags: 0
@@ -3060,6 +3101,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &546213793
 Rigidbody2D:
   serializedVersion: 5
@@ -3097,6 +3140,7 @@ GameObject:
   m_Component:
   - component: {fileID: 547841904}
   - component: {fileID: 547841905}
+  - component: {fileID: 547841906}
   m_Layer: 0
   m_Name: Spain
   m_TagString: Untagged
@@ -3138,6 +3182,19 @@ MonoBehaviour:
   nation: Spain
   nationColor: {r: 0.76470596, g: 0.85098046, b: 0.14509805, a: 1}
   health: 0
+--- !u!114 &547841906
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 547841903}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 547841905}
 --- !u!1 &560633445
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,6 +3205,7 @@ GameObject:
   m_Component:
   - component: {fileID: 560633446}
   - component: {fileID: 560633447}
+  - component: {fileID: 560633448}
   m_Layer: 0
   m_Name: Chez
   m_TagString: Untagged
@@ -3190,6 +3248,19 @@ MonoBehaviour:
   nation: Chez
   nationColor: {r: 0.15686275, g: 0.69803923, b: 0.8196079, a: 1}
   health: 0
+--- !u!114 &560633448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 560633445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 560633447}
 --- !u!1 &563085143
 GameObject:
   m_ObjectHideFlags: 0
@@ -3261,7 +3332,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 2.39
 --- !u!58 &563085146
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3372,6 +3443,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -3557,6 +3630,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &565222207
 Rigidbody2D:
   serializedVersion: 5
@@ -3739,6 +3814,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &585917775
 Rigidbody2D:
   serializedVersion: 5
@@ -4005,6 +4082,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &625866327
 Rigidbody2D:
   serializedVersion: 5
@@ -4103,7 +4182,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 2.26
 --- !u!58 &634229748
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4214,6 +4293,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -4413,6 +4494,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &730482039
 Rigidbody2D:
   serializedVersion: 5
@@ -4609,6 +4692,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &752513878
 Rigidbody2D:
   serializedVersion: 5
@@ -4646,6 +4731,7 @@ GameObject:
   m_Component:
   - component: {fileID: 760607707}
   - component: {fileID: 760607708}
+  - component: {fileID: 760607709}
   m_Layer: 0
   m_Name: Britain
   m_TagString: Untagged
@@ -4690,6 +4776,19 @@ MonoBehaviour:
   nation: Britain
   nationColor: {r: 0.85098046, g: 0.14509805, b: 0.14509805, a: 1}
   health: 0
+--- !u!114 &760607709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 760607706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 760607708}
 --- !u!1 &779501921
 GameObject:
   m_ObjectHideFlags: 0
@@ -4845,6 +4944,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &779501926
 Rigidbody2D:
   serializedVersion: 5
@@ -5027,6 +5128,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &805765813
 Rigidbody2D:
   serializedVersion: 5
@@ -5223,6 +5326,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &827924286
 Rigidbody2D:
   serializedVersion: 5
@@ -5405,6 +5510,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &842050696
 Rigidbody2D:
   serializedVersion: 5
@@ -5635,6 +5742,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &875993536
 Rigidbody2D:
   serializedVersion: 5
@@ -5925,6 +6034,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &908489259
 Rigidbody2D:
   serializedVersion: 5
@@ -6107,6 +6218,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &982612879
 Rigidbody2D:
   serializedVersion: 5
@@ -6354,6 +6467,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1014031114
 Rigidbody2D:
   serializedVersion: 5
@@ -6550,6 +6665,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1025818340
 Rigidbody2D:
   serializedVersion: 5
@@ -6732,6 +6849,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1045095824
 Rigidbody2D:
   serializedVersion: 5
@@ -6914,6 +7033,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1047198021
 Rigidbody2D:
   serializedVersion: 5
@@ -7199,6 +7320,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1103949150
 Rigidbody2D:
   serializedVersion: 5
@@ -7381,6 +7504,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1150443269
 Rigidbody2D:
   serializedVersion: 5
@@ -7563,6 +7688,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1165581609
 Rigidbody2D:
   serializedVersion: 5
@@ -7803,6 +7930,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1193676551
 Rigidbody2D:
   serializedVersion: 5
@@ -7985,6 +8114,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1207093003
 Rigidbody2D:
   serializedVersion: 5
@@ -8167,6 +8298,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1215112023
 Rigidbody2D:
   serializedVersion: 5
@@ -8265,7 +8398,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 1.75
 --- !u!58 &1218692811
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8376,6 +8509,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -8561,6 +8696,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1221072289
 Rigidbody2D:
   serializedVersion: 5
@@ -8743,6 +8880,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1230991388
 Rigidbody2D:
   serializedVersion: 5
@@ -8883,7 +9022,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 1.68
 --- !u!58 &1285948301
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8994,6 +9133,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -9251,6 +9392,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1365202876
 Rigidbody2D:
   serializedVersion: 5
@@ -9288,6 +9431,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1392510692}
   - component: {fileID: 1392510693}
+  - component: {fileID: 1392510694}
   m_Layer: 0
   m_Name: Netherlands
   m_TagString: Untagged
@@ -9329,6 +9473,19 @@ MonoBehaviour:
   nation: Netherlands
   nationColor: {r: 0.49803925, g: 0.454902, b: 0.30588236, a: 1}
   health: 0
+--- !u!114 &1392510694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1392510691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1392510693}
 --- !u!114 &1412850498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9498,6 +9655,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1413671021
 Rigidbody2D:
   serializedVersion: 5
@@ -9596,7 +9755,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 2.11
 --- !u!58 &1418791476
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9707,6 +9866,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -9892,6 +10053,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1419736134
 Rigidbody2D:
   serializedVersion: 5
@@ -10074,6 +10237,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1423629805
 Rigidbody2D:
   serializedVersion: 5
@@ -10349,7 +10514,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.97
 --- !u!58 &1502310036
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10460,6 +10625,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -10645,6 +10812,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1566191115
 Rigidbody2D:
   serializedVersion: 5
@@ -10827,6 +10996,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1625439494
 Rigidbody2D:
   serializedVersion: 5
@@ -11009,6 +11180,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1650954049
 Rigidbody2D:
   serializedVersion: 5
@@ -11107,7 +11280,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 1.91
 --- !u!58 &1730973580
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -11218,6 +11391,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
@@ -11403,6 +11578,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1734687826
 Rigidbody2D:
   serializedVersion: 5
@@ -11440,6 +11617,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1802841850}
   - component: {fileID: 1802841851}
+  - component: {fileID: 1802841852}
   m_Layer: 0
   m_Name: Swisserland
   m_TagString: Untagged
@@ -11481,6 +11659,19 @@ MonoBehaviour:
   nation: Swisserland
   nationColor: {r: 0.93725497, g: 0.4431373, b: 0.4431373, a: 1}
   health: 0
+--- !u!114 &1802841852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802841849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1802841851}
 --- !u!1 &1804226857
 GameObject:
   m_ObjectHideFlags: 0
@@ -11636,6 +11827,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1804226862
 Rigidbody2D:
   serializedVersion: 5
@@ -11673,6 +11866,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1831783360}
   - component: {fileID: 1831783361}
+  - component: {fileID: 1831783362}
   m_Layer: 0
   m_Name: Germany
   m_TagString: Untagged
@@ -11719,6 +11913,19 @@ MonoBehaviour:
   nation: Germany
   nationColor: {r: 0.3019608, g: 0.3019608, b: 0.3019608, a: 1}
   health: 0
+--- !u!114 &1831783362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1831783359}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1831783361}
 --- !u!1 &1851699631
 GameObject:
   m_ObjectHideFlags: 0
@@ -11729,6 +11936,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1851699632}
   - component: {fileID: 1851699633}
+  - component: {fileID: 1851699634}
   m_Layer: 0
   m_Name: Italy
   m_TagString: Untagged
@@ -11774,6 +11982,19 @@ MonoBehaviour:
   nation: Italy
   nationColor: {r: 0.14509805, g: 0.85098046, b: 0.32941177, a: 1}
   health: 0
+--- !u!114 &1851699634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1851699631}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1851699633}
 --- !u!114 &1860016586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11943,6 +12164,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1880973435
 Rigidbody2D:
   serializedVersion: 5
@@ -12125,6 +12348,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1901705083
 Rigidbody2D:
   serializedVersion: 5
@@ -12321,6 +12546,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1922737601
 Rigidbody2D:
   serializedVersion: 5
@@ -12503,6 +12730,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1946696960
 Rigidbody2D:
   serializedVersion: 5
@@ -12685,6 +12914,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1956048516
 Rigidbody2D:
   serializedVersion: 5
@@ -12867,6 +13098,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1971359748
 Rigidbody2D:
   serializedVersion: 5
@@ -13049,6 +13282,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &1975462368
 Rigidbody2D:
   serializedVersion: 5
@@ -13231,6 +13466,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &2006001950
 Rigidbody2D:
   serializedVersion: 5
@@ -13413,6 +13650,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &2011860259
 Rigidbody2D:
   serializedVersion: 5
@@ -13731,6 +13970,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &2044878507
 Rigidbody2D:
   serializedVersion: 5
@@ -13913,6 +14154,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &2055224290
 Rigidbody2D:
   serializedVersion: 5
@@ -14204,6 +14447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2086598462}
   - component: {fileID: 2086598463}
+  - component: {fileID: 2086598464}
   m_Layer: 0
   m_Name: Portugal
   m_TagString: Untagged
@@ -14245,6 +14489,19 @@ MonoBehaviour:
   nation: Portugal
   nationColor: {r: 0.039215688, g: 0.5294118, b: 0.10196079, a: 1}
   health: 0
+--- !u!114 &2086598464
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2086598461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 2086598463}
 --- !u!1 &2093198759
 GameObject:
   m_ObjectHideFlags: 0
@@ -14506,6 +14763,8 @@ MonoBehaviour:
   target: {x: 0, y: 0}
   maxHealth: 0
   rescale: 1
+  useAi: 1
+  isAttacking: 0
 --- !u!50 &2111720724
 Rigidbody2D:
   serializedVersion: 5

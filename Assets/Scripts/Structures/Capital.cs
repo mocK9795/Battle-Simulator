@@ -69,6 +69,7 @@ public class Capital : Warrior
 			nation = lastAttacker.nation;
 			lastAttacker = null;
 			battleManager.SetWarriorNationData();
+			battleManager.GroupWarriors();
 		}
 	}
 
