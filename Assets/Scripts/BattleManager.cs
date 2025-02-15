@@ -8,23 +8,47 @@ public class BattleManager : MonoBehaviour
 	public WarriorGroupMode warriorGroupMode;
 	public NationGroupMode nationGroupMode;
 
-	[Header("Misc Data")]
+	[Header("Object Data")]
 	public Vector2 warriorSpread;
+	public Vector2 warriorBoxSize;
+
+	[Header("Sprite Data")]
 	public Sprite warriorSprite;
 	public Sprite capitalSprite;
+	
 	[Header("Capital Scaling")]
 	public float capitalScale;
 	public float capitalColliderScale;
 	public float capitalControllScale;
 	public bool autoScaleCapitals;
 
+	[Header("Territory Change")]
+	public bool warriorCaptureTerritory;
+
 	[Header("Creation Data")]
 	public NationData[] nations;
 	public WarriorData[] warriors;
 	public CapitalData capitalData;
 
+	public MapRenderer mapRenderer;
 	public MapBorderRenderer borderRenderer;
-	public GameObject map;
+
+	private void Update()
+	{
+		if (warriorCaptureTerritory)
+		{
+			var allWarrior = GetAllWarriors();
+			Color[] colors = new Color[allWarrior.Length];
+			Vector2Int[] positions = new Vector2Int[allWarrior.Length];
+			for (int i = 0; i < allWarrior.Length; i++)
+			{
+				positions[i] = mapRenderer.MapPosition(allWarrior[i].transform.position);
+				colors[i] = allWarrior[i].GetComponent<SpriteRenderer>().color;
+			}
+
+			mapRenderer.SetColors(colors, positions);
+		}
+	}
 
 	[ContextMenu("Create Nations From Data")]
 	public void CreateNations ()
@@ -188,7 +212,7 @@ public class BattleManager : MonoBehaviour
 			}
 			if (nationGroupMode == NationGroupMode.Map)
 			{
-				nation.transform.parent = map.transform;
+				nation.transform.parent = mapRenderer.transform;
 			}
 			if (nationGroupMode == NationGroupMode.Manager)
 			{
@@ -210,6 +234,25 @@ public class BattleManager : MonoBehaviour
 	{
 		var capitals = GetAllCapitals();
 		foreach (var capital in capitals) {capital.GetComponent<SpriteRenderer>().sprite = capitalSprite;}
+	}
+
+	[ContextMenu("Set Object Data")]
+	public void SetObjectData()
+	{
+		var allWarriors = GetAllWarriors();
+		var capitals = GetAllCapitals();
+		foreach (var warrior in allWarriors) {
+			var collider = warrior.GetComponent<BoxCollider2D>();
+			if (collider == null) continue;
+			collider.size = warriorBoxSize;
+		}
+
+		foreach (var capital in capitals)
+		{
+			var body = capital.GetComponent<Rigidbody2D>();
+			if (body == null) continue;
+			body.constraints = RigidbodyConstraints2D.FreezeAll;
+		}
 	}
 
 	public void ScaleCapital()

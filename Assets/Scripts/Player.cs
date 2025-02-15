@@ -93,7 +93,7 @@ public class Player : MonoBehaviour
         foreach (var warrior in playerNation.GetArmy())
         {
 			Vector2 start = warrior.transform.position;
-			Vector2 mousePosition = WorldPosition(GlobalData.mouseClickEndPoint);
+			Vector2 mousePosition = WorldPosition(GlobalData.mousePosition);
             warrior.SetTargetFromOffset(mousePosition - start);
         }
     }

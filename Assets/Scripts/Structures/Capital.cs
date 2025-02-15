@@ -38,7 +38,7 @@ public class Capital : Warrior
 		CircleCollider2D[] sphere = GetComponents<CircleCollider2D>();
 		float maxRadius = float.MinValue;
 		foreach (CircleCollider2D c in sphere) {maxRadius = Mathf.Max(maxRadius, c.radius); }
-		if (sphere.Length > 0) controllRadius = maxRadius;
+		if (sphere.Length > 0) controllRadius = maxRadius * ((transform.localScale.x + transform.localScale.y) / 2); 
 	}
 
 	private new void Update()

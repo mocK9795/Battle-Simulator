@@ -2,10 +2,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 [RequireComponent (typeof(MeshRenderer))]
 public class MapRenderer : MonoBehaviour
 {
+	public Vector2Int mapOffset;
+	public float scaleOffset;
+	public float seaThresshold = 0.5f;
 	public Color mapColor;
     public Texture2D map;
 	public RawImage miniMap;
@@ -54,10 +58,10 @@ public class MapRenderer : MonoBehaviour
 	public static Color RGB(Color c) { c.a = 1; return c; }
 	public Vector2Int MapPosition(Vector2 position)
 	{
-		float xScale = transform.localScale.x;
-		float yScale = transform.localScale.y;
-		return new(Mathf.RoundToInt(position.x / xScale * 10) + map.width / 2,
-			Mathf.RoundToInt(position.y / yScale * 10) + map.height / 2);
+		float xScale = transform.localScale.x / scaleOffset;
+		float yScale = transform.localScale.y / scaleOffset;
+		return new(Mathf.RoundToInt(position.x / xScale) + map.width / 2 + mapOffset.x,
+			Mathf.RoundToInt(position.y / yScale) + map.height / 2 + mapOffset.y);
 	}
 
 	private void OnValidate()
@@ -85,6 +89,19 @@ public class MapRenderer : MonoBehaviour
 			nearestNation.nationColor = color;
 			nations.Remove(nearestNation);
 		}
+	}
+
+	public void SetColors(Color[] colors, Vector2Int[] positions)
+	{
+		var pixelData = MapBorderRenderer.GetPixelData(map);
+		for (int i = 0; i < colors.Length; i++)
+		{
+			if (positions[i].x < 0 || positions[i].y < 0 || positions[i].x >= map.width || positions[i].y >= map.height) continue;
+			if (pixelData[positions[i].x, positions[i].y].a < seaThresshold) continue;
+			pixelData[positions[i].x, positions[i].y] = colors[i];
+		}
+		map = MapBorderRenderer.SetPixelData(new(map.width, map.height), pixelData);
+		SetMapTexture(map);
 	}
 
 	public Color[] GetUniqueColors(Color[,] pixelData) {
