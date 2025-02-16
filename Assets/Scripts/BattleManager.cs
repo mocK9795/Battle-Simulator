@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class BattleManager : MonoBehaviour
@@ -89,26 +90,32 @@ public class BattleManager : MonoBehaviour
 				{
 					GameObject warriorObject = new GameObject(nationName + " " + i.ToString());
 					Warrior warrior = warriorObject.AddComponent<Warrior>();
-					warrior = SetWarriorData(warrior, warriorData, nationName, true);
+					warrior = SetWarriorData(warrior, warriorData, nationName);
 				}
 			}	
 		}
 	}
 
-	public Warrior SetWarriorData(Warrior warrior, WarriorData data, string nation , bool createColliders = false)
+	public Warrior SetWarriorData(Warrior warrior, WarriorData data, string nation)
 	{
-		warrior.nation = nation;
-		warrior.health = data.health;
-		warrior.damage = data.damage;
+		warrior = (Warrior)SetWarObjectData(warrior, new(nation, data.health, data.damage));
 		warrior.speed = data.speed;
-
-		SpriteRenderer renderer = warrior.gameObject.AddComponent<SpriteRenderer>();
-		renderer.sprite = warriorSprite;
-
-		if (createColliders ) { warrior.gameObject.AddComponent<BoxCollider2D>(); }
+		warrior.gameObject.AddComponent<BoxCollider2D>();
 
 		return warrior;
 	}
+	public WarObject SetWarObjectData(WarObject obj, WarObjectData data)
+	{
+		obj.nation = data.nation;
+		obj.health = data.health;
+		obj.damage = data.damage;
+
+		SpriteRenderer renderer = obj.gameObject.AddComponent<SpriteRenderer>();
+		renderer.sprite = warriorSprite;
+
+		return obj;
+	}
+
 
 	[ContextMenu("Create Capitals From Data")]
 	public void CreateCapitals() 
@@ -118,7 +125,7 @@ public class BattleManager : MonoBehaviour
 		{
 			GameObject capitalObject = new GameObject(nation.nation + " Capital");
 			Capital capital = capitalObject.AddComponent<Capital>();
-			capital = (Capital) SetWarriorData(capital, capitalData.data, nation.nation);
+			capital = (Capital) SetWarObjectData(capital, new(nation.nation, capitalData.health, 0));
 			var collider = capitalObject.AddComponent<CircleCollider2D>();
 			var sizeControll = capitalObject.AddComponent<CircleCollider2D>();
 			sizeControll.isTrigger = true;
@@ -133,8 +140,8 @@ public class BattleManager : MonoBehaviour
 		Nation[] allNations = GetAllNations();
 		foreach (Nation nation in allNations)
 		{
-			nation.SetArmy();
-			nation.SetArmyColor();
+			nation.SetWarAssets();
+			nation.SetWarAssetsColor();
 		}
 	}
 
@@ -225,7 +232,7 @@ public class BattleManager : MonoBehaviour
 	public void SetWarriorSprite()
 	{
 		var allWarriors = GetAllWarriors();
-		foreach (var warrior in allWarriors) { warrior.GetComponent<SpriteRenderer>().sprite = warriorSprite; }
+		foreach (var warrior in allWarriors) { warrior.sprite = warriorSprite; }
 		SetCapitalSprite();
 	}
 
@@ -233,7 +240,7 @@ public class BattleManager : MonoBehaviour
 	public void SetCapitalSprite()
 	{
 		var capitals = GetAllCapitals();
-		foreach (var capital in capitals) {capital.GetComponent<SpriteRenderer>().sprite = capitalSprite;}
+		foreach (var capital in capitals) {capital.sprite = capitalSprite;}
 	}
 
 	[ContextMenu("Set Object Data")]
@@ -295,6 +302,11 @@ public class BattleManager : MonoBehaviour
 		return FindObjectsByType<Capital>(FindObjectsSortMode.None);
 	}
 
+	public static WarObject[] GetAllWarObjects()
+	{
+		return FindObjectsByType<WarObject>(FindObjectsSortMode.None);
+	}
+
 	public static Nation GetNation(string nationName)
 	{
 		Nation[] allNations = GetAllNations();
@@ -339,5 +351,20 @@ public struct CapitalData
 	{
 		get { return new WarriorData(health, 0, 0, 1); }
 		set { health = value.health; }
+	}
+}
+
+[System.Serializable]
+public struct WarObjectData
+{
+	public string nation;
+	public float health;
+	public float damage;
+
+	public WarObjectData(string nation, float health, float damage) : this()
+	{
+		this.nation = nation;
+		this.health = health;
+		this.damage = damage;
 	}
 }

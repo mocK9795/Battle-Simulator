@@ -1,16 +1,11 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Warrior : MonoBehaviour
+public class Warrior : WarObject
 {
-	[Header("Warrior Statistics")]
-	public string nation;
-	public float health;
 	public float speed;
-	public float damage;
 
 	public Vector2 target;
-	[HideInInspector()] public float maxHealth;
 	Vector3 maxScale;
 	bool hasAttacked = false;
 	Rigidbody2D body;
@@ -23,14 +18,14 @@ public class Warrior : MonoBehaviour
 	[HideInInspector()] public bool useAi = true;
 	[HideInInspector()] public bool isAttacking = false;
 
-	public void Start()
+	public new void Start()
 	{
+		base.Start();
 		body = GetComponent<Rigidbody2D>();
 		body.gravityScale = 0;
 		body.linearDamping = GlobalData.friction;
 
 		target = transform.position;
-		maxHealth = health;
 
 		if (rescale)
 		{
@@ -38,8 +33,9 @@ public class Warrior : MonoBehaviour
 		}
 	}
 
-	public void Update()
+	public new void Update()
 	{
+		base.Update();
 		UpdateTargetAngle();
 		RotateTowardsTarget();
 		if (Vector2.Distance(position, target) > GlobalData.moveAccuracy)
@@ -48,11 +44,6 @@ public class Warrior : MonoBehaviour
 		}
 
 		hasAttacked = false;
-
-		if (health < 0)
-		{
-			Destroy(gameObject);
-		}
 
 		body.linearVelocity = Vector2.ClampMagnitude(body.linearVelocity, speed);
 		if (rescale)
@@ -127,7 +118,7 @@ public class Warrior : MonoBehaviour
 	{
 		if (hasAttacked) return;
 		if (collision.collider == null) return;
-		Warrior enemy = collision.collider.GetComponent<Warrior>();
+		WarObject enemy = collision.collider.GetComponent<WarObject>();
 		if (enemy == null) return;
 		if (enemy.nation == nation) return;
 

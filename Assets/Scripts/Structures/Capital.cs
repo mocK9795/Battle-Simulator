@@ -1,7 +1,6 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class Capital : Warrior
+public class Capital : WarObject
 {
 	[Header("Capital Settings")]
 	public float controllRadius;
@@ -11,7 +10,9 @@ public class Capital : Warrior
 	MapBorderRenderer borderRenderer;
 	MapRenderer mapRenderer;
 	BattleManager battleManager;
-	Warrior lastAttacker = null;
+	[HideInInspector()] public WarObject attacker = null;
+
+	public bool underSeige = false;
 
 	public CircleCollider2D GetCollider()
 	{
@@ -30,7 +31,6 @@ public class Capital : Warrior
 
 	private new void Start()
 	{
-		rescale = false;
 		base.Start();
 		borderRenderer = FindFirstObjectByType<MapBorderRenderer>();
 		mapRenderer = FindFirstObjectByType<MapRenderer>();
@@ -47,11 +47,11 @@ public class Capital : Warrior
 
 		if (health < 0)
 		{
-			if (lastAttacker == null) { health = GlobalData.capitalChangeHealth; return; }
+			if (attacker == null) { health = GlobalData.capitalChangeHealth; return; }
 
 			Nation country = BattleManager.GetNation(nation);
 			Color nationColor = country.nationColor;
-			Nation enemyCountry = BattleManager.GetNation(lastAttacker.nation);
+			Nation enemyCountry = BattleManager.GetNation(attacker.nation);
 			Color enemyColor = enemyCountry.nationColor;
 
 			if (mapEffects == MapEffects.Border)
@@ -66,20 +66,48 @@ public class Capital : Warrior
 
 
 			health = GlobalData.capitalChangeHealth;
-			nation = lastAttacker.nation;
-			lastAttacker = null;
+			nation = attacker.nation;
+			attacker = null;
 			battleManager.SetWarriorNationData();
 			battleManager.GroupWarriors();
 		}
 	}
 
-	public new void OnCollisionStay2D(Collision2D collision)
+	public void OnCollisionStay2D(Collision2D collision)
 	{
 		if (collision.collider == null) return;
-		Warrior enemy = collision.collider.GetComponent<Warrior>();
+		WarObject enemy = collision.collider.GetComponent<WarObject>();
 		if (enemy == null) return;
 		if (enemy.nation == nation) return;
-		lastAttacker = enemy;
+		attacker = enemy;
+	}
+
+	private void OnCollisionEnter2D(Collision2D collision)
+	{
+		if (collision.collider == null) return;
+		WarObject enemy = collision.collider.GetComponent<WarObject>();
+		if (enemy == null) return;
+		if (enemy.nation == nation) return;
+		EnterSeige();
+	}
+
+	private void OnCollisionExit2D(Collision2D collision)
+	{
+		if (collision.collider == null) return;
+		WarObject enemy = collision.collider.GetComponent<WarObject>();
+		if (enemy == null) return;
+		if (enemy.nation == nation) return;
+		ExitSeige();
+	}
+
+	void EnterSeige()
+	{
+		underSeige = true;
+	}
+
+	void ExitSeige()
+	{
+		underSeige = false;
 	}
 
 	[ContextMenu("Print Map Position")]

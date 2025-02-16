@@ -16,6 +16,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float knockbackRatio;
 	public float capitalChangeHealth = 10;
 	public float aiWarriorAttackRange;
+	public float aiThinkSpeed;
 
 	private void OnValidate()
 	{
@@ -35,6 +36,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.knockbackRatio = knockbackRatio;
 		GlobalData.capitalChangeHealth = capitalChangeHealth;
 		GlobalData.aiWarriorAttackRange = aiWarriorAttackRange;
+		GlobalData.aiThinkSpeed = aiThinkSpeed;
 	}
 
 	public void GetMousePosition(InputAction.CallbackContext value)
@@ -60,6 +62,7 @@ public static class GlobalData
 	public static float knockbackRatio;
 	public static float capitalChangeHealth = 10;
 	public static float aiWarriorAttackRange;
+	public static float aiThinkSpeed;
 
 
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }

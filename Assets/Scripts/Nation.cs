@@ -6,66 +6,81 @@ public class Nation : MonoBehaviour
     public string nation;
 	public Color nationColor;
 	public float health;
-	List<Warrior> warriors = new List<Warrior>();
+	List<WarObject> warAssets = new List<WarObject>();
 	Announcement announcer;
 
 	private void Start()
 	{
 		announcer = FindFirstObjectByType<Announcement>();
 		gameObject.name = nation;
-		SetArmy();
-		SetArmyColor();
+		SetWarAssets();
+		SetWarAssetsColor();
 	}
 
 	private void Update()
 	{
-		health = GetArmyHealth();
+		health = GetNationHealth();
 	}
 
-	[ContextMenu("Set Army")]
-	public void SetArmy()
+	[ContextMenu("Set War Assets")]
+	public void SetWarAssets()
 	{
-		warriors.Clear();
-		Warrior[] allWarriors = BattleManager.GetAllWarriors();
-		foreach (Warrior warrior in allWarriors)
+		warAssets.Clear();
+		WarObject[] allWarriors = BattleManager.GetAllWarObjects();
+		foreach (WarObject warrior in allWarriors)
 		{
 			if (warrior.nation != nation) continue;
-			warriors.Add(warrior);
+			warAssets.Add(warrior);
         }
 	}
 
-
-	[ContextMenu("Set Army Color")]
-	public void SetArmyColor()
+	[ContextMenu("Set War Assets Color")]
+	public void SetWarAssetsColor()
 	{
-		foreach (Warrior warrior in warriors)
+		foreach (WarObject warAssets in warAssets)
 		{
-			SpriteRenderer sprite = warrior.GetComponent<SpriteRenderer>();
-			sprite.color = nationColor;
+			warAssets.spriteRenderer.color = nationColor;
 		}
-	}
-
-	[ContextMenu("Get Color")] 
-	public Color GetColorFromBorder()
-	{
-		nationColor = GetComponentInChildren<Border>().color;
-		return nationColor;
 	}
 
 	public Warrior[] GetArmy()
 	{
-		SetArmy();
-		return warriors.ToArray();
+		SetWarAssets();
+		List<Warrior> army = new();
+		foreach (var asset in warAssets)
+		{
+			if (asset is Warrior) army.Add((Warrior) asset);
+		}
+
+		return army.ToArray();
 	}
 
-	public float GetArmyHealth()
+	public WarObject[] GetWarAssets()
+	{
+		SetWarAssets();
+		return warAssets.ToArray();
+	}
+
+	public float GetNationHealth()
 	{
 		float totalHealth = 0;
-		foreach (Warrior warrior in warriors)
+		foreach (WarObject warrior in warAssets)
 		{
 			totalHealth += warrior.health;
 		}
 		return totalHealth;
+	}
+
+	public Capital[] GetCapitals()
+	{
+		List<Capital> capitals = new List<Capital>();
+		
+		foreach (Capital capital in BattleManager.GetAllCapitals())
+		{
+			if (capital.nation == nation) capitals.Add(capital);
+		}
+		
+		return capitals.ToArray();
 	}
 
 	private void OnTriggerEnter2D(Collider2D collision)

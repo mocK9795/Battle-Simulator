@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.UI;
+using System.Collections.Generic;
 
 public class Player : MonoBehaviour
 {
@@ -9,9 +10,18 @@ public class Player : MonoBehaviour
     public float zoomSpeed;
     public float minZoom;
     public float maxZoom;
+
+    [Header("Selection Mode")]
+    public Image selectModeButton;
+    public Sprite selectModeOn;
+    public Sprite selectModeOff;
+    public Sprite warriorSelectedSprite;
+    public Sprite warriorSprite;
+    List<Warrior> selectedWarriors = new();
     Camera mainCamera;
     VisualEffects effects;
     BattleManager battle;
+    bool selectMode = false;
 
     private void Start()
     {
@@ -34,7 +44,9 @@ public class Player : MonoBehaviour
 
         if (hit.collider != null)
         {
-            return hit.collider.GetComponent<Warrior>();
+            var warrior = hit.collider.GetComponent<Warrior>();
+            if (warrior.nation == nation) return warrior;
+            else return null;
         }
 
         return null;
@@ -53,13 +65,41 @@ public class Player : MonoBehaviour
             effects.ClearArrow();
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
+            if (GlobalData.selectedWarrior == null && selectMode) OnSelect();
             if (GlobalData.selectedWarrior == null) return;
 
-            Vector2 clickStart = WorldPosition(GlobalData.mouseClickStartPoint);
-            Vector2 clickEnd = WorldPosition(GlobalData.mouseClickEndPoint);
-            GlobalData.selectedWarrior.SetTargetFromOffset(clickEnd - clickStart);
+			Vector2 clickStart = WorldPosition(GlobalData.mouseClickStartPoint);
+			Vector2 clickEnd = WorldPosition(GlobalData.mouseClickEndPoint);
 
-            GlobalData.selectedWarrior = null;
+			if (!selectMode)
+            {
+                GlobalData.selectedWarrior.SetTargetFromOffset(clickEnd - clickStart);
+                GlobalData.selectedWarrior = null;
+            }
+            if (selectMode)
+            {
+                foreach (var warrior in selectedWarriors) {warrior.SetTarget(clickEnd);}
+                ClearSelection();
+            }
+        }
+    }
+
+    public void OnSelect()
+    {
+        Vector2 startPoint = WorldPosition(GlobalData.mouseClickStartPoint);
+        Vector2 endPoint = WorldPosition(GlobalData.mouseClickEndPoint);
+		Vector2 boxCenter = (startPoint + endPoint) / 2;
+		Vector2 boxSize = new Vector2(Mathf.Abs(endPoint.x - startPoint.x), Mathf.Abs(endPoint.y - startPoint.y));
+
+        ClearSelection();
+
+        Collider2D[] selectedObjects = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f);
+        foreach (var obj in selectedObjects) { 
+            Warrior warrior = obj.GetComponent<Warrior>();
+            if (warrior == null) continue;
+            if (warrior.nation != nation) continue;
+            selectedWarriors.Add(warrior);
+            warrior.sprite = warriorSelectedSprite;
         }
     }
 
@@ -74,11 +114,25 @@ public class Player : MonoBehaviour
         {
             effects.DrawArrow(WorldPosition(GlobalData.mouseClickStartPoint), WorldPosition(GlobalData.mousePosition));
         }
+
+        if (GlobalData.mouseDown && GlobalData.selectedWarrior == null & selectMode)
+        {
+			Vector2 startPoint = WorldPosition(GlobalData.mouseClickStartPoint);
+			Vector2 endPoint = WorldPosition(GlobalData.mousePosition);
+			Vector2 boxCenter = (startPoint + endPoint) / 2;
+			Vector2 boxSize = new Vector2(Mathf.Abs(endPoint.x - startPoint.x), Mathf.Abs(endPoint.y - startPoint.y));
+
+            effects.DrawBox(boxCenter, boxSize);
+		}
+        else
+        {
+            effects.ClearBox();
+        }
     }
 
     public void OnLook(InputAction.CallbackContext value)
     {
-        if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null) return;
+        if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null || selectMode) return;
         transform.position += GlobalData.Inverse( value.ReadValue<Vector2>() ) * Time.deltaTime * lookSpeed;
     }
 
@@ -105,4 +159,17 @@ public class Player : MonoBehaviour
     }
 
     public void MarchArmy(InputAction.CallbackContext value) { if (value.canceled) MarchArmy(); }
+
+    public void OnSelectModeClick()
+    {
+        selectMode = !selectMode;
+        if (selectMode) selectModeButton.sprite = selectModeOn;
+        else selectModeButton.sprite = selectModeOff;
+    }
+
+    void ClearSelection()
+    {
+        foreach (var warrior in selectedWarriors) { warrior.sprite = warriorSprite; }
+        selectedWarriors.Clear();
+    }
 }

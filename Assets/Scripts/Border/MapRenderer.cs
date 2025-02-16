@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 [RequireComponent (typeof(MeshRenderer))]
 public class MapRenderer : MonoBehaviour
@@ -20,7 +19,6 @@ public class MapRenderer : MonoBehaviour
 		int width = colorMap.GetLength(0);
 		int height = colorMap.GetLength(1);
 		float radiusSquared = radius * radius;
-		print(width); print(height);
 
 		for (int y = 0; y < height; y++)
 		{
