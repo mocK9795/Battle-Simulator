@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Planet Mat
-  m_Shader: {fileID: -6465566751694194690, guid: 047f5b97d0f64074fb94f7d0b25335f6, type: 3}
+  m_Name: Terrain Mat
+  m_Shader: {fileID: -6465566751694194690, guid: 8334a15b4ff67f543be29c6baa69fcb8, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -44,16 +44,10 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Sea_Noise: 10
-    - _Sea_Thresshold: 0.5
-    m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Deep_Sea: {r: 0, g: 0.65882355, b: 0.9450981, a: 1}
-    - _Flow: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _Sea: {r: 0, g: 0.66046613, b: 0.94509804, a: 1}
+    m_Colors: []
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &6289153226649893665
+--- !u!114 &6147386053746370593
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}

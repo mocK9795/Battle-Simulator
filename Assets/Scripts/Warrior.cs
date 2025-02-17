@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -13,24 +14,21 @@ public class Warrior : WarObject
 	Vector2 position { get { return new Vector2(transform.position.x, transform.position.y); } }
 	Vector2 forward { get { return new Vector2(transform.right.x, transform.right.y); } }
 	float targetAngle;
-	float currentAngle;
-	[HideInInspector()] public bool rescale = true;
-	[HideInInspector()] public bool useAi = true;
 	[HideInInspector()] public bool isAttacking = false;
+	[HideInInspector()] public bool useAi = true;
 
 	public new void Start()
 	{
 		base.Start();
-		body = GetComponent<Rigidbody2D>();
-		body.gravityScale = 0;
-		body.linearDamping = GlobalData.friction;
+		SetBody();
+		Rescale();
 
 		target = transform.position;
+	}
 
-		if (rescale)
-		{
-			Rescale();
-		}
+	void SetBody()
+	{
+		body = GetComponent<Rigidbody2D>(); body.gravityScale = 0; body.linearDamping = GlobalData.friction;
 	}
 
 	public new void Update()
@@ -38,18 +36,16 @@ public class Warrior : WarObject
 		base.Update();
 		UpdateTargetAngle();
 		RotateTowardsTarget();
+		hasAttacked = false;
+
 		if (Vector2.Distance(position, target) > GlobalData.moveAccuracy)
 		{
 			body.linearVelocity += speed * forward;
 		}
 
-		hasAttacked = false;
 
 		body.linearVelocity = Vector2.ClampMagnitude(body.linearVelocity, speed);
-		if (rescale)
-		{
-			SetScale();
-		}
+		SetScale();
 
 		if (useAi)
 		{
@@ -111,21 +107,28 @@ public class Warrior : WarObject
 		print(forward);
 		print(position);
 		print(targetAngle);
-		print(currentAngle);
 	}
 
 	public void OnCollisionStay2D(Collision2D collision)
 	{
 		if (hasAttacked) return;
-		if (collision.collider == null) return;
-		WarObject enemy = collision.collider.GetComponent<WarObject>();
+		WarObject enemy = Enemy(collision.gameObject);
 		if (enemy == null) return;
-		if (enemy.nation == nation) return;
 
-		enemy.health -= damage * Time.deltaTime;
-		hasAttacked = true;
+		enemy.health -= damage * GlobalData.damageScale * Time.deltaTime;
 		body.linearVelocity -= speed * forward * GlobalData.knockbackRatio;
+		
 		target = Vector2.Lerp(target, GlobalData.vector3(enemy.transform.position), Mathf.Clamp01(Time.deltaTime));
+		hasAttacked = true;
+	}
+
+	public WarObject Enemy(Object obj)
+	{
+		if (obj == null) return null;
+		WarObject enemy = obj.GetComponent<WarObject>();
+		if (enemy == null) return null;
+		if (enemy.nation == nation) return null;
+		return enemy;
 	}
 
 	[ContextMenu("Set Scale")]
@@ -145,6 +148,4 @@ public class Warrior : WarObject
 	{
 		Rescale();
 	}
-
-
 }

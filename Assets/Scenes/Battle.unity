@@ -340,13 +340,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Portugal
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &123487460
 Rigidbody2D:
   serializedVersion: 5
@@ -524,13 +523,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Britain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &175575982
 Rigidbody2D:
   serializedVersion: 5
@@ -817,13 +815,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Britain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &218923567
 Rigidbody2D:
   serializedVersion: 5
@@ -1028,16 +1025,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Swisserland
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0.49999997
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &272257860
 Rigidbody2D:
@@ -1216,13 +1209,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &280281322
 Rigidbody2D:
   serializedVersion: 5
@@ -1250,6 +1242,67 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!1001 &288285769
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -42.07
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: e306e176b0f833d4cb5da5e74577a5c1, type: 2}
+    - target: {fileID: 919132149155446097, guid: a21fd59c65c809648a993963badcc14b, type: 3}
+      propertyPath: m_Name
+      value: Terrain
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a21fd59c65c809648a993963badcc14b, type: 3}
 --- !u!1 &292217342
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,16 +1480,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &292217348
 Rigidbody2D:
@@ -1781,16 +1830,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Netherlands
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &382689646
 Rigidbody2D:
@@ -1969,13 +2014,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Swisserland
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &420657255
 Rigidbody2D:
   serializedVersion: 5
@@ -2153,13 +2197,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &426141370
 Rigidbody2D:
   serializedVersion: 5
@@ -2337,13 +2380,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Britain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &443638641
 Rigidbody2D:
   serializedVersion: 5
@@ -2521,13 +2563,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &466070552
 Rigidbody2D:
   serializedVersion: 5
@@ -2705,13 +2746,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Swisserland
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &480267927
 Rigidbody2D:
   serializedVersion: 5
@@ -2889,13 +2929,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &513691962
 Rigidbody2D:
   serializedVersion: 5
@@ -3125,6 +3164,7 @@ MonoBehaviour:
   capitalChangeHealth: 10
   aiWarriorAttackRange: 2.5
   aiThinkSpeed: 0.5
+  damageScale: 0.5
 --- !u!4 &535515196
 Transform:
   m_ObjectHideFlags: 0
@@ -3353,13 +3393,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Britain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &546213793
 Rigidbody2D:
   serializedVersion: 5
@@ -3695,16 +3734,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &563085149
 Rigidbody2D:
@@ -3883,13 +3918,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Chez
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &565222207
 Rigidbody2D:
   serializedVersion: 5
@@ -4067,13 +4101,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &585917775
 Rigidbody2D:
   serializedVersion: 5
@@ -4335,13 +4368,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &625866327
 Rigidbody2D:
   serializedVersion: 5
@@ -4546,16 +4578,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &634229751
 Rigidbody2D:
@@ -4748,13 +4776,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Italy
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &730482039
 Rigidbody2D:
   serializedVersion: 5
@@ -4946,13 +4973,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &752513878
 Rigidbody2D:
   serializedVersion: 5
@@ -5198,13 +5224,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Chez
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &779501926
 Rigidbody2D:
   serializedVersion: 5
@@ -5382,13 +5407,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &805765813
 Rigidbody2D:
   serializedVersion: 5
@@ -5580,13 +5604,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Portugal
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &827924286
 Rigidbody2D:
   serializedVersion: 5
@@ -5764,13 +5787,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Italy
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &842050696
 Rigidbody2D:
   serializedVersion: 5
@@ -5996,13 +6018,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &875993536
 Rigidbody2D:
   serializedVersion: 5
@@ -6288,13 +6309,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &908489259
 Rigidbody2D:
   serializedVersion: 5
@@ -6472,13 +6492,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &982612879
 Rigidbody2D:
   serializedVersion: 5
@@ -6830,13 +6849,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Britain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1014031114
 Rigidbody2D:
   serializedVersion: 5
@@ -7028,13 +7046,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1025818340
 Rigidbody2D:
   serializedVersion: 5
@@ -7212,13 +7229,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1045095824
 Rigidbody2D:
   serializedVersion: 5
@@ -7396,13 +7412,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Chez
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1047198021
 Rigidbody2D:
   serializedVersion: 5
@@ -7684,13 +7699,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Netherlands
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1103949150
 Rigidbody2D:
   serializedVersion: 5
@@ -7868,13 +7882,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1150443269
 Rigidbody2D:
   serializedVersion: 5
@@ -8052,13 +8065,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1165581609
 Rigidbody2D:
   serializedVersion: 5
@@ -8294,13 +8306,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1193676551
 Rigidbody2D:
   serializedVersion: 5
@@ -8478,13 +8489,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1207093003
 Rigidbody2D:
   serializedVersion: 5
@@ -8662,13 +8672,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1215112023
 Rigidbody2D:
   serializedVersion: 5
@@ -8873,16 +8882,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Chez
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &1218692814
 Rigidbody2D:
@@ -9061,13 +9066,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Netherlands
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1221072289
 Rigidbody2D:
   serializedVersion: 5
@@ -9245,13 +9249,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1230991388
 Rigidbody2D:
   serializedVersion: 5
@@ -9498,16 +9501,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Spain
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &1285948304
 Rigidbody2D:
@@ -9890,13 +9889,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1365202876
 Rigidbody2D:
   serializedVersion: 5
@@ -10153,13 +10151,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Chez
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1413671021
 Rigidbody2D:
   serializedVersion: 5
@@ -10364,16 +10361,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Italy
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &1418791479
 Rigidbody2D:
@@ -10552,13 +10545,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Italy
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1419736134
 Rigidbody2D:
   serializedVersion: 5
@@ -10736,13 +10728,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Italy
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1423629805
 Rigidbody2D:
   serializedVersion: 5
@@ -11019,16 +11010,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Portugal
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &1502310039
 Rigidbody2D:
@@ -11346,13 +11333,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Italy
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1566191115
 Rigidbody2D:
   serializedVersion: 5
@@ -11530,13 +11516,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1625439494
 Rigidbody2D:
   serializedVersion: 5
@@ -11714,13 +11699,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Spain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1650954049
 Rigidbody2D:
   serializedVersion: 5
@@ -11959,16 +11943,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Britain
   health: 20
-  speed: 0
-  damage: 0
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
-  isAttacking: 0
+  damage: 0
   controllRadius: 0
   healRate: 0
   mapEffects: 1
+  attacker: {fileID: 0}
   underSeige: 0
 --- !u!50 &1730973583
 Rigidbody2D:
@@ -12147,13 +12127,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Portugal
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1734687826
 Rigidbody2D:
   serializedVersion: 5
@@ -12396,13 +12375,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Austria
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1804226862
 Rigidbody2D:
   serializedVersion: 5
@@ -12733,13 +12711,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Swisserland
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1880973435
 Rigidbody2D:
   serializedVersion: 5
@@ -12917,13 +12894,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Italy
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1901705083
 Rigidbody2D:
   serializedVersion: 5
@@ -13115,13 +13091,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1922737601
 Rigidbody2D:
   serializedVersion: 5
@@ -13299,13 +13274,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Italy
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1946696960
 Rigidbody2D:
   serializedVersion: 5
@@ -13483,13 +13457,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Netherlands
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1956048516
 Rigidbody2D:
   serializedVersion: 5
@@ -13667,13 +13640,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1971359748
 Rigidbody2D:
   serializedVersion: 5
@@ -13851,13 +13823,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Spain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &1975462368
 Rigidbody2D:
   serializedVersion: 5
@@ -14035,13 +14006,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &2006001950
 Rigidbody2D:
   serializedVersion: 5
@@ -14219,13 +14189,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: France
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &2011860259
 Rigidbody2D:
   serializedVersion: 5
@@ -14539,13 +14508,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Spain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &2044878507
 Rigidbody2D:
   serializedVersion: 5
@@ -14723,13 +14691,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Germany
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &2055224290
 Rigidbody2D:
   serializedVersion: 5
@@ -15332,13 +15299,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nation: Britain
   health: 20
-  speed: 3
-  damage: 2
-  target: {x: 0, y: 0}
   maxHealth: 0
-  rescale: 1
-  useAi: 1
+  damage: 2
+  speed: 3
+  target: {x: 0, y: 0}
   isAttacking: 0
+  useAi: 1
 --- !u!50 &2111720724
 Rigidbody2D:
   serializedVersion: 5
@@ -15379,3 +15345,4 @@ SceneRoots:
   - {fileID: 1056460546}
   - {fileID: 2093198762}
   - {fileID: 1686665041}
+  - {fileID: 288285769}
