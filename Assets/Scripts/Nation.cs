@@ -6,6 +6,7 @@ public class Nation : MonoBehaviour
     public string nation;
 	public Color nationColor;
 	public float health;
+	public float wealth;
 	List<WarObject> warAssets = new List<WarObject>();
 	Announcement announcer;
 

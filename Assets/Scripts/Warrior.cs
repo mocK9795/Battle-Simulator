@@ -91,9 +91,7 @@ public class Warrior : WarObject
 
 	public void UpdateTargetAngle()
 	{
-		float x = target.x - position.x;
-		float y = target.y - position.y;
-		targetAngle = Mathf.Atan2(y, x) * Mathf.Rad2Deg;
+		targetAngle = GlobalData.Angle(transform.position, target);
 	}
 
 	public void RotateTowardsTarget()

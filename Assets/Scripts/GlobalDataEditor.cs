@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
+using static UnityEngine.GraphicsBuffer;
+using UnityEngine.UIElements;
 
 public class GlobalDataEditor : MonoBehaviour
 {
@@ -110,5 +112,12 @@ public static class GlobalData
 		float bDiff = c1.b - c2.b;
 
 		return Mathf.Sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff);
+	}
+
+	public static float Angle(Vector2 position, Vector2 target)
+	{
+		float x = target.x - position.x;
+		float y = target.y - position.y;
+		return Mathf.Atan2(y, x) * Mathf.Rad2Deg;
 	}
 }

@@ -84,15 +84,20 @@ public class BattleManager : MonoBehaviour
 
 		foreach (WarriorData warriorData in warriors)
 		{
-			for (int i = 0; i < warriorData.count; i++)
+			foreach (string nationName in nationNames)
 			{
-				foreach (string nationName in nationNames)
-				{
-					GameObject warriorObject = new GameObject(nationName + " " + i.ToString());
-					Warrior warrior = warriorObject.AddComponent<Warrior>();
-					warrior = SetWarriorData(warrior, warriorData, nationName);
-				}
-			}	
+				CreateArmiesFromData(warriorData, nationName);
+			}
+		}
+	}
+
+	public void CreateArmiesFromData(WarriorData data, string nationName)
+	{
+		for (int i = 0; i < data.count; i++)
+		{
+			GameObject warriorObject = new GameObject(nationName + " " + i.ToString());
+			Warrior warrior = warriorObject.AddComponent<Warrior>();
+			SetWarriorData(warrior, data, nationName);
 		}
 	}
 
@@ -287,7 +292,6 @@ public class BattleManager : MonoBehaviour
 	{
 		if (autoScaleCapitals) ScaleCapital();
 	}
-
 	public static Nation[] GetAllNations()
 	{
 		return FindObjectsByType<Nation>(FindObjectsSortMode.None);
@@ -296,17 +300,14 @@ public class BattleManager : MonoBehaviour
 	{
 		return FindObjectsByType<Warrior>(FindObjectsSortMode.None);
 	}
-
 	public static Capital[] GetAllCapitals()
 	{
 		return FindObjectsByType<Capital>(FindObjectsSortMode.None);
 	}
-
 	public static WarObject[] GetAllWarObjects()
 	{
 		return FindObjectsByType<WarObject>(FindObjectsSortMode.None);
 	}
-
 	public static Nation GetNation(string nationName)
 	{
 		Nation[] allNations = GetAllNations();

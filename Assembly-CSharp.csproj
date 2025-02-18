@@ -65,9 +65,12 @@
     <Compile Include="Assets\Scripts\BattleManager.cs" />
     <Compile Include="Assets\Scripts\Border\MapRenderer.cs" />
     <Compile Include="Assets\Scripts\MapBorderRenderer.cs" />
+    <Compile Include="Assets\Scripts\UI\ShowcaseItem.cs" />
     <Compile Include="Assets\Scripts\Border\Border.cs" />
     <Compile Include="Assets\Scripts\Border\BorderPointOrdering.cs" />
+    <Compile Include="Assets\Scripts\EconomyManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
+    <Compile Include="Assets\Scripts\RecruitmentManager.cs" />
     <Compile Include="Assets\Scripts\Border\BorderDetection.cs" />
     <Compile Include="Assets\Scripts\Warrior.cs" />
     <Compile Include="Assets\Scripts\AI.cs" />
@@ -75,6 +78,7 @@
     <Compile Include="Assets\Scripts\Structures\Capital.cs" />
     <Compile Include="Assets\Scripts\GlobalDataEditor.cs" />
     <Compile Include="Assets\Scripts\WarObject.cs" />
+    <Compile Include="Assets\UI\CloseButton.cs" />
     <Compile Include="Assets\Scripts\VisualEffects.cs" />
   </ItemGroup>
   <ItemGroup>

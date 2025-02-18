@@ -1,15 +1,24 @@
+using TMPro;
 using UnityEngine;
 
 [RequireComponent (typeof(Announcement))]
 public class VisualEffects : MonoBehaviour
 {
-	[Header("Requires 2 LineRenderers In Child Object")]
 	public string battleName;
 	public string battleStats;
+	[Header("Drawn Shapes")]
+	[Tooltip("Requires 2 LineRenderers In Child Object")]
 	public float arrowWidth;
 	public float selectionWidth;
 	public Color arrowColor = Color.white;
 	public Color selectionColor = Color.white;
+	[Header("Statistics Bar")]
+	public TMP_Text wealthCounter;
+	public float wealthUpdateSpeed;
+	public float wealthShowcasePrecision;
+	float wealth = 0;
+	float shownWealth = 0;
+	public string symbol = "";
 	Announcement announcement = null;
 	LineRenderer arrowRenderer = null;
 	LineRenderer selectionRenderer = null;
@@ -26,6 +35,18 @@ public class VisualEffects : MonoBehaviour
 		announcement.announcementComplete = OnAnnouncementComplete;
 		announcement.Announce(battleName);
 	}
+
+	private void Update()
+	{
+		if (shownWealth < wealth)
+		{
+			shownWealth += 1 * wealthUpdateSpeed * Time.deltaTime;
+			shownWealth = Mathf.Min(shownWealth, wealth);
+			UpdateWealthCounter();
+		}
+	}
+
+	void UpdateWealthCounter() {wealthCounter.text = (Mathf.RoundToInt(shownWealth * Mathf.Pow(10, wealthShowcasePrecision)) / Mathf.Pow(10, wealthShowcasePrecision)).ToString() + symbol;}
 
 	public void DrawArrow(Vector2 start, Vector2 end)
 	{
@@ -87,5 +108,10 @@ public class VisualEffects : MonoBehaviour
 	public void ClearBox()
 	{
 		selectionRenderer.positionCount = 0;
+	}
+
+	public void SetWealthCount(float wealth) 
+	{
+		this.wealth = wealth;
 	}
 }

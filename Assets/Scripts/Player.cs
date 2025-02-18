@@ -17,10 +17,13 @@ public class Player : MonoBehaviour
     public Sprite selectModeOff;
     public Sprite warriorSelectedSprite;
     public Sprite warriorSprite;
+
     List<Warrior> selectedWarriors = new();
     Camera mainCamera;
     VisualEffects effects;
     BattleManager battle;
+    RecruitmentManager recruiter;
+    Nation playerNation;
     bool selectMode = false;
 
     private void Start()
@@ -28,13 +31,15 @@ public class Player : MonoBehaviour
         mainCamera = GetComponent<Camera>();
         effects = FindFirstObjectByType<VisualEffects>();
         battle = FindFirstObjectByType<BattleManager>();
+        recruiter = FindFirstObjectByType<RecruitmentManager>();
         lookSpeed = mainCamera.orthographicSize;
 
-        Nation playerNation = BattleManager.GetNation(nation);
+        playerNation = BattleManager.GetNation(nation);
         foreach (var warrior in playerNation.GetArmy())
         {
             warrior.useAi = false;
         }
+
     }
 
     public Warrior GetSelectedWarrior()
@@ -128,9 +133,11 @@ public class Player : MonoBehaviour
         {
             effects.ClearBox();
         }
-    }
 
-    public void OnLook(InputAction.CallbackContext value)
+		effects.SetWealthCount(playerNation.wealth);
+	}
+
+	public void OnLook(InputAction.CallbackContext value)
     {
         if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null || selectMode) return;
         transform.position += GlobalData.Inverse( value.ReadValue<Vector2>() ) * Time.deltaTime * lookSpeed;
@@ -165,6 +172,11 @@ public class Player : MonoBehaviour
         selectMode = !selectMode;
         if (selectMode) selectModeButton.sprite = selectModeOn;
         else selectModeButton.sprite = selectModeOff;
+    }
+
+    public void OnRecruitMenuOpen()
+    {
+        recruiter.ShowMenu(true);
     }
 
     void ClearSelection()
