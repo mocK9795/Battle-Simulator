@@ -44,6 +44,12 @@ public class VisualEffects : MonoBehaviour
 			shownWealth = Mathf.Min(shownWealth, wealth);
 			UpdateWealthCounter();
 		}
+		if (shownWealth > wealth + 1)
+		{
+			shownWealth -= 1 * wealthUpdateSpeed * Time.deltaTime;
+			shownWealth = Mathf.Max(shownWealth, wealth);
+			UpdateWealthCounter();
+		}
 	}
 
 	void UpdateWealthCounter() {wealthCounter.text = (Mathf.RoundToInt(shownWealth * Mathf.Pow(10, wealthShowcasePrecision)) / Mathf.Pow(10, wealthShowcasePrecision)).ToString() + symbol;}

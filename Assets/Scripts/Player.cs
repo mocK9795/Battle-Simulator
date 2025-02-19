@@ -177,6 +177,17 @@ public class Player : MonoBehaviour
     public void OnRecruitMenuOpen()
     {
         recruiter.ShowMenu(true);
+        recruiter.ShowDetails(recruiter.testData);
+    }
+
+    public void OnRecruitConfirm()
+    {
+        float cost = recruiter.GetCost(recruiter.data);
+        if (cost > playerNation.wealth) return;
+        playerNation.wealth -= cost;
+        recruiter.RecruitArmy(playerNation, recruiter.data);
+        battle.SetWarriorNationData();
+        battle.GroupWarriors();
     }
 
     void ClearSelection()
