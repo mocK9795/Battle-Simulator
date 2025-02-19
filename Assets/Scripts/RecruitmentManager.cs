@@ -42,7 +42,13 @@ public class RecruitmentManager : MonoBehaviour
 
 	public void RecruitArmy(Nation nation, WarriorData data)
 	{
-		battle.CreateArmiesFromData(data, nation.nation);
+		data = NormalizeData(data);
+		float cost = GetCost(data);
+		if (cost > nation.wealth) return;
+		nation.wealth -= cost;
+        battle.CreateArmiesFromData(data, nation.nation);
+		battle.SetWarriorNationData();
+		battle.GroupWarriors();
 	}
 
 	public float GetCost(WarriorData data)

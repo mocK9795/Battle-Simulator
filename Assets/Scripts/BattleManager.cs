@@ -93,11 +93,16 @@ public class BattleManager : MonoBehaviour
 
 	public void CreateArmiesFromData(WarriorData data, string nationName)
 	{
+		Vector2 spawn = Vector2.zero;
+		Nation nation = GetNation(nationName);
+		Capital[] capitals = nation.GetCapitals();
+		if (capitals != null) if (capitals.Length > 0) spawn = capitals[0].transform.position;
 		for (int i = 0; i < data.count; i++)
 		{
 			GameObject warriorObject = new GameObject(nationName + " " + i.ToString());
 			Warrior warrior = warriorObject.AddComponent<Warrior>();
 			SetWarriorData(warrior, data, nationName);
+			warrior.transform.position = spawn;
 		}
 	}
 

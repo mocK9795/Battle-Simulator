@@ -1,10 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
-using static UnityEngine.GraphicsBuffer;
-using UnityEngine.UIElements;
 
 public class GlobalDataEditor : MonoBehaviour
 {
@@ -47,6 +43,11 @@ public class GlobalDataEditor : MonoBehaviour
 	{
 		GlobalData.mousePosition = value.ReadValue<Vector2>();
 	}
+
+	private void Start()
+	{
+		GlobalData.recruiter = FindAnyObjectByType<RecruitmentManager>();
+	}
 }
 
 public static class GlobalData
@@ -69,11 +70,11 @@ public static class GlobalData
 	public static float aiThinkSpeed;
 	public static float damageScale;
 
+	public static RecruitmentManager recruiter;
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
 	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
 	public static Vector2Int vector2Int(Vector2 vector2) { return new Vector2Int(Mathf.RoundToInt(vector2.x), Mathf.RoundToInt(vector2.y)); }
 	public static Vector2 vector2(Vector2Int vector2Int) { return new Vector2(vector2Int.x, vector2Int.y); }
-
 	public static Vector3 Inverse(Vector3 value)
 	{
 		value.x = -value.x;
@@ -97,7 +98,6 @@ public static class GlobalData
 		foreach (Vector2 point in points) { intPoints.Add(new Vector2Int(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y))); }
 		return intPoints;
 	}
-
 	public static Color Closest(Color c1, Color c2, Color target)
 	{
 		float distance1 = Distance(c1, target);
@@ -113,11 +113,40 @@ public static class GlobalData
 
 		return Mathf.Sqrt(rDiff * rDiff + gDiff * gDiff + bDiff * bDiff);
 	}
-
 	public static float Angle(Vector2 position, Vector2 target)
 	{
 		float x = target.x - position.x;
 		float y = target.y - position.y;
 		return Mathf.Atan2(y, x) * Mathf.Rad2Deg;
+	}
+	public static WorldInformation GetWorldInformation()
+	{
+		Nation[] nations = BattleManager.GetAllNations();
+
+		if (nations.Length < 1) return null;
+
+		WorldInformation data = new(0);
+
+		foreach (var state in nations)
+		{
+			var army = state.GetArmy();
+			if (army.Length > data.largetArmySize) data.largetArmySize = army.Length;
+
+			foreach (var armed in army) { data = FactorWarriorInData(armed, data); }
+		}
+
+		return data;
+	}
+	public static WorldInformation FactorWarriorInData(Warrior warrior, WorldInformation data)
+	{
+		data.maxDamage = Mathf.Max(warrior.damage, data.maxDamage);
+		data.maxHealth = Mathf.Max(warrior.health, data.maxHealth);
+		data.maxSpeed = Mathf.Max(warrior.speed, data.maxSpeed);
+
+		data.averageDamage = (data.averageDamage + warrior.damage) / 2;
+		data.averageHealth = (data.averageHealth + warrior.health) / 2;
+		data.averageSpeed = (data.averageSpeed + warrior.speed) / 2;
+
+		return data;
 	}
 }

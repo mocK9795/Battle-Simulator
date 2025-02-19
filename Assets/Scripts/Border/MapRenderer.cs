@@ -66,6 +66,7 @@ public class MapRenderer : MonoBehaviour
 	{
 		if (mapRenderer == null) return;
 		mapRenderer.sharedMaterial.color = mapColor;
+		mapRenderer.sharedMaterial.mainTexture = map;
 	}
 
 	[ContextMenu("Assign Nation Colors")]

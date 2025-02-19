@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Threading;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +18,13 @@ public class Player : MonoBehaviour
     public Sprite selectModeOff;
     public Sprite warriorSelectedSprite;
     public Sprite warriorSprite;
+
+    [Header("Enable Unit AI")]
+    public Image enableUnitAiButton;
+    public Sprite unitAiOn;
+    public Sprite unitAiOff;
+    public Sprite aiControlledUnitImage;
+    bool unitAi = false;
 
     List<Warrior> selectedWarriors = new();
     Camera mainCamera;
@@ -182,13 +190,32 @@ public class Player : MonoBehaviour
 
     public void OnRecruitConfirm()
     {
-        float cost = recruiter.GetCost(recruiter.data);
-        if (cost > playerNation.wealth) return;
-        playerNation.wealth -= cost;
         recruiter.RecruitArmy(playerNation, recruiter.data);
-        battle.SetWarriorNationData();
-        battle.GroupWarriors();
     }
+
+    public void OnUnitAiClick()
+    {
+        unitAi = !unitAi;
+        if (unitAi) enableUnitAiButton.sprite = unitAiOn;
+        else enableUnitAiButton.sprite = unitAiOff;
+
+        if (selectMode)
+        {
+            foreach (var selected in selectedWarriors)
+            {
+                selected.useAi = unitAi;
+                if (unitAi) selected.sprite = aiControlledUnitImage;
+                else selected.sprite = warriorSprite;
+			}
+		}
+
+        var warriors = playerNation.GetArmy();
+        foreach (Warrior warrior in warriors) {
+            warrior.useAi = unitAi;
+            if (unitAi) warrior.sprite = aiControlledUnitImage;
+            else warrior.sprite = warriorSprite;
+		}
+	}
 
     void ClearSelection()
     {
