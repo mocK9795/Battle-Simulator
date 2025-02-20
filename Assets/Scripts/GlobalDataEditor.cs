@@ -1,6 +1,8 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections.Generic;
+using System.Linq;
+using System;
 
 public class GlobalDataEditor : MonoBehaviour
 {
@@ -46,7 +48,13 @@ public class GlobalDataEditor : MonoBehaviour
 
 	private void Start()
 	{
-		GlobalData.recruiter = FindAnyObjectByType<RecruitmentManager>();
+		GlobalData.recruiter = FindFirstObjectByType<RecruitmentManager>();
+		GlobalData.mapRenderer = FindFirstObjectByType<MapRenderer>();
+	}
+
+	private void Update()
+	{
+		GlobalData.worldInformation = GlobalData.GetWorldInformation();
 	}
 }
 
@@ -71,6 +79,8 @@ public static class GlobalData
 	public static float damageScale;
 
 	public static RecruitmentManager recruiter;
+	public static MapRenderer mapRenderer;
+	public static WorldInformation worldInformation;
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
 	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
 	public static Vector2Int vector2Int(Vector2 vector2) { return new Vector2Int(Mathf.RoundToInt(vector2.x), Mathf.RoundToInt(vector2.y)); }
@@ -148,5 +158,36 @@ public static class GlobalData
 		data.averageSpeed = (data.averageSpeed + warrior.speed) / 2;
 
 		return data;
+	}
+
+	public static float DistanceFromOrigin(float x, float y)
+	{
+		return Mathf.Sqrt(x * x + y * y);
+	}
+
+	public static float DistanceFromOrigin(Vector2 vector2)
+	{
+		return DistanceFromOrigin(vector2.x, vector2.y);
+	}
+
+	public static List<Vector2> SelectScatteredPoints(List<Vector2> points, int numberOfPointsToSelect)
+	{
+		if (numberOfPointsToSelect <= 0 || points == null || points.Count == 0)
+		{
+			throw new ArgumentException("Invalid number of points to select or empty points list.");
+		}
+
+		// Sort points by distance from the origin (0, 0)
+		points = points.OrderBy(p => DistanceFromOrigin(p)).ToList();
+
+		// Select points in such a way that they are scattered as evenly as possible
+		List<Vector2> selectedPoints = new List<Vector2>();
+		int step = points.Count / numberOfPointsToSelect;
+		for (int i = 0; i < numberOfPointsToSelect; i++)
+		{
+			selectedPoints.Add(points[i * step]);
+		}
+
+		return selectedPoints;
 	}
 }

@@ -13,6 +13,18 @@ public class MapRenderer : MonoBehaviour
     public Texture2D map;
 	public RawImage miniMap;
 	public MeshRenderer mapRenderer;
+	[HideInInspector] public Color[,] mapData;
+
+	private void Start()
+	{
+		UpdateMapData();
+	}
+	[ContextMenu("Set Map Data")]
+	public void UpdateMapData()
+	{
+		mapData = MapBorderRenderer.GetPixelData(map);
+
+	}
 
 	public static Color[,] CapitalChange(Color[,] colorMap, Color targetColor, Color changeColor, Vector2Int coordinate, float radius)
 	{
@@ -37,9 +49,8 @@ public class MapRenderer : MonoBehaviour
 	}
 	public void CapitalChange(Color targetColor, Color changeColor, Vector2Int coordinate, float radius)
 	{
-		Color[,] pixelData = MapBorderRenderer.GetPixelData(map);
-		pixelData = CapitalChange(pixelData, targetColor, changeColor, coordinate, radius);
-		map = MapBorderRenderer.SetPixelData(new(map.width, map.height), pixelData);
+		mapData = CapitalChange(mapData, targetColor, changeColor, coordinate, radius);
+		map = MapBorderRenderer.SetPixelData(new(map.width, map.height), mapData);
 		SetMapTexture(map);
 	}
 
@@ -61,6 +72,14 @@ public class MapRenderer : MonoBehaviour
 		return new(Mathf.RoundToInt(position.x / xScale) + map.width / 2 + mapOffset.x,
 			Mathf.RoundToInt(position.y / yScale) + map.height / 2 + mapOffset.y);
 	}
+	public Vector2 WorldPosition(Vector2Int position)
+	{
+		float xScale = transform.localScale.x / scaleOffset;
+		float yScale = transform.localScale.y / scaleOffset;
+		float x = (position.x - map.width / 2 - mapOffset.x) * xScale;
+		float y = (position.y - map.height / 2 - mapOffset.y) * yScale;
+		return new Vector2(x, y);
+	}
 
 	private void OnValidate()
 	{
@@ -72,7 +91,7 @@ public class MapRenderer : MonoBehaviour
 	[ContextMenu("Assign Nation Colors")]
 	public void AssignNationColors()
 	{
-		Color[] colors = GetUniqueColors(MapBorderRenderer.GetPixelData(map));
+		Color[] colors = GetUniqueColors(mapData);
 		List<Nation> nations = new(BattleManager.GetAllNations());
 		
 		foreach (Color color in colors)
@@ -92,14 +111,13 @@ public class MapRenderer : MonoBehaviour
 
 	public void SetColors(Color[] colors, Vector2Int[] positions)
 	{
-		var pixelData = MapBorderRenderer.GetPixelData(map);
 		for (int i = 0; i < colors.Length; i++)
 		{
 			if (positions[i].x < 0 || positions[i].y < 0 || positions[i].x >= map.width || positions[i].y >= map.height) continue;
-			if (pixelData[positions[i].x, positions[i].y].a < seaThresshold) continue;
-			pixelData[positions[i].x, positions[i].y] = colors[i];
+			if (mapData[positions[i].x, positions[i].y].a < seaThresshold) continue;
+			mapData[positions[i].x, positions[i].y] = colors[i];
 		}
-		map = MapBorderRenderer.SetPixelData(new(map.width, map.height), pixelData);
+		map = MapBorderRenderer.SetPixelData(new(map.width, map.height), mapData);
 		SetMapTexture(map);
 	}
 

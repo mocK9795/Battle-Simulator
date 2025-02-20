@@ -3479,8 +3479,8 @@ MonoBehaviour:
   warriorSelectedSprite: {fileID: 4934314087816167240, guid: 4bf57db92369a21429e5cdb90450b3f9, type: 3}
   warriorSprite: {fileID: 21300000, guid: ea2c14747e885454580dd4444a2ded27, type: 3}
   enableUnitAiButton: {fileID: 1219415530}
-  unitAiOn: {fileID: 8673455903271084175, guid: 8705cf623b84590499b2d6c8ca2c9657, type: 3}
-  unitAiOff: {fileID: 1993491666554113026, guid: ef9d998b59f6cd84ca7b6b38db6e5641, type: 3}
+  unitAiOn: {fileID: 21300000, guid: ef9d998b59f6cd84ca7b6b38db6e5641, type: 3}
+  unitAiOff: {fileID: 21300000, guid: 8705cf623b84590499b2d6c8ca2c9657, type: 3}
   aiControlledUnitImage: {fileID: 21300000, guid: f5882f4acf03bc242b0c25553af8149f, type: 3}
 --- !u!1 &535515194
 GameObject:
@@ -9510,7 +9510,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 8673455903271084175, guid: 8705cf623b84590499b2d6c8ca2c9657, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8705cf623b84590499b2d6c8ca2c9657, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

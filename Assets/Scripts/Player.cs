@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     bool unitAi = false;
 
     List<Warrior> selectedWarriors = new();
+    List<Warrior> lastSelected = new();
     Camera mainCamera;
     VisualEffects effects;
     BattleManager battle;
@@ -104,6 +105,7 @@ public class Player : MonoBehaviour
 		Vector2 boxCenter = (startPoint + endPoint) / 2;
 		Vector2 boxSize = new Vector2(Mathf.Abs(endPoint.x - startPoint.x), Mathf.Abs(endPoint.y - startPoint.y));
 
+        lastSelected = new(selectedWarriors);
         ClearSelection();
 
         Collider2D[] selectedObjects = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f);
@@ -123,6 +125,8 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        FixSelection();
+
         if (GlobalData.mouseDown && GlobalData.selectedWarrior != null)
         {
             effects.DrawArrow(WorldPosition(GlobalData.mouseClickStartPoint), WorldPosition(GlobalData.mousePosition));
@@ -201,12 +205,13 @@ public class Player : MonoBehaviour
 
         if (selectMode)
         {
-            foreach (var selected in selectedWarriors)
+            foreach (var selected in lastSelected)
             {
                 selected.useAi = unitAi;
                 if (unitAi) selected.sprite = aiControlledUnitImage;
                 else selected.sprite = warriorSprite;
 			}
+            return;
 		}
 
         var warriors = playerNation.GetArmy();
@@ -222,4 +227,10 @@ public class Player : MonoBehaviour
         foreach (var warrior in selectedWarriors) { warrior.sprite = warriorSprite; }
         selectedWarriors.Clear();
     }
+
+    void FixSelection()
+    {
+        foreach (var warrior in selectedWarriors) { if (warrior == null) Destroy(warrior); }
+        foreach (var warrior in lastSelected) { if (warrior == null) Destroy(warrior); }
+	}
 }

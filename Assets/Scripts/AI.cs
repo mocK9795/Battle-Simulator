@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Linq;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class AI : MonoBehaviour
 {
@@ -13,11 +13,35 @@ public class AI : MonoBehaviour
 		if (timer < GlobalData.aiThinkSpeed) return;
 		timer = 0;
 
+		PositionWarriors();
 		SendReEnforcements();
-
 		GaurdCapital();
-
 		RecruitWarriors();
+	}
+
+	void PositionWarriors() 
+	{
+		var army = nation.GetArmy();
+
+		List<Vector2> posiblePositions = new();
+		for (int y = 0; y<GlobalData.mapRenderer.map.height; y++)
+		{
+			for (int x = 0; x <  GlobalData.mapRenderer.map.width; x++)
+			{
+				var color = GlobalData.mapRenderer.mapData[x, y];
+				if (color != nation.nationColor) continue;
+				posiblePositions.Add(
+					GlobalData.mapRenderer.WorldPosition(
+						new Vector2Int(x, y)
+						));
+			}
+		}
+
+		List<Vector2> scatteredPositions = GlobalData.SelectScatteredPoints(posiblePositions, army.Length);
+		for (int i = 0; i < army.Length; i++) 
+		{
+			army[i].SetTarget(scatteredPositions[i]);
+		}
 	}
 
 	void SendReEnforcements()
@@ -49,7 +73,7 @@ public class AI : MonoBehaviour
 
 	void RecruitWarriors()
 	{
-		var worldData = GlobalData.GetWorldInformation();
+		var worldData = GlobalData.worldInformation;
 		var budgetData = CalculateDivisionBudget(worldData);
 		float budget = budgetData.y;
 		float buyCount = budgetData.x;

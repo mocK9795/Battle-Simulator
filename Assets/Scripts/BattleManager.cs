@@ -303,15 +303,15 @@ public class BattleManager : MonoBehaviour
 	}
 	public static Warrior[] GetAllWarriors()
 	{
-		return FindObjectsByType<Warrior>(FindObjectsSortMode.None);
+		return FindObjectsByType<Warrior>(FindObjectsSortMode.InstanceID);
 	}
 	public static Capital[] GetAllCapitals()
 	{
-		return FindObjectsByType<Capital>(FindObjectsSortMode.None);
+		return FindObjectsByType<Capital>(FindObjectsSortMode.InstanceID);
 	}
 	public static WarObject[] GetAllWarObjects()
 	{
-		return FindObjectsByType<WarObject>(FindObjectsSortMode.None);
+		return FindObjectsByType<WarObject>(FindObjectsSortMode.InstanceID);
 	}
 	public static Nation GetNation(string nationName)
 	{
