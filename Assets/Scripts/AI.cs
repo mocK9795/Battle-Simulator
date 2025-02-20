@@ -23,6 +23,8 @@ public class AI : MonoBehaviour
 	{
 		var army = nation.GetArmy();
 
+		if (army.Length < 1) return;
+
 		List<Vector2> posiblePositions = new();
 		for (int y = 0; y<GlobalData.mapRenderer.map.height; y++)
 		{
@@ -36,11 +38,21 @@ public class AI : MonoBehaviour
 						));
 			}
 		}
-
+		if (posiblePositions.Count < 1) return;
 		List<Vector2> scatteredPositions = GlobalData.SelectScatteredPoints(posiblePositions, army.Length);
-		for (int i = 0; i < army.Length; i++) 
+		foreach (var warrior in army)
 		{
-			army[i].SetTarget(scatteredPositions[i]);
+			float leastDistance = float.MaxValue;
+			Vector2 closestPosition = Vector2.one;
+			foreach (var position in scatteredPositions)
+			{
+				float distance = Vector2.Distance(position, warrior.transform.position);
+				if (distance > leastDistance) continue;
+				closestPosition = position;
+				leastDistance = distance;
+			}
+			warrior.SetTarget(closestPosition);
+			scatteredPositions.Remove(closestPosition);
 		}
 	}
 

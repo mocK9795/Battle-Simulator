@@ -60,7 +60,6 @@ public class Capital : WarObject
 			}
 			if (mapEffects == MapEffects.Map) 
 			{
-				print(mapRenderer.MapPosition(transform.position));
 				mapRenderer.CapitalChange(nationColor, enemyColor, mapRenderer.MapPosition(transform.position), controllRadius);
 			}
 
