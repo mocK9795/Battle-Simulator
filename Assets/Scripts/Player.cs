@@ -8,9 +8,14 @@ public class Player : MonoBehaviour
 {
     public string nation;
     float lookSpeed;
+    public float lookSpeedMultiplyier;
     public float zoomSpeed;
     public float minZoom;
     public float maxZoom;
+    public enum InputMode {Direct, Raycast};
+    public InputMode inputMode = InputMode.Direct;
+    public float step;
+
 
     [Header("Selection Mode")]
     public Image selectModeButton;
@@ -53,7 +58,7 @@ public class Player : MonoBehaviour
 
     public Warrior GetSelectedWarrior()
     {
-        Vector2 mousePosition = mainCamera.ScreenToWorldPoint(GlobalData.mousePosition);
+        Vector2 mousePosition = WorldPosition(GlobalData.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
 
         if (hit.collider != null)
@@ -80,21 +85,21 @@ public class Player : MonoBehaviour
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
             if (GlobalData.selectedWarrior == null && selectMode) OnSelect();
-            if (GlobalData.selectedWarrior == null) return;
+            if (GlobalData.selectedWarrior == null) { GlobalData.mousePath.Clear(); return; }
 
-			Vector2 clickStart = WorldPosition(GlobalData.mouseClickStartPoint);
-			Vector2 clickEnd = WorldPosition(GlobalData.mouseClickEndPoint);
+            var path = WorldPosition(GlobalData.mousePath.ToArray());
 
 			if (!selectMode)
             {
-                GlobalData.selectedWarrior.SetTargetFromOffset(clickEnd - clickStart);
+                GlobalData.selectedWarrior.SetTarget(path);
                 GlobalData.selectedWarrior = null;
             }
             if (selectMode)
             {
-                foreach (var warrior in selectedWarriors) {warrior.SetTarget(clickEnd);}
+                foreach (var warrior in selectedWarriors) {warrior.SetTarget(path);}
                 ClearSelection();
             }
+            GlobalData.mousePath.Clear();
         }
     }
 
@@ -120,7 +125,25 @@ public class Player : MonoBehaviour
 
     public Vector2 WorldPosition(Vector2 position)
     {
-        return mainCamera.ScreenToWorldPoint(position);
+        if (inputMode == InputMode.Direct) return mainCamera.ScreenToWorldPoint(position);
+        else
+        {
+            Ray ray = mainCamera.ScreenPointToRay(position);
+            Vector3 closestPoint = new Vector3(0, 0, float.MinValue);
+            float currentDistance = 0;
+            while (true) {
+                var newPoint = ray.GetPoint(currentDistance);
+                if (Mathf.Abs(newPoint.z) > Mathf.Abs(closestPoint.z)) break;
+                closestPoint = newPoint;
+                currentDistance += step;
+            }
+            return closestPoint;
+        }
+    }
+    public Vector2[] WorldPosition(Vector2[] positions)
+    {
+        for (int i = 0; i < positions.Length; i++) { positions[i] = WorldPosition(positions[i]);}
+        return positions;
     }
 
     private void Update()
@@ -129,7 +152,7 @@ public class Player : MonoBehaviour
 
         if (GlobalData.mouseDown && GlobalData.selectedWarrior != null)
         {
-            effects.DrawArrow(WorldPosition(GlobalData.mouseClickStartPoint), WorldPosition(GlobalData.mousePosition));
+            effects.DrawArrow(WorldPosition(GlobalData.mousePath.ToArray()));
         }
 
         if (GlobalData.mouseDown && GlobalData.selectedWarrior == null & selectMode)
@@ -151,6 +174,7 @@ public class Player : MonoBehaviour
 
 	public void OnLook(InputAction.CallbackContext value)
     {
+        if (GlobalData.mouseDown) GlobalData.mousePath.Add(GlobalData.mousePosition);
         if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null || selectMode) return;
         transform.position += GlobalData.Inverse( value.ReadValue<Vector2>() ) * Time.deltaTime * lookSpeed;
     }
@@ -161,9 +185,21 @@ public class Player : MonoBehaviour
     }
 	public void OnZoom(float zoomValue)
     {
-		mainCamera.orthographicSize = mainCamera.orthographicSize + zoomValue * zoomSpeed;
-        mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, minZoom, maxZoom);
-        lookSpeed = mainCamera.orthographicSize;
+        if (mainCamera.orthographic)
+        {
+            mainCamera.orthographicSize = mainCamera.orthographicSize + zoomValue * zoomSpeed;
+            mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, minZoom, maxZoom);
+            lookSpeed = mainCamera.orthographicSize * lookSpeedMultiplyier;
+            return;
+        }
+
+        transform.position += Vector3.forward * zoomValue * zoomSpeed;
+        transform.position = new Vector3(
+            transform.position.x, 
+            transform.position.y, 
+            Mathf.Clamp(transform.position.z, minZoom, maxZoom
+            ));
+        lookSpeed = -transform.position.z * lookSpeedMultiplyier;
 	}
 
     public void MarchArmy() 

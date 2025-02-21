@@ -67,6 +67,7 @@ public static class GlobalData
 	public static Vector2 mousePosition;
 	public static Vector2 mouseClickStartPoint;
 	public static Vector2 mouseClickEndPoint;
+	public static List<Vector2> mousePath = new();
 	public static Warrior selectedWarrior;
 	public static bool mouseDown;
 	public static float minScale;
@@ -82,6 +83,12 @@ public static class GlobalData
 	public static MapRenderer mapRenderer;
 	public static WorldInformation worldInformation;
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
+	public static Vector3[] vector3(Vector2[] points)
+	{
+		Vector3[] pointsV3 = new Vector3[points.Length];
+		for (int i = 0; i < points.Length; i++) { pointsV3[i] = vector3(points[i]); }
+		return pointsV3;
+	}
 	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
 	public static Vector2Int vector2Int(Vector2 vector2) { return new Vector2Int(Mathf.RoundToInt(vector2.x), Mathf.RoundToInt(vector2.y)); }
 	public static Vector2 vector2(Vector2Int vector2Int) { return new Vector2(vector2Int.x, vector2Int.y); }

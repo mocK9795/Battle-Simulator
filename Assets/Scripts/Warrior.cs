@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ public class Warrior : WarObject
 	public float speed;
 
 	public Vector2 target;
-	Vector3 maxScale;
+	[HideInInspector()] public Queue<Vector2> targetStack = new();
+	Vector3 maxScale; 
 	bool hasAttacked = false;
 	Rigidbody2D body;
 
@@ -42,6 +44,7 @@ public class Warrior : WarObject
 		{
 			body.linearVelocity += speed * forward;
 		}
+		else if (targetStack.Count > 0) target = targetStack.Dequeue();
 
 
 		body.linearVelocity = Vector2.ClampMagnitude(body.linearVelocity, speed);
@@ -79,14 +82,17 @@ public class Warrior : WarObject
 
 	public void SetTargetFromOffset(Vector2 offset)
 	{
-		target = position + offset;
-		UpdateTargetAngle();
+		targetStack.Enqueue(position + offset);
 	}
 
 	public void SetTarget(Vector2 target)
 	{
-		this.target = target;
-		UpdateTargetAngle();
+		targetStack.Enqueue(target);
+	}
+
+	public void SetTarget(Vector2[] targets)
+	{
+		foreach (var target in targets) { targetStack.Enqueue(target); }
 	}
 
 	public void UpdateTargetAngle()

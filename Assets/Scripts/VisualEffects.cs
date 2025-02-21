@@ -61,6 +61,12 @@ public class VisualEffects : MonoBehaviour
 		arrowRenderer.SetPosition(1, GlobalData.vector3(end));
 	}
 
+	public void DrawArrow(Vector2[] points)
+	{
+		arrowRenderer.positionCount = points.Length;
+		arrowRenderer.SetPositions(GlobalData.vector3(points));
+	}
+
 	public void ClearArrow()
 	{
 		arrowRenderer.positionCount = 0;
