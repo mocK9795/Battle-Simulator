@@ -40,7 +40,7 @@ public class Nation : MonoBehaviour
 	{
 		foreach (WarObject warAssets in warAssets)
 		{
-			warAssets.spriteRenderer.color = nationColor;
+			warAssets.color = nationColor;
 		}
 	}
 

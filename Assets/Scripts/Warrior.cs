@@ -11,7 +11,6 @@ public class Warrior : WarObject
 	[HideInInspector()] public Queue<Vector2> targetStack = new();
 	Vector3 maxScale; 
 	bool hasAttacked = false;
-	Rigidbody2D body;
 
 	Vector2 position { get { return new Vector2(transform.position.x, transform.position.y); } }
 	Vector2 forward { get { return new Vector2(transform.right.x, transform.right.y); } }
@@ -29,7 +28,7 @@ public class Warrior : WarObject
 
 	void SetBody()
 	{
-		body = GetComponent<Rigidbody2D>(); body.gravityScale = 0; body.linearDamping = GlobalData.friction;
+		body.gravityScale = 0; body.linearDamping = GlobalData.friction;
 	}
 
 	public new void Update()
@@ -123,6 +122,7 @@ public class Warrior : WarObject
 		if (enemy == null) return;
 
 		enemy.health -= damage * GlobalData.damageScale * Time.deltaTime;
+		if (body == null) print(body);
 		body.linearVelocity -= speed * forward * GlobalData.knockbackRatio;
 		
 		target = Vector2.Lerp(target, GlobalData.vector3(enemy.transform.position), Mathf.Clamp01(Time.deltaTime));

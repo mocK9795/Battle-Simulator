@@ -34,8 +34,9 @@ public class BattleManager : MonoBehaviour
 	public MapRenderer mapRenderer;
 	public MapBorderRenderer borderRenderer;
 
-	[Header("Testing")]
-	public string unitModelData;
+	[Header("Apply Models")]
+	public WarObject.ModelType warriorModel;
+	public WarObject.ModelType capitalModel;
 
 	private void Update()
 	{
@@ -106,6 +107,7 @@ public class BattleManager : MonoBehaviour
 			Warrior warrior = warriorObject.AddComponent<Warrior>();
 			SetWarriorData(warrior, data, nationName);
 			warrior.transform.position = spawn;
+			warrior.modelType = warriorModel;
 		}
 	}
 
@@ -285,16 +287,30 @@ public class BattleManager : MonoBehaviour
 			ai.nation = nation;
 		}
 	}
-	[ContextMenu("Set Test Model")]
-	public void SetTestMode()
+
+	[ContextMenu("Set Warrior Model")]
+	public void SetWarriorModel()
 	{
-		UnitModelData modelData = GlobalData.FindModel(unitModelData);
 		var allWarriors = GetAllWarriors();
-		foreach (var unit in allWarriors)
+		SetModel(warriorModel, allWarriors);
+	}
+
+	[ContextMenu("Set Capital Model")]
+	public void SetCapitalModel()
+	{
+		SetModel(capitalModel, GetAllCapitals());
+	}
+
+	public void SetModel(WarObject.ModelType model, WarObject[] applyObjects)
+	{
+		UnitModelData modelData = GlobalData.FindModel(model);
+		foreach (var unit in applyObjects)
 		{
 			unit.SetModel(modelData);
+			unit.modelType = model;
 		}
 	}
+	
 	public void ScaleCapital()
 	{
 		var capitals = GetAllCapitals();

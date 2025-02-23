@@ -50,7 +50,6 @@ public class GlobalDataEditor : MonoBehaviour
 		{
 			item.rotation = item.model.transform.eulerAngles;
 			item.scale = item.model.transform.localScale;
-			item.name = item.model.name;
 		}
 	}
 
@@ -64,6 +63,7 @@ public class GlobalDataEditor : MonoBehaviour
 		SetGlobalData();
 		GlobalData.recruiter = FindFirstObjectByType<RecruitmentManager>();
 		GlobalData.mapRenderer = FindFirstObjectByType<MapRenderer>();
+		GlobalData.battle = FindFirstObjectByType<BattleManager>();
 	}
 
 	private void Update()
@@ -95,6 +95,7 @@ public static class GlobalData
 
 	public static RecruitmentManager recruiter;
 	public static MapRenderer mapRenderer;
+	public static BattleManager battle;
 	public static WorldInformation worldInformation;
 	public static UnitModelData[] unitModelData;
 
@@ -216,9 +217,9 @@ public static class GlobalData
 
 		return selectedPoints;
 	}
-	public static UnitModelData FindModel(string name)
+	public static UnitModelData FindModel(WarObject.ModelType modelType)
 	{
-		foreach (var data in unitModelData) {if (data.name == name) return data; }
+		foreach (var modelData in unitModelData) {if (modelType == modelData.modelType) return modelData; }
 		return null;
 	}
 }
@@ -227,10 +228,11 @@ public static class GlobalData
 [System.Serializable]
 public class UnitModelData
 {
-	public string name;
+	public WarObject.ModelType modelType;
 	public GameObject model;
 	public Vector3 rotation;
 	public Vector3 scale;
+	[Tooltip("For Circle Collider Only X Paramater Matters")]
 	public Vector2 box;
 	public Vector2 boxOffset;
 }

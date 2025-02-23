@@ -8,6 +8,10 @@ public class WarObject : MonoBehaviour
     [HideInInspector] public float maxHealth;
     public float damage;
 
+	public enum ModelType {Car, City, Warrior, Truck, Tank, Ship, Plane};
+	[Header("Model Type")]
+	public ModelType modelType;
+
 	[HideInInspector]
 	public Sprite sprite
 	{
@@ -29,14 +33,41 @@ public class WarObject : MonoBehaviour
 	}
 
 	[HideInInspector]
+	public CircleCollider2D sphere;
+
+	[HideInInspector]
 	public SpriteRenderer spriteRenderer
 	{
 		get { return GetComponent<SpriteRenderer>(); }
 	}
 
+	[HideInInspector]
+	public Rigidbody2D body
+	{
+		get {return GetComponent<Rigidbody2D>();}
+	}
+
+	[HideInInspector]
+	public Color color
+	{
+		set
+		{
+			if (spriteRenderer != null) {spriteRenderer.color =  value;}
+			if (model == null) return;
+			Renderer[] renderers = model.GetComponentsInChildren<MeshRenderer>();
+			foreach (Renderer renderer in renderers)
+			{
+				renderer.material.color = value;
+			}
+		}
+	}
+
 	public void Start()
 	{
 		maxHealth = health;
+		SetModel(GlobalData.FindModel(modelType));
+
+		if (GlobalData.battle != null) GlobalData.battle.SetWarriorNationData();
 	}
 
 	public void Update()
@@ -47,18 +78,36 @@ public class WarObject : MonoBehaviour
 	public void SetModel(UnitModelData modelData)
 	{
 		if (modelData == null) { RemoveModel(); return; }
-		DestroyImmediate(modelObj);
+		if (modelObj == null)
+		{
+			var children = GetComponentsInChildren<Transform>();
+			foreach (var child in children)
+			{
+				if (child.GetComponent<WarObject>() == null)
+				{
+					DestroyImmediate(child.gameObject);
+				}
+			}
+		}
+		else DestroyImmediate(modelObj);
 		
 		modelObj = Instantiate(modelData.model);
-		modelObj.name = modelData.name;
 		modelObj.transform.parent = transform;
 		
 		modelObj.transform.localPosition = Vector3.zero;
 		modelObj.transform.rotation = Quaternion.Euler(modelData.rotation);
 		modelObj.transform.localScale = modelData.scale;
 
-		box.size = modelData.box;
-		box.offset = modelData.boxOffset;
+		if (box != null)
+		{
+			box.size = modelData.box;
+			box.offset = modelData.boxOffset;
+		}
+		if (sphere != null)
+		{
+			sphere.radius = modelData.box.x;
+			sphere.offset = modelData.boxOffset;
+		}
 
 		spriteRenderer.enabled = false;
 	}

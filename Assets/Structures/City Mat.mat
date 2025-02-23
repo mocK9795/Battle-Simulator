@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Planet Mat
-  m_Shader: {fileID: -6465566751694194690, guid: 047f5b97d0f64074fb94f7d0b25335f6, type: 3}
+  m_Name: City Mat
+  m_Shader: {fileID: -6465566751694194690, guid: 6acf85ad2cf778145b29a49920b8bfb5, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,10 +24,6 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
-    - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 253579921562f264da0c437032adf00a, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -44,16 +40,13 @@ Material:
     m_Floats:
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Sea_Noise: 10
-    - _Sea_Thresshold: 0.5
+    - _Scale: 2
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.29803923}
-    - _Deep_Sea: {r: 0, g: 0.026116299, b: 0.94509804, a: 1}
-    - _Flow: {r: 0.1, g: 0.1, b: 0, a: 0}
-    - _Sea: {r: 0, g: 0.66046613, b: 0.94509804, a: 1}
+    - _Color: {r: 0.23899364, g: 0.23899364, b: 0.23899364, a: 0}
+    - _Secondry_Color: {r: 0.106918216, g: 0.106918216, b: 0.106918216, a: 0}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!114 &6289153226649893665
+--- !u!114 &868240974017283968
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
