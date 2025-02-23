@@ -23,7 +23,6 @@ public class Warrior : WarObject
 	{
 		base.Start();
 		SetBody();
-		Rescale();
 
 		target = transform.position;
 	}
@@ -48,7 +47,6 @@ public class Warrior : WarObject
 
 
 		body.linearVelocity = Vector2.ClampMagnitude(body.linearVelocity, speed);
-		SetScale();
 
 		if (useAi)
 		{
@@ -83,16 +81,21 @@ public class Warrior : WarObject
 	public void SetTargetFromOffset(Vector2 offset)
 	{
 		targetStack.Enqueue(position + offset);
+		target = position + offset;
 	}
 
 	public void SetTarget(Vector2 target)
 	{
+		targetStack.Clear();
 		targetStack.Enqueue(target);
+		this.target = target;
 	}
 
 	public void SetTarget(Vector2[] targets)
 	{
+		targetStack.Clear();
 		foreach (var target in targets) { targetStack.Enqueue(target); }
+		target = targetStack.Dequeue();
 	}
 
 	public void UpdateTargetAngle()
@@ -135,14 +138,12 @@ public class Warrior : WarObject
 		return enemy;
 	}
 
-	[ContextMenu("Set Scale")]
 	public void Rescale()
 	{
 		maxScale = transform.localScale;
 		maxScale = Vector2.ClampMagnitude(maxScale, 1);
 		SetScale();
 	}
-
 	public void SetScale()
 	{
 		transform.localScale = maxScale * Mathf.Max(health / GlobalData.healthToScaleRatio, GlobalData.minScale);
@@ -150,6 +151,5 @@ public class Warrior : WarObject
 
 	private void OnValidate()
 	{
-		Rescale();
 	}
 }

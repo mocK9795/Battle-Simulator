@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
-using System.Threading;
 
 public class Player : MonoBehaviour
 {
@@ -14,10 +13,13 @@ public class Player : MonoBehaviour
     public float maxZoom;
     public enum InputMode {Direct, Raycast};
     public InputMode inputMode = InputMode.Direct;
+    [Tooltip("How precise the raycast is")]
     public float step;
-
+    public Vector3 minZoomRotation;
+    public Vector3 maxZoomRotation;
 
     [Header("Selection Mode")]
+    public float pathOptimizationThreshold;
     public Image selectModeButton;
     public Sprite selectModeOn;
     public Sprite selectModeOff;
@@ -88,6 +90,7 @@ public class Player : MonoBehaviour
             if (GlobalData.selectedWarrior == null) { GlobalData.mousePath.Clear(); return; }
 
             var path = WorldPosition(GlobalData.mousePath.ToArray());
+            path = GlobalData.vector2(BorderPointOrdering.OptimizePath(GlobalData.vector3(path)));
 
 			if (!selectMode)
             {
@@ -119,7 +122,6 @@ public class Player : MonoBehaviour
             if (warrior == null) continue;
             if (warrior.nation != nation) continue;
             selectedWarriors.Add(warrior);
-            warrior.sprite = warriorSelectedSprite;
         }
     }
 
@@ -149,10 +151,21 @@ public class Player : MonoBehaviour
     private void Update()
     {
         FixSelection();
+        SetRotation();
 
         if (GlobalData.mouseDown && GlobalData.selectedWarrior != null)
-        {
-            effects.DrawArrow(WorldPosition(GlobalData.mousePath.ToArray()));
+		{
+            var path = WorldPosition(GlobalData.mousePath.ToArray()); 
+			path = GlobalData.vector2(BorderPointOrdering.OptimizePath(GlobalData.vector3(path)));
+			if (GlobalData.mousePath.Count > path.Length) print("Real " + GlobalData.mousePath.Count + " Optimized " + path.Length);
+            if (GlobalData.mousePath.Count > pathOptimizationThreshold) {
+                Vector2 start = GlobalData.mousePath[0];
+                Vector2 end = GlobalData.mousePath[GlobalData.mousePath.Count - 1];
+                GlobalData.mousePath = new(path);
+                GlobalData.mousePath[0] = start;
+                GlobalData.mousePath.Add(end);
+            }
+			effects.DrawArrow(path);
         }
 
         if (GlobalData.mouseDown && GlobalData.selectedWarrior == null & selectMode)
@@ -202,6 +215,16 @@ public class Player : MonoBehaviour
         lookSpeed = -transform.position.z * lookSpeedMultiplyier;
 	}
 
+    void SetRotation()
+    {
+		Quaternion newRotation = Quaternion.Lerp(
+            Quaternion.Euler(minZoomRotation),
+            Quaternion.Euler(maxZoomRotation),
+            (-transform.position.z) / Mathf.Abs(minZoom)
+        );
+		transform.rotation = newRotation;
+	}
+
     public void MarchArmy() 
     {
         var playerNation = BattleManager.GetNation(nation);
@@ -244,8 +267,6 @@ public class Player : MonoBehaviour
             foreach (var selected in lastSelected)
             {
                 selected.useAi = unitAi;
-                if (unitAi) selected.sprite = aiControlledUnitImage;
-                else selected.sprite = warriorSprite;
 			}
             return;
 		}
@@ -253,14 +274,11 @@ public class Player : MonoBehaviour
         var warriors = playerNation.GetArmy();
         foreach (Warrior warrior in warriors) {
             warrior.useAi = unitAi;
-            if (unitAi) warrior.sprite = aiControlledUnitImage;
-            else warrior.sprite = warriorSprite;
 		}
 	}
 
     void ClearSelection()
     {
-        foreach (var warrior in selectedWarriors) { warrior.sprite = warriorSprite; }
         selectedWarriors.Clear();
     }
 

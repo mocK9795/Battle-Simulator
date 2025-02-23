@@ -1,10 +1,13 @@
 fileFormatVersion: 2
-guid: 82b112322fb5dde4b87828b4f8f588d1
+guid: 15bff94b614e7b1439920c662fb24a7f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 9040879190431018056
-    second: Front_0
+      213: 4189883851404579005
+    second: Western Europe - Copy_0
+  - first:
+      213: -3989106812030578456
+    second: Western Europe - Copy_1
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +40,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -75,7 +78,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -126,13 +129,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Front_0
+      name: Western Europe - Copy_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 128
-        height: 128
+        x: 10
+        y: 10
+        width: 49
+        height: 36
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +144,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 84cacda19b7a77d70800000000000000
-      internalID: 9040879190431018056
+      spriteID: db09d15f925752a30800000000000000
+      internalID: 4189883851404579005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Western Europe - Copy_1
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 39
+        width: 11
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e093d95d78d3a8c0800000000000000
+      internalID: -3989106812030578456
       vertices: []
       indices: 
       edges: []
@@ -160,7 +185,9 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Western Europe - Copy_0: 4189883851404579005
+      Western Europe - Copy_1: -3989106812030578456
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

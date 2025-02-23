@@ -34,6 +34,9 @@ public class BattleManager : MonoBehaviour
 	public MapRenderer mapRenderer;
 	public MapBorderRenderer borderRenderer;
 
+	[Header("Testing")]
+	public string unitModelData;
+
 	private void Update()
 	{
 		if (warriorCaptureTerritory)
@@ -282,7 +285,16 @@ public class BattleManager : MonoBehaviour
 			ai.nation = nation;
 		}
 	}
-
+	[ContextMenu("Set Test Model")]
+	public void SetTestMode()
+	{
+		UnitModelData modelData = GlobalData.FindModel(unitModelData);
+		var allWarriors = GetAllWarriors();
+		foreach (var unit in allWarriors)
+		{
+			unit.SetModel(modelData);
+		}
+	}
 	public void ScaleCapital()
 	{
 		var capitals = GetAllCapitals();
@@ -290,6 +302,17 @@ public class BattleManager : MonoBehaviour
 			capital.transform.localScale = Vector3.one * capitalScale;
 			capital.GetCollider().radius = capitalColliderScale;
 			capital.GetController().radius = capitalControllScale;
+		}
+	}
+	
+	[ContextMenu("Normalize Scales")]
+	public void NormalizeScales()
+	{
+		var warObjects = GetAllWarObjects();
+		foreach (var warObject in warObjects)
+		{
+			Vector3 scale = warObject.transform.localScale;
+			warObject.transform.localScale = new Vector3(scale.x, scale.y, (scale.x + scale.y) / 2);
 		}
 	}
 

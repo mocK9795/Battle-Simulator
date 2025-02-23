@@ -83,6 +83,39 @@ public class BorderPointOrdering : MonoBehaviour
 		return sortedPoints;
 	}
 
+
+	public static Vector3[] OptimizePath(Vector3[] path)
+	{
+		if (path.Length == 0)
+		{
+			print("Null Path"); return new Vector3[0];
+		}
+		Vector3 endPoint = path[path.Length - 1];
+		List<Vector3> optimizedPath = new List<Vector3>();
+		Vector3 lastAddedPoint = path[0];
+
+		for (int i = 0; i < path.Length; i++)
+		{
+			if (i == path.Length - 1)
+			{
+				optimizedPath.Add(path[i]);
+				lastAddedPoint = path[i];
+				continue;
+			}
+			if (i == 0)
+			{
+				optimizedPath.Add(path[i]);
+				lastAddedPoint = path[i];
+				continue;
+			}
+			if (Vector3.Distance(lastAddedPoint, endPoint) < Vector3.Distance(path[i], endPoint)) continue;
+			optimizedPath.Add(path[i]);
+			lastAddedPoint = path[i];
+		}
+
+		return optimizedPath.ToArray();
+	}
+
 	public static List<Vector2> GetConvexHull(List<Vector2> points)
 	{
 		// Sort the points lexicographically (by x, then by y)

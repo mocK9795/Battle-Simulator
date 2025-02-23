@@ -18,6 +18,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float aiWarriorAttackRange;
 	public float aiThinkSpeed;
 	public float damageScale;
+	public UnitModelData[] unitModelData;
 
 	private void OnValidate()
 	{
@@ -39,6 +40,18 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.aiWarriorAttackRange = aiWarriorAttackRange;
 		GlobalData.aiThinkSpeed = aiThinkSpeed;
 		GlobalData.damageScale = damageScale;
+		GlobalData.unitModelData = unitModelData;
+	}
+
+	[ContextMenu("Apply Data From Model")]
+	public void ApplyDataFromModel()
+	{
+		foreach (var item in unitModelData) 
+		{
+			item.rotation = item.model.transform.eulerAngles;
+			item.scale = item.model.transform.localScale;
+			item.name = item.model.name;
+		}
 	}
 
 	public void GetMousePosition(InputAction.CallbackContext value)
@@ -48,6 +61,7 @@ public class GlobalDataEditor : MonoBehaviour
 
 	private void Start()
 	{
+		SetGlobalData();
 		GlobalData.recruiter = FindFirstObjectByType<RecruitmentManager>();
 		GlobalData.mapRenderer = FindFirstObjectByType<MapRenderer>();
 	}
@@ -82,6 +96,8 @@ public static class GlobalData
 	public static RecruitmentManager recruiter;
 	public static MapRenderer mapRenderer;
 	public static WorldInformation worldInformation;
+	public static UnitModelData[] unitModelData;
+
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
 	public static Vector3[] vector3(Vector2[] points)
 	{
@@ -90,6 +106,12 @@ public static class GlobalData
 		return pointsV3;
 	}
 	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
+	public static Vector2[] vector2(Vector3[] points)
+	{
+		Vector2[] pointsV2 = new Vector2[points.Length];
+		for (int i = 0; i < points.Length; i++) { pointsV2[i] = points[i]; }
+		return pointsV2;
+	}
 	public static Vector2Int vector2Int(Vector2 vector2) { return new Vector2Int(Mathf.RoundToInt(vector2.x), Mathf.RoundToInt(vector2.y)); }
 	public static Vector2 vector2(Vector2Int vector2Int) { return new Vector2(vector2Int.x, vector2Int.y); }
 	public static Vector3 Inverse(Vector3 value)
@@ -166,17 +188,14 @@ public static class GlobalData
 
 		return data;
 	}
-
 	public static float DistanceFromOrigin(float x, float y)
 	{
 		return Mathf.Sqrt(x * x + y * y);
 	}
-
 	public static float DistanceFromOrigin(Vector2 vector2)
 	{
 		return DistanceFromOrigin(vector2.x, vector2.y);
 	}
-
 	public static List<Vector2> SelectScatteredPoints(List<Vector2> points, int numberOfPointsToSelect)
 	{
 		if (numberOfPointsToSelect <= 0 || points == null || points.Count == 0)
@@ -197,4 +216,21 @@ public static class GlobalData
 
 		return selectedPoints;
 	}
+	public static UnitModelData FindModel(string name)
+	{
+		foreach (var data in unitModelData) {if (data.name == name) return data; }
+		return null;
+	}
+}
+
+
+[System.Serializable]
+public class UnitModelData
+{
+	public string name;
+	public GameObject model;
+	public Vector3 rotation;
+	public Vector3 scale;
+	public Vector2 box;
+	public Vector2 boxOffset;
 }
