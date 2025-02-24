@@ -6,18 +6,20 @@ public class BorderPointOrdering : MonoBehaviour
 	public float maxPointDist = 2;
 	public static float maxPointDistance = 2;
 
+	public static List<Vector2Int> MarchingSquares(List<Vector2Int> points, Color[,] colorMap)
+	{
+		return BorderDetection.MarchingSquares(colorMap, points[0]);
+	}
 	public static List<Vector2Int> OrderBorderPoints(List<Vector2Int> borderPoints)
 	{
 		List<Vector2Int> convexHull = GetConvexHull(borderPoints);
 		var orderedPoint = ReconstructPolygon(borderPoints, convexHull); orderedPoint.RemoveAt(orderedPoint.Count - 1);
 		return orderedPoint;
 	}
-
 	public static List<Vector2> OrderBorderPoints(List<Vector2> borderPoints)
 	{
 		return GlobalData.listVector2(OrderBorderPoints(GlobalData.listVector2Int(borderPoints)));
 	}
-
 	public static List<Vector2Int> ReconstructPolygon(List<Vector2Int> borderPoints, List<Vector2Int> convexHull)
 	{
 		HashSet<Vector2Int> hullSet = new HashSet<Vector2Int>(convexHull);
@@ -46,7 +48,6 @@ public class BorderPointOrdering : MonoBehaviour
 
 		return orderedPoints;
 	}
-
 	public static List<Vector2Int> GetNeighbors(Vector2Int point, List<Vector2Int> borderPoints)
 	{
 		List<Vector2Int> neighbors = new List<Vector2Int>();
@@ -59,7 +60,6 @@ public class BorderPointOrdering : MonoBehaviour
 		}
 		return neighbors;
 	}
-
 	public static List<Vector2> SortByNearestPoint(List<Vector2> points)
 	{
 		if (points == null || points.Count == 0)
@@ -82,8 +82,6 @@ public class BorderPointOrdering : MonoBehaviour
 
 		return sortedPoints;
 	}
-
-
 	public static Vector3[] OptimizePath(Vector3[] path)
 	{
 		if (path.Length == 0)
@@ -115,7 +113,6 @@ public class BorderPointOrdering : MonoBehaviour
 
 		return optimizedPath.ToArray();
 	}
-
 	public static List<Vector2> GetConvexHull(List<Vector2> points)
 	{
 		// Sort the points lexicographically (by x, then by y)

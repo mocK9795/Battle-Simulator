@@ -80,7 +80,7 @@
                 "m_Node": {
                     "m_Id": "fa10e521e6b04f18aa03c2b132c164a9"
                 },
-                "m_SlotId": 1
+                "m_SlotId": 0
             }
         },
         {
@@ -94,7 +94,7 @@
                 "m_Node": {
                     "m_Id": "fa10e521e6b04f18aa03c2b132c164a9"
                 },
-                "m_SlotId": 0
+                "m_SlotId": 1
             }
         },
         {
@@ -353,7 +353,7 @@
     "hlslDeclarationOverride": 0,
     "m_Hidden": false,
     "m_Value": {
-        "m_SerializedTexture": "",
+        "m_SerializedTexture": "{\"texture\":{\"fileID\":2800000,\"guid\":\"10affda713fe52540b04948e7bfb26da\",\"type\":3}}",
         "m_Guid": ""
     },
     "isMainTexture": false,
@@ -530,10 +530,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -424.66668701171877,
-            "y": 260.66668701171877,
-            "width": 106.66668701171875,
-            "height": 35.999969482421878
+            "x": -294.0000305175781,
+            "y": 241.3333282470703,
+            "width": 106.66664123535156,
+            "height": 36.00001525878906
         }
     },
     "m_Slots": [
@@ -966,8 +966,8 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -687.3333129882813,
-            "y": 122.0,
+            "x": -713.3333740234375,
+            "y": 210.6666717529297,
             "width": 209.33334350585938,
             "height": 438.666748046875
         }
@@ -1159,10 +1159,10 @@
         "m_Expanded": true,
         "m_Position": {
             "serializedVersion": "2",
-            "x": -562.0,
-            "y": 120.66667938232422,
-            "width": 104.00003051757813,
-            "height": 35.99999237060547
+            "x": -596.0000610351563,
+            "y": 123.3333511352539,
+            "width": 104.00006103515625,
+            "height": 36.00000762939453
         }
     },
     "m_Slots": [

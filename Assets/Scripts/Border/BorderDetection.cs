@@ -144,4 +144,86 @@ public static class BorderDetection
 
 		return edges;
 	}
+
+	public static List<Vector2Int> MarchingSquares(Color[,] colorMap, Color target)
+	{
+		int width = colorMap.GetLength(0);
+		int height = colorMap.GetLength(1);
+
+		List<Vector2Int> border = new();
+		Vector2Int current = new Vector2Int(-1, -1);
+		bool found = false;
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				if (colorMap[x, y] == target)
+				{
+					border.Add(new(x, y));
+					current = new(x, y);
+					found = true;
+					break;
+				}
+			}
+			if (found) break;
+		}
+
+		return MarchingSquares(colorMap, current);
+	}
+	
+	public static bool IsBorderPixel(int x, int y, Color[,] map)
+	{
+		int width = map.GetLength(0);
+		int height = map.GetLength(1);
+
+		if (x == 0) return true;
+		if (y == 0) return true;
+		if (x == width - 1) return true;
+		if (y == height - 1) return true;
+
+		Color centerColor = map[x, y];
+		Color topColor = map[x, y - 1];
+		Color bottomColor = map[x, y + 1];
+		Color rightColor = map[x + 1, y];
+		Color leftColor = map[x - 1, y];
+
+		if (centerColor == topColor && centerColor == bottomColor && centerColor == rightColor && centerColor == leftColor) return false;
+		else return true;
+	}
+	
+	public static bool IsBorderPixel(Vector2Int xy, Color[,] map) {return IsBorderPixel(xy.x, xy.y, map); }
+
+	public static List<Vector2Int> MarchingSquares(Color[,] colorMap, Vector2Int current)
+	{
+		List<Vector2Int> border = new();
+		Color target = colorMap[current.x, current.y];
+
+		while (true)
+		{
+			Vector2Int topLeft = new(current.x - 1, current.y + 1);
+			Vector2Int topRight = new(current.x + 1, current.y + 1);
+			Vector2Int bottomLeft = new(current.x - 1, current.y - 1);
+			Vector2Int bottomRight = new(current.x + 1, current.y - 1);
+
+			Vector2Int left = new(current.x - 1, current.y);
+			Vector2Int right = new(current.x + 1, current.y);
+			Vector2Int top = new(current.x, current.y + 1);
+			Vector2Int bottom = new(current.x, current.y - 1);
+
+			if (!border.Contains(left) && colorMap[left.x, left.y] == target && IsBorderPixel(left, colorMap)) current = left;
+			else if (!border.Contains(right) && colorMap[right.x, right.y] == target && IsBorderPixel(right, colorMap)) current = right;
+			else if (!border.Contains(top) && colorMap[top.x, top.y] == target && IsBorderPixel(top, colorMap)) current = top;
+			else if (!border.Contains(bottom) && colorMap[bottom.x, bottom.y] == target && IsBorderPixel(bottom, colorMap)) current = bottom;
+
+			else if (!border.Contains(topLeft) && colorMap[topLeft.x, topLeft.y] == target && IsBorderPixel(topLeft, colorMap)) current = topLeft;
+			else if (!border.Contains(bottomLeft) && colorMap[bottomLeft.x, bottomLeft.y] == target && IsBorderPixel(bottomLeft, colorMap)) current = bottomLeft;
+			else if (!border.Contains(topRight) && colorMap[topRight.x, topRight.y] == target && IsBorderPixel(topRight, colorMap)) current = topRight;
+			else if (!border.Contains(bottomRight) && colorMap[bottomRight.x, bottomRight.y] == target && IsBorderPixel(bottomRight, colorMap)) current = bottomRight;
+
+			else break;
+			border.Add(current);
+		}
+
+		return border;
+	}
 }

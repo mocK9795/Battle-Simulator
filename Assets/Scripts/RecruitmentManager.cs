@@ -21,15 +21,12 @@ public class RecruitmentManager : MonoBehaviour
 	public float damage;
 	public float speed;
 
-	[Header("Test Data")]
-	public WarriorData testData;
-	[HideInInspector]
 	public WarriorData data;
 
 	[ContextMenu("Create Test Details")]
 	public void RunTest()
 	{
-		ShowDetails(testData);
+		ShowDetails(data);
 	}
 
 	public WarriorData NormalizeData(WarriorData data)
@@ -37,6 +34,7 @@ public class RecruitmentManager : MonoBehaviour
 		data.health = Mathf.Max(data.health, 1);
 		data.damage = Mathf.Max(data.damage, 1);
 		data.speed = Mathf.Max(data.speed, 1);
+		data.count = Mathf.Max(data.count, 1);
 		return data;
 	}
 

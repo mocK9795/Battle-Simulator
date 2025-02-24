@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class MapBorderRenderer : MonoBehaviour
 {
     public float scale;
+    public float colliderScale;
+    public Vector2 colliderOffset;
     public float lineWidth;
     [Range(0f, 1f)]
     public float transparency;
     public Material borderMaterial;
     public Texture2D map;
-    public enum OutlineMode { ConvexHull, NearestPoint, Default, Polygon};
+    public enum OutlineMode { ConvexHull, NearestPoint, Default, Polygon, MarchingSquares};
     public OutlineMode outlineMode;
 
     public RawImage miniMapImage;
@@ -43,7 +45,7 @@ public class MapBorderRenderer : MonoBehaviour
             for (int i = 0; i < lineRenderers[nation].Count; i++)
             {
                 if (nationBorderPoints[nation].Count <= i) break;
-                DrawMapBorder(lineRenderers[nation][i], nationBorderPoints[nation][i]);
+                DrawMapBorder(lineRenderers[nation][i], nationBorderPoints[nation][i], pixelData);
             }
         }
     }
@@ -68,16 +70,6 @@ public class MapBorderRenderer : MonoBehaviour
         }
 
         return mergedBorders;
-    }
-
-    public Vector2 mapToWorld(int x, int y) { return new Vector2(x, y) * scale + GlobalData.vector2(transform.position); }
-    public Vector2 mapToWorld(Vector2Int xy) { return mapToWorld(xy.x, xy.y);  }
-    public Vector2 mapToWorld(Vector2 xy) { return mapToWorld(GlobalData.vector2Int(xy)); }
-
-    public Vector2Int worldToMap(Vector2 position)
-    {
-        Vector2 rawPosition = position / scale - GlobalData.vector2(transform.position) / scale;
-        return new Vector2Int(Mathf.RoundToInt(rawPosition.x), Mathf.RoundToInt(rawPosition.y));
     }
     public static Color[,] GetPixelData(Texture2D map)
     {
@@ -122,25 +114,6 @@ public class MapBorderRenderer : MonoBehaviour
         map.Apply();
         return map;
     }
-    public static bool IsBorderPixel(int x, int y, Color[,] map)
-    {
-        int width = map.GetLength(0);
-        int height = map.GetLength(1);
-
-        if (x == 0) return true;
-        if (y == 0) return true;
-        if (x == width - 1) return true;
-        if (y == height - 1) return true;
-
-        Color centerColor = map[x, y];
-        Color topColor = map[x, y - 1];
-        Color bottomColor = map[x, y + 1];
-        Color rightColor = map[x + 1, y];
-        Color leftColor = map[x - 1, y];
-
-        if (centerColor == topColor && centerColor == bottomColor && centerColor == rightColor && centerColor == leftColor) return false;
-        else return true;
-    }
     public Color[] GetMapColors(Color[,] pixelData)
     {
         List<Color> uniqueColors = new List<Color>();
@@ -163,8 +136,7 @@ public class MapBorderRenderer : MonoBehaviour
 
         return uniqueColors.ToArray();
     }
-
-	public void DrawMapBorder(LineRenderer lineRenderer, List<Vector2Int> mapBorderPoints)
+	public void DrawMapBorder(LineRenderer lineRenderer, List<Vector2Int> mapBorderPoints, Color[,] colorMap)
     {
         List<Vector2> borderPoints = GlobalData.listVector2(mapBorderPoints);
 
@@ -180,11 +152,15 @@ public class MapBorderRenderer : MonoBehaviour
         {
             borderPoints = BorderPointOrdering.OrderBorderPoints(borderPoints);
         }
+        else if (outlineMode == OutlineMode.MarchingSquares)
+        {
+            borderPoints = GlobalData.listVector2(BorderPointOrdering.MarchingSquares(GlobalData.listVector2Int(borderPoints), colorMap));
+        }
 
 		Vector3[] positions = new Vector3[borderPoints.Count];
 		for (int i = 0; i < borderPoints.Count; i++)
 		{
-			positions[i] = GlobalData.vector3(mapToWorld( borderPoints[i]  ));
+			positions[i] = GlobalData.vector3(borderPoints[i]) * scale + transform.position;
 		}
 
 		lineRenderer.positionCount = positions.Length;
@@ -240,6 +216,9 @@ public class MapBorderRenderer : MonoBehaviour
 		PolygonCollider2D collider = parentObject.GetComponent<PolygonCollider2D>();
         if (collider == null) collider = parentObject.AddComponent<PolygonCollider2D>();
         collider.isTrigger = true;
+        for (int i = 0; i < borderPoints.Count; i++) {
+            borderPoints[i] = borderPoints[i] * colliderScale + colliderOffset; 
+        }
         collider.points = borderPoints.ToArray();
 
         Border border = parentObject.GetComponent<Border>();

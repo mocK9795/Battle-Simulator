@@ -255,7 +255,7 @@ public class Player : MonoBehaviour
     public void OnRecruitMenuOpen()
     {
         recruiter.ShowMenu(true);
-        recruiter.ShowDetails(recruiter.testData);
+        recruiter.ShowDetails(recruiter.data);
     }
 
     public void OnRecruitConfirm()

@@ -5,9 +5,6 @@ public class Capital : WarObject
 	[Header("Capital Settings")]
 	public float controllRadius;
 	public float healRate;
-	public enum MapEffects {Border, Map};
-	public MapEffects mapEffects = MapEffects.Map;
-	MapBorderRenderer borderRenderer;
 	MapRenderer mapRenderer;
 	BattleManager battleManager;
 	[HideInInspector()] public WarObject attacker = null;
@@ -32,7 +29,6 @@ public class Capital : WarObject
 	private new void Start()
 	{
 		base.Start();
-		borderRenderer = FindFirstObjectByType<MapBorderRenderer>();
 		mapRenderer = FindFirstObjectByType<MapRenderer>();
 		battleManager =  FindFirstObjectByType<BattleManager>();
 		CircleCollider2D[] sphere = GetComponents<CircleCollider2D>();
@@ -54,14 +50,7 @@ public class Capital : WarObject
 			Nation enemyCountry = BattleManager.GetNation(attacker.nation);
 			Color enemyColor = enemyCountry.nationColor;
 
-			if (mapEffects == MapEffects.Border)
-			{
-				borderRenderer.ChangeColorOwnership(nationColor, enemyColor, borderRenderer.worldToMap(transform.position), controllRadius);
-			}
-			if (mapEffects == MapEffects.Map) 
-			{
-				mapRenderer.CapitalChange(nationColor, enemyColor, mapRenderer.MapPosition(transform.position), controllRadius);
-			}
+			mapRenderer.CapitalChange(nationColor, enemyColor, mapRenderer.MapPosition(transform.position), controllRadius);
 
 
 			health = GlobalData.capitalChangeHealth;

@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e885d7391eb68b46afb3ccb582d4c0c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.217334
+      value: 2.8911018
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e885d7391eb68b46afb3ccb582d4c0c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -3.519095
+      value: 0.17999999
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e885d7391eb68b46afb3ccb582d4c0c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -11.5427475
+      value: -40.836926
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 1e885d7391eb68b46afb3ccb582d4c0c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -71,7 +71,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 1e885d7391eb68b46afb3ccb582d4c0c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: db84e22cd9b4e954988d393032ca895b, type: 2}
+      objectReference: {fileID: 2100000, guid: f72cca2045775444fa97bb7aa172edb7, type: 2}
     - target: {fileID: -3769320003160573174, guid: 1e885d7391eb68b46afb3ccb582d4c0c, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -80,6 +80,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Warrior
       objectReference: {fileID: 0}
+    - target: {fileID: 1646733720424155422, guid: 1e885d7391eb68b46afb3ccb582d4c0c, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 77b9815d8fcc05844b72815c910d7012, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
