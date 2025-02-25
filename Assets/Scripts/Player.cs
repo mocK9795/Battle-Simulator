@@ -35,12 +35,20 @@ public class Player : MonoBehaviour
     public Sprite aiControlledUnitImage;
     bool unitAi = false;
 
+    [Header("Inspect Mode")]
+    public NationShowcase showcase;
+    public Image inspectImage;
+    public Sprite inspectModeOff;
+    public Sprite inspectModeOn;
+    bool inspect = false;
+
     List<Warrior> selectedWarriors = new();
     List<Warrior> lastSelected = new();
     Camera mainCamera;
     VisualEffects effects;
     BattleManager battle;
     RecruitmentManager recruiter;
+    MapBorderRenderer mapBorderRenderer;
     Nation playerNation;
     bool selectMode = false;
 
@@ -50,6 +58,7 @@ public class Player : MonoBehaviour
         effects = FindFirstObjectByType<VisualEffects>();
         battle = FindFirstObjectByType<BattleManager>();
         recruiter = FindFirstObjectByType<RecruitmentManager>();
+        mapBorderRenderer = FindFirstObjectByType<MapBorderRenderer>();
         lookSpeed = mainCamera.orthographicSize;
 
         playerNation = BattleManager.GetNation(nation);
@@ -62,18 +71,26 @@ public class Player : MonoBehaviour
 
     public Warrior GetSelectedWarrior()
     {
+        var selection = GetClickedObject();
+        if (selection == null) return null;
+        var warrior = selection.GetComponent<Warrior>();
+        if (warrior == null) return null;
+        if (warrior.nation == nation) return warrior;
+        return null;
+    }
+    
+    public Nation GetSelectedNation()
+    {
+        var selection = GetClickedObject();
+        if (selection == null) return null;
+        return selection.GetComponentInParent<Nation>();
+    }
+
+    Collider2D GetClickedObject()
+    {
         Vector2 mousePosition = WorldPosition(GlobalData.mousePosition);
         RaycastHit2D hit = Physics2D.Raycast(mousePosition, Vector2.zero);
-
-        if (hit.collider != null)
-        {
-            var warrior = hit.collider.GetComponent<Warrior>();
-            if (warrior == null) return null;
-            if (warrior.nation == nation) return warrior;
-            else return null;
-        }
-
-        return null;
+        return hit.collider;
     }
 
     public void OnClick(InputAction.CallbackContext value)
@@ -89,7 +106,8 @@ public class Player : MonoBehaviour
             effects.ClearArrow();
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
-            if (GlobalData.selectedWarrior == null && selectMode) OnSelect();
+            if (GlobalData.selectedWarrior == null && inspect) OnInspect();
+            if (GlobalData.selectedWarrior == null && selectMode && !inspect) OnSelect();
             if (GlobalData.selectedWarrior == null) { GlobalData.mousePath.Clear(); return; }
 
             var path = WorldPosition(GlobalData.mousePath.ToArray());
@@ -109,7 +127,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    public void OnSelect()
+    void OnSelect()
     {
         Vector2 startPoint = WorldPosition(GlobalData.mouseClickStartPoint);
         Vector2 endPoint = WorldPosition(GlobalData.mouseClickEndPoint);
@@ -126,6 +144,13 @@ public class Player : MonoBehaviour
             if (warrior.nation != nation) continue;
             selectedWarriors.Add(warrior);
         }
+    }
+
+    public void OnInspect()
+    {
+        var nation = GetSelectedNation();
+        if (nation == null) return;
+        showcase.ShowcaseNation(nation);
     }
 
     public Vector2 WorldPosition(Vector2 position)
@@ -156,7 +181,7 @@ public class Player : MonoBehaviour
         FixSelection();
         SetRotation();
 
-        if (GlobalData.mouseDown && GlobalData.selectedWarrior != null)
+        if (GlobalData.mouseDown && GlobalData.selectedWarrior != null && !inspect)
 		{
             var path = WorldPosition(GlobalData.mousePath.ToArray());
             if (pathDrawMode == PathDrawMode.Optimize)
@@ -175,7 +200,7 @@ public class Player : MonoBehaviour
 			effects.DrawArrow(path);
         }
 
-        if (GlobalData.mouseDown && GlobalData.selectedWarrior == null & selectMode)
+        if (GlobalData.mouseDown && GlobalData.selectedWarrior == null && selectMode && !inspect)
         {
 			Vector2 startPoint = WorldPosition(GlobalData.mouseClickStartPoint);
 			Vector2 endPoint = WorldPosition(GlobalData.mousePosition);
@@ -283,6 +308,14 @@ public class Player : MonoBehaviour
             warrior.useAi = unitAi;
 		}
 	}
+
+    public void OnSearchClick()
+	{
+		inspect = !inspect;
+		if (inspect) inspectImage.sprite = inspectModeOn;
+		if (!inspect) inspectImage.sprite = inspectModeOff;
+	    mapBorderRenderer.SetColliderTrigerStatus(!inspect);
+    }
 
     void ClearSelection()
     {

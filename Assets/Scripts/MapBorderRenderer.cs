@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +15,10 @@ public class MapBorderRenderer : MonoBehaviour
     public Texture2D map;
     public enum OutlineMode { ConvexHull, NearestPoint, Default, Polygon, MarchingSquares};
     public OutlineMode outlineMode;
+    public bool onlySetCollision;
+    public bool colliderIsTriger;
+    public LayerMask collisionIncludeLayers;
+    public LayerMask collisionExcludeLayers;
 
     public RawImage miniMapImage;
 
@@ -27,13 +30,11 @@ public class MapBorderRenderer : MonoBehaviour
         Nation[] nations = BattleManager.GetAllNations();
         var rawBorderPoints = BorderDetection.GetBorderPoints(map);
         var mergedBorderPoints = MergeBordersByColor(rawBorderPoints, pixelData);
-        Color[] borderColors = mergedBorderPoints.Keys.ToArray();
         Dictionary<Nation, int> nationLineRendererCounts = new();
         Dictionary<Nation, List<List<Vector2Int>>> nationBorderPoints = new();
         for (int i = 0; i < nations.Length; i++)
         {
             Nation nation = nations[i];
-            nation.nationColor = borderColors[i];
             nationBorderPoints.Add(nation, mergedBorderPoints[nation.nationColor]);
             nationLineRendererCounts.Add(nation, nationBorderPoints[nation].Count);
         }
@@ -49,7 +50,6 @@ public class MapBorderRenderer : MonoBehaviour
             }
         }
     }
-
     public Dictionary<Color, List<List<Vector2Int>>> MergeBordersByColor(List<List<Vector2Int>> regions, Color[,] pixelData)
     {
         Dictionary<Color, List<List<Vector2Int>>> mergedBorders = new Dictionary<Color, List<List<Vector2Int>>>();
@@ -163,8 +163,11 @@ public class MapBorderRenderer : MonoBehaviour
 			positions[i] = GlobalData.vector3(borderPoints[i]) * scale + transform.position;
 		}
 
-		lineRenderer.positionCount = positions.Length;
-		lineRenderer.SetPositions(positions);
+        if (!onlySetCollision)
+        {
+            lineRenderer.positionCount = positions.Length;
+            lineRenderer.SetPositions(positions);
+        }
         SetBorderCollision(borderPoints, lineRenderer.gameObject);
 	}
     public Dictionary<Nation, List<LineRenderer>> GetLineRenderers(Dictionary<Nation, int> creationCount)
@@ -204,7 +207,9 @@ public class MapBorderRenderer : MonoBehaviour
     [ContextMenu("Remove Borders")]
     public void RemoveBorders()
     {
-        LineRenderer[] lineRenderers = GetComponentsInChildren<LineRenderer>();
+        Border[] borders = GetAllBorders();
+        LineRenderer[] lineRenderers = new LineRenderer[borders.Length];
+        for (int i = 0; i < borders.Length; i++) { lineRenderers[i] = borders[i].GetComponent<LineRenderer>(); }
 
         for (int i = 0; i < lineRenderers.Length; i++)
         {
@@ -215,11 +220,13 @@ public class MapBorderRenderer : MonoBehaviour
     {
 		PolygonCollider2D collider = parentObject.GetComponent<PolygonCollider2D>();
         if (collider == null) collider = parentObject.AddComponent<PolygonCollider2D>();
-        collider.isTrigger = true;
+        collider.isTrigger = colliderIsTriger;
         for (int i = 0; i < borderPoints.Count; i++) {
             borderPoints[i] = borderPoints[i] * colliderScale + colliderOffset; 
         }
         collider.points = borderPoints.ToArray();
+        collider.includeLayers = collisionIncludeLayers;
+        collider.excludeLayers = collisionExcludeLayers;
 
         Border border = parentObject.GetComponent<Border>();
         if (border == null) parentObject.AddComponent<Border>();
@@ -255,12 +262,28 @@ public class MapBorderRenderer : MonoBehaviour
         miniMapImage.texture = map;
         DrawAllBorders();
     }
-	private void Start()
+	public void SetColliderTrigerStatus(bool status)
+    {
+        colliderIsTriger = status;
+        SetColliderTrigerStatus();
+    }
+    public void SetColliderTrigerStatus()
+    {
+		Border[] borders = GetAllBorders();
+		PolygonCollider2D[] colliders = new PolygonCollider2D[borders.Length];
+		for (int i = 0; i < borders.Length; i++) { colliders[i] = borders[i].GetComponent<PolygonCollider2D>(); colliders[i].isTrigger = colliderIsTriger; }
+    }
+    private void Start()
 	{
         miniMapImage.texture = map;
 	}
-
     public static Color RGB(Color c) { c.a = 1; return c; }
+
+    public static Border[] GetAllBorders()
+    {
+        return FindObjectsByType<Border>(FindObjectsSortMode.None);
+
+	}
 }
 
 

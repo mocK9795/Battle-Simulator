@@ -222,6 +222,25 @@ public static class GlobalData
 		foreach (var modelData in unitModelData) {if (modelType == modelData.modelType) return modelData; }
 		return null;
 	}
+	public static float SetPrecision(float value, int precision)
+	{
+		return Mathf.RoundToInt(value * Mathf.Pow(10, precision)) / Mathf.Pow(10, precision);
+	}
+	public static float SoftLerp(float a, float b, float t)
+	{
+		if (a < b)
+		{
+			a += 1 * Time.deltaTime * t;
+			a = Mathf.Min(a, b);
+		}
+		if (a > b + 1)
+		{
+			a -= 1 * Time.deltaTime * t;
+			a = Mathf.Max(a, b);
+		}
+
+		return a;
+	}
 }
 
 

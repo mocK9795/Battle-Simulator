@@ -6,6 +6,12 @@ using UnityEngine.UI;
 [RequireComponent (typeof(MeshRenderer))]
 public class MapRenderer : MonoBehaviour
 {
+	public enum DrawMode {Default, DevlopmentMap}
+	[Header("Draw Mode")]
+	public DrawMode drawMode = DrawMode.Default;
+	public EconomyManager economony;
+
+	[Header("")]
 	public Vector2Int mapOffset;
 	public float scaleOffset;
 	public float seaThresshold = 0.5f;
