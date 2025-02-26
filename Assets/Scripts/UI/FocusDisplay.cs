@@ -8,6 +8,10 @@ public class FocusDisplay : MonoBehaviour
 	public GameObject contianer;
 	public GameObject focusUiPreset;
 	public float scale;
+
+	 FocusTree activeTree;
+
+
 	public static Dictionary<string, (int, int)> GenerateFocusPosition(List<Focus> focusTree)
 	{
 		Dictionary<string, (int, int)> positions = new Dictionary<string, (int, int)>();
@@ -69,12 +73,24 @@ public class FocusDisplay : MonoBehaviour
 	{
 		menu.SetActive(true);
 		var positions = GenerateFocusPosition(focusTree.tree);
-		foreach (var focus in focusTree.tree)
+		activeTree = focusTree;
+		
+		for (int i = 0; i<focusTree.tree.Count; i++)
 		{
+			var focus = focusTree.tree[i];
 			var ui = Instantiate(focusUiPreset, contianer.transform);
 			Vector2 position = GlobalData.vector3(positions[focus.name]) * scale;
 			ui.GetComponent<RectTransform>().anchoredPosition = position;
 			ui.GetComponent<Image>().sprite = focus.image;
+			ui.GetComponent<Button>().onClick.AddListener(() => 
+			{ 
+				OnFocusClick(i); });
 		}
-	}	
+	}
+
+	public void OnFocusClick(int focusIndex)
+	{
+		print(focusIndex);
+		print(activeTree.tree[focusIndex].name);
+	}
 }
