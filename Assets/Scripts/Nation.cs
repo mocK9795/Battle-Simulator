@@ -6,7 +6,12 @@ public class Nation : MonoBehaviour
     public string nation;
 	public Color nationColor;
 	public float health;
+
 	public float wealth;
+	public float politicalPower;
+
+	public FocusTree focusTree;
+
 	List<WarObject> warAssets = new List<WarObject>();
 	Announcement announcer;
 
@@ -16,6 +21,9 @@ public class Nation : MonoBehaviour
 		gameObject.name = nation;
 		SetWarAssets();
 		SetWarAssetsColor();
+
+		if (focusTree == null) focusTree = new(GlobalData.genericTree);
+		else if (focusTree.tree.Count < 1) focusTree.tree = GlobalData.genericTree;
 	}
 
 	private void Update()

@@ -73,6 +73,7 @@
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\RecruitmentManager.cs" />
     <Compile Include="Assets\Scripts\Border\BorderDetection.cs" />
+    <Compile Include="Assets\Scripts\UI\FocusDisplay.cs" />
     <Compile Include="Assets\Scripts\Warrior.cs" />
     <Compile Include="Assets\Scripts\AI.cs" />
     <Compile Include="Assets\Scripts\Announcement.cs" />
@@ -82,6 +83,7 @@
     <Compile Include="Assets\Scripts\WarObject.cs" />
     <Compile Include="Assets\UI\CloseButton.cs" />
     <Compile Include="Assets\Scripts\VisualEffects.cs" />
+    <Compile Include="Assets\Scripts\UI\Focus.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

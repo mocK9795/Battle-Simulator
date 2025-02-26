@@ -19,6 +19,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float aiThinkSpeed;
 	public float damageScale;
 	public UnitModelData[] unitModelData;
+	public List<Focus> genericFocusTree = null;
 
 	private void OnValidate()
 	{
@@ -41,6 +42,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.aiThinkSpeed = aiThinkSpeed;
 		GlobalData.damageScale = damageScale;
 		GlobalData.unitModelData = unitModelData;
+		GlobalData.genericTree = genericFocusTree;
 	}
 
 	[ContextMenu("Apply Data From Model")]
@@ -97,7 +99,9 @@ public static class GlobalData
 	public static MapRenderer mapRenderer;
 	public static BattleManager battle;
 	public static WorldInformation worldInformation;
+	
 	public static UnitModelData[] unitModelData;
+	public static List<Focus> genericTree = null;
 
 	public static Vector3 vector3(Vector2 vector2) { return new Vector3(vector2.x, vector2.y); }
 	public static Vector3[] vector3(Vector2[] points)
@@ -106,6 +110,7 @@ public static class GlobalData
 		for (int i = 0; i < points.Length; i++) { pointsV3[i] = vector3(points[i]); }
 		return pointsV3;
 	}
+	public static Vector3 vector3((int, int) position) { return vector3(new Vector2(position.Item1, position.Item2)); }
 	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
 	public static Vector2[] vector2(Vector3[] points)
 	{
@@ -240,6 +245,62 @@ public static class GlobalData
 		}
 
 		return a;
+	}
+	public static Texture2D CreateNoiseTexture(float[,] noiseMap)
+	{
+		int width = noiseMap.GetLength(0);
+		int height = noiseMap.GetLength(1);
+
+		Texture2D texture = new Texture2D(width, height);
+		Color[] colorMap = new Color[height * width];
+
+		for (int y = 0; y < noiseMap.GetLength(1); y++)
+		{
+			for (int x = 0; x < noiseMap.GetLength(0); x++)
+			{
+				colorMap[y * width + x] = Color.Lerp(Color.black, Color.white, noiseMap[x, y]);
+			}
+		}
+
+		texture.filterMode = FilterMode.Point;
+		texture.SetPixels(colorMap);
+		texture.Apply();
+		return texture;
+	}
+	public static float[,] NormalizeLocalNoiseMap(float[,] noiseMap)
+	{
+		int width = noiseMap.GetLength(0);
+		int height = noiseMap.GetLength(1);
+
+		float minLocalNoiseHeight = float.MaxValue;
+		float maxLocalNoiseHeight = float.MinValue;
+
+		for (int y = 0; y < width; y++)
+		{
+			for (int x = 0; x < height; x++)
+			{
+				float noiseHeight = noiseMap[x, y];
+
+				if (noiseHeight < minLocalNoiseHeight)
+				{
+					minLocalNoiseHeight = noiseHeight;
+				}
+				if (noiseHeight > maxLocalNoiseHeight)
+				{
+					maxLocalNoiseHeight = noiseHeight;
+				}
+			}
+		}
+
+		for (int y = 0; y < width; y++)
+		{
+			for (int x = 0; x < height; x++)
+			{
+				noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
+			}
+		}
+
+		return noiseMap;
 	}
 }
 

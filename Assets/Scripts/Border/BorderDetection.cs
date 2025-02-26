@@ -210,14 +210,14 @@ public static class BorderDetection
 			Vector2Int top = new(current.x, current.y + 1);
 			Vector2Int bottom = new(current.x, current.y - 1);
 
-			if (!border.Contains(left) && colorMap[left.x, left.y] == target && IsBorderPixel(left, colorMap)) current = left;
-			else if (!border.Contains(right) && colorMap[right.x, right.y] == target && IsBorderPixel(right, colorMap)) current = right;
-			else if (!border.Contains(top) && colorMap[top.x, top.y] == target && IsBorderPixel(top, colorMap)) current = top;
-			else if (!border.Contains(bottom) && colorMap[bottom.x, bottom.y] == target && IsBorderPixel(bottom, colorMap)) current = bottom;
+			if (!border.Contains(left) && colorMap[left.x, left.y] == target && IsBorderPixel(left, colorMap) ) current = left;
+			else if (!border.Contains(right) && colorMap[right.x, right.y] == target && IsBorderPixel(right, colorMap) ) current = right;
+			else if (!border.Contains(top) && colorMap[top.x, top.y] == target && IsBorderPixel(top, colorMap) ) current = top;
+			else if (!border.Contains(bottom) && colorMap[bottom.x, bottom.y] == target && IsBorderPixel(bottom, colorMap) ) current = bottom;
 
-			else if (!border.Contains(topLeft) && colorMap[topLeft.x, topLeft.y] == target && IsBorderPixel(topLeft, colorMap)) current = topLeft;
-			else if (!border.Contains(bottomLeft) && colorMap[bottomLeft.x, bottomLeft.y] == target && IsBorderPixel(bottomLeft, colorMap)) current = bottomLeft;
-			else if (!border.Contains(topRight) && colorMap[topRight.x, topRight.y] == target && IsBorderPixel(topRight, colorMap)) current = topRight;
+			else if (!border.Contains(topLeft) && colorMap[topLeft.x, topLeft.y] == target && IsBorderPixel(topLeft, colorMap) ) current = topLeft;
+			else if (!border.Contains(bottomLeft) && colorMap[bottomLeft.x, bottomLeft.y] == target && IsBorderPixel(bottomLeft, colorMap) ) current = bottomLeft;
+			else if (!border.Contains(topRight) && colorMap[topRight.x, topRight.y] == target && IsBorderPixel(topRight, colorMap) ) current = topRight;
 			else if (!border.Contains(bottomRight) && colorMap[bottomRight.x, bottomRight.y] == target && IsBorderPixel(bottomRight, colorMap)) current = bottomRight;
 
 			else break;
@@ -225,5 +225,30 @@ public static class BorderDetection
 		}
 
 		return border;
+	}
+
+	public static bool WillEndChain(Vector2Int current, Color[,] colorMap, Color target, List<Vector2Int> border)
+	{
+		Vector2Int topLeft = new(current.x - 1, current.y + 1);
+		Vector2Int topRight = new(current.x + 1, current.y + 1);
+		Vector2Int bottomLeft = new(current.x - 1, current.y - 1);
+		Vector2Int bottomRight = new(current.x + 1, current.y - 1);
+
+		Vector2Int left = new(current.x - 1, current.y);
+		Vector2Int right = new(current.x + 1, current.y);
+		Vector2Int top = new(current.x, current.y + 1);
+		Vector2Int bottom = new(current.x, current.y - 1);
+
+		if (!border.Contains(left) && colorMap[left.x, left.y] == target && IsBorderPixel(left, colorMap)) return false;
+		else if (!border.Contains(right) && colorMap[right.x, right.y] == target && IsBorderPixel(right, colorMap)) return false;
+		else if (!border.Contains(top) && colorMap[top.x, top.y] == target && IsBorderPixel(top, colorMap)) return false;
+		else if (!border.Contains(bottom) && colorMap[bottom.x, bottom.y] == target && IsBorderPixel(bottom, colorMap)) return false;
+
+		else if (!border.Contains(topLeft) && colorMap[topLeft.x, topLeft.y] == target && IsBorderPixel(topLeft, colorMap)) return false;
+		else if (!border.Contains(bottomLeft) && colorMap[bottomLeft.x, bottomLeft.y] == target && IsBorderPixel(bottomLeft, colorMap)) return false;
+		else if (!border.Contains(topRight) && colorMap[topRight.x, topRight.y] == target && IsBorderPixel(topRight, colorMap)) return false;
+		else if (!border.Contains(bottomRight) && colorMap[bottomRight.x, bottomRight.y] == target && IsBorderPixel(bottomRight, colorMap)) return false;
+		
+		else return true;
 	}
 }

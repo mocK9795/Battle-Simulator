@@ -9,6 +9,7 @@ public class EconomyManager : MonoBehaviour
     float grantTimer;
     [HideInInspector]
     public float[,] devlopmentMap;
+    [HideInInspector] public bool devlopmentMapChanged;
 
 	private void Start()
 	{
@@ -27,6 +28,7 @@ public class EconomyManager : MonoBehaviour
     {
         Color[,] colorMap = MapBorderRenderer.GetPixelData(devlopmentTexture);
         devlopmentMap = ConvertMap(colorMap, devlopmentTextureScale);
+        devlopmentMapChanged = true;
     }
 
     [ContextMenu("Grant Wealth")]
@@ -57,7 +59,6 @@ public class EconomyManager : MonoBehaviour
         var nations = BattleManager.GetAllNations();
         foreach (Nation nation in nations) {nation.wealth = 0;}
     }
-
     public static float[,] ConvertMap(Color[,] map, float scale)
     {
         int width = map.GetLength(0);

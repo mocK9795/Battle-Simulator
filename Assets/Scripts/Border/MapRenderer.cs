@@ -6,10 +6,13 @@ using UnityEngine.UI;
 [RequireComponent (typeof(MeshRenderer))]
 public class MapRenderer : MonoBehaviour
 {
-	public enum DrawMode {Default, DevlopmentMap}
+	public enum DrawMode {Default, DevlopmentMap, Borders}
 	[Header("Draw Mode")]
 	public DrawMode drawMode = DrawMode.Default;
+	DrawMode prevDrawMode = DrawMode.Default;
+	public MeshRenderer overlay;
 	public EconomyManager economony;
+	public MapBorderRenderer borderRenderer;
 
 	[Header("")]
 	public Vector2Int mapOffset;
@@ -31,7 +34,6 @@ public class MapRenderer : MonoBehaviour
 		mapData = MapBorderRenderer.GetPixelData(map);
 
 	}
-
 	public static Color[,] CapitalChange(Color[,] colorMap, Color targetColor, Color changeColor, Vector2Int coordinate, float radius)
 	{
 		int width = colorMap.GetLength(0);
@@ -57,19 +59,42 @@ public class MapRenderer : MonoBehaviour
 	{
 		mapData = CapitalChange(mapData, targetColor, changeColor, coordinate, radius);
 		map = MapBorderRenderer.SetPixelData(new(map.width, map.height), mapData);
-		SetMapTexture(map);
+		SetMapTexture();
 	}
-
 	public void SetMapTexture(Texture2D texture) 
 	{
-		mapRenderer.sharedMaterial.mainTexture = texture;
+		SetMapTexture(texture, mapRenderer);
 		miniMap.texture = texture;
 	}
-	[ContextMenu("Update Map Texture")] public void SetMapTexture()
+
+	public void SetMapTexture(Texture2D texture, MeshRenderer target)
 	{
-		SetMapTexture(map);
+		target.sharedMaterial.mainTexture = texture;
 	}
 
+	[ContextMenu("Update Map Texture")] public void SetMapTexture()
+	{
+		borderRenderer.RemoveBorders();
+		overlay.enabled = false;
+		if (drawMode == DrawMode.Default) SetMapTexture(map);
+		if (drawMode == DrawMode.DevlopmentMap && economony.devlopmentMapChanged)
+		{
+			overlay.enabled = true;
+			Texture2D devlopmentMap = GlobalData.CreateNoiseTexture(GlobalData.NormalizeLocalNoiseMap(economony.devlopmentMap));
+			SetMapTexture(devlopmentMap);
+			SetMapTexture(map, overlay);
+		}
+		if (drawMode == DrawMode.Borders && economony.devlopmentMapChanged)
+		{
+			Texture2D devlopmentMap = GlobalData.CreateNoiseTexture(GlobalData.NormalizeLocalNoiseMap(economony.devlopmentMap));
+			SetMapTexture(devlopmentMap);
+
+			borderRenderer.onlySetCollision = false;
+			borderRenderer.map = map;
+			borderRenderer.DrawAllBorders();
+			borderRenderer.onlySetCollision = false;
+		}
+	}
 	public static Color RGB(Color c) { c.a = 1; return c; }
 	public Vector2Int MapPosition(Vector2 position)
 	{
@@ -91,7 +116,14 @@ public class MapRenderer : MonoBehaviour
 	{
 		if (mapRenderer == null) return;
 		mapRenderer.sharedMaterial.color = mapColor;
-		mapRenderer.sharedMaterial.mainTexture = map;
+		OnDrawModeChange();
+	}
+
+	public void OnDrawModeChange()
+	{
+		if (prevDrawMode != drawMode) economony.devlopmentMapChanged = true;
+		prevDrawMode = drawMode;
+		SetMapTexture();
 	}
 
 	[ContextMenu("Assign Nation Colors")]
@@ -114,7 +146,6 @@ public class MapRenderer : MonoBehaviour
 			nations.Remove(nearestNation);
 		}
 	}
-
 	public void SetColors(Color[] colors, Vector2Int[] positions)
 	{
 		for (int i = 0; i < colors.Length; i++)
@@ -124,9 +155,8 @@ public class MapRenderer : MonoBehaviour
 			mapData[positions[i].x, positions[i].y] = colors[i];
 		}
 		map = MapBorderRenderer.SetPixelData(new(map.width, map.height), mapData);
-		SetMapTexture(map);
+		SetMapTexture();
 	}
-
 	public Color[] GetUniqueColors(Color[,] pixelData) {
 		List<Color> uniqueColors = new List<Color>();
 
@@ -147,5 +177,11 @@ public class MapRenderer : MonoBehaviour
 		}
 
 		return uniqueColors.ToArray();
+	}
+
+	public void OnMapRenderModeChange(int value)
+	{
+		drawMode = (DrawMode) value;
+		OnDrawModeChange();
 	}
 } 

@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2ff976edf42a71b46b33dd5f5e63787b
+guid: 049da6da322ab394cb82258d2b688d39
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7612292437976322491
-    second: Harvest Rock_0
+      213: 1388260174693407683
+    second: Focus Tree_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,12 +126,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Harvest Rock_0
+      name: Focus Tree_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
+        width: 128
         height: 32
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 54e670cfb54bb5690800000000000000
-      internalID: -7612292437976322491
+      spriteID: 3cb1c680647144310800000000000000
+      internalID: 1388260174693407683
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Harvest Rock_0: -7612292437976322491
+      Focus Tree_0: 1388260174693407683
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

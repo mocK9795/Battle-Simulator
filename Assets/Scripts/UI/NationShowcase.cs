@@ -10,6 +10,7 @@ public class NationShowcase : MonoBehaviour
 	public Vector2 onScreenPosition;
 	public float animationTime;
 
+	public FocusDisplay focusMenu;
 	public VisualEffects effects;
     public GameObject menuContainer;
 	public RectTransform menuTransform;
@@ -17,7 +18,7 @@ public class NationShowcase : MonoBehaviour
 
     public LabledText wealthDisplay;
 	float shownWealth;
-    
+
 	Nation nation = null;
 
 	private void Start()
@@ -42,5 +43,10 @@ public class NationShowcase : MonoBehaviour
 
 		shownWealth = GlobalData.SoftLerp(shownWealth, nation.wealth, updateSpeed);
         wealthDisplay.text.text = GlobalData.SetPrecision(shownWealth, valuePrecision).ToString() + " " + effects.symbol;
+	}
+
+	public void OnFocusTreeButtonClick()
+	{
+		focusMenu.PlaceFocusUI(nation.focusTree);
 	}
 }
