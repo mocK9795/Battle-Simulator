@@ -4717,7 +4717,7 @@ MonoBehaviour:
     requirements: []
     politicalCost: 0
     economicCost: 0
-    timeCost: 0
+    timeCost: 5
     isComplete: 0
   - name: Harvest Wood
     image: {fileID: -4255413655012005053, guid: 8c5f20ce9eb145b4d8daf74504a92f09, type: 3}
@@ -4725,7 +4725,7 @@ MonoBehaviour:
     - City Devlopment
     politicalCost: 0
     economicCost: 0
-    timeCost: 0
+    timeCost: 5
     isComplete: 0
   - name: Harvest Stone
     image: {fileID: -7612292437976322491, guid: 2ff976edf42a71b46b33dd5f5e63787b, type: 3}
@@ -4733,7 +4733,7 @@ MonoBehaviour:
     - Harvest Wood
     politicalCost: 0
     economicCost: 0
-    timeCost: 0
+    timeCost: 5
     isComplete: 0
   - name: Military Expansion
     image: {fileID: 5543885359478068036, guid: 21e668c7f5368684c81b9938116901e6, type: 3}
@@ -4741,7 +4741,7 @@ MonoBehaviour:
     - City Devlopment
     politicalCost: 0
     economicCost: 0
-    timeCost: 0
+    timeCost: 5
     isComplete: 0
 --- !u!4 &535515196
 Transform:

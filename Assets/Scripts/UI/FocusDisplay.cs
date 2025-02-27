@@ -9,8 +9,9 @@ public class FocusDisplay : MonoBehaviour
 	public GameObject focusUiPreset;
 	public float scale;
 
-	 FocusTree activeTree;
-
+	FocusTree activeTree;
+	Nation activeNation;
+	List<FocusBtn> buttons = new();
 
 	public static Dictionary<string, (int, int)> GenerateFocusPosition(List<Focus> focusTree)
 	{
@@ -63,34 +64,38 @@ public class FocusDisplay : MonoBehaviour
 
 	public static Focus GetFocus(string focus, Focus[] tree) { foreach (var treeElement in tree) { if (treeElement.name == focus) return treeElement; } return null; }
 
-	[ContextMenu("Place Test Focus Ui")]
-	public void PlaceFocusUI()
-	{
-		PlaceFocusUI(new(GlobalData.genericTree));
-	}
-
-	public void PlaceFocusUI(FocusTree focusTree)
+	public void PlaceFocusUI(FocusTree focusTree, Nation nation)
 	{
 		menu.SetActive(true);
 		var positions = GenerateFocusPosition(focusTree.tree);
 		activeTree = focusTree;
+		activeNation = nation;
 		
 		for (int i = 0; i<focusTree.tree.Count; i++)
 		{
 			var focus = focusTree.tree[i];
 			var ui = Instantiate(focusUiPreset, contianer.transform);
+			
 			Vector2 position = GlobalData.vector3(positions[focus.name]) * scale;
 			ui.GetComponent<RectTransform>().anchoredPosition = position;
 			ui.GetComponent<Image>().sprite = focus.image;
-			ui.GetComponent<Button>().onClick.AddListener(() => 
-			{ 
-				OnFocusClick(i); });
+
+			var button = ui.GetComponent<FocusBtn>();
+			button.display = this;
+			button.focusName = focus.name;
+			buttons.Add(button);
 		}
 	}
 
-	public void OnFocusClick(int focusIndex)
+	public void OnFocusClick(string focusName)
 	{
-		print(focusIndex);
-		print(activeTree.tree[focusIndex].name);
+		var focus = activeTree.GetFocus(focusName);
+		var btn = GetButton(focus);
+		StartCoroutine(activeTree.AttemptCompletion(focus, activeNation, btn));
+	}
+
+	public FocusBtn GetButton(Focus focus)
+	{
+		foreach (var button in buttons) { if (button.focusName == focus.name) return button; } return null;
 	}
 }

@@ -76,6 +76,7 @@
     <Compile Include="Assets\Scripts\UI\FocusDisplay.cs" />
     <Compile Include="Assets\Scripts\Warrior.cs" />
     <Compile Include="Assets\Scripts\AI.cs" />
+    <Compile Include="Assets\Scripts\UI\FocusBtn.cs" />
     <Compile Include="Assets\Scripts\Announcement.cs" />
     <Compile Include="Assets\Scripts\UI\NationShowcase.cs" />
     <Compile Include="Assets\Scripts\Structures\Capital.cs" />

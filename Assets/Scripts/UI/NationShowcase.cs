@@ -47,6 +47,6 @@ public class NationShowcase : MonoBehaviour
 
 	public void OnFocusTreeButtonClick()
 	{
-		focusMenu.PlaceFocusUI(nation.focusTree);
+		focusMenu.PlaceFocusUI(nation.focusTree, nation);
 	}
 }
