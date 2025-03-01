@@ -7,11 +7,12 @@ public class FocusDisplay : MonoBehaviour
 	public GameObject menu;
 	public GameObject contianer;
 	public GameObject focusUiPreset;
+	public ErrorDisplay errorDisplay;
 	public float scale;
 
 	FocusTree activeTree;
 	Nation activeNation;
-	List<FocusBtn> buttons = new();
+	Dictionary<string, List<FocusBtn>> buttons = new();
 
 	public static Dictionary<string, (int, int)> GenerateFocusPosition(List<Focus> focusTree)
 	{
@@ -66,15 +67,15 @@ public class FocusDisplay : MonoBehaviour
 
 	public void PlaceFocusUI(FocusTree focusTree, Nation nation)
 	{
-		menu.SetActive(true);
 		var positions = GenerateFocusPosition(focusTree.tree);
-		activeTree = focusTree;
-		activeNation = nation;
-		
+		GameObject localContainer = new GameObject(nation.nation);
+		localContainer.transform.SetParent(contianer.transform, false);
+		buttons.Add(nation.nation, new());
+
 		for (int i = 0; i<focusTree.tree.Count; i++)
 		{
 			var focus = focusTree.tree[i];
-			var ui = Instantiate(focusUiPreset, contianer.transform);
+			var ui = Instantiate(focusUiPreset, localContainer.transform);
 			
 			Vector2 position = GlobalData.vector3(positions[focus.name]) * scale;
 			ui.GetComponent<RectTransform>().anchoredPosition = position;
@@ -83,7 +84,36 @@ public class FocusDisplay : MonoBehaviour
 			var button = ui.GetComponent<FocusBtn>();
 			button.display = this;
 			button.focusName = focus.name;
-			buttons.Add(button);
+			button.nation = nation.nation;
+			buttons[nation.nation].Add(button);
+
+			ui.SetActive(false);
+		}
+	}
+
+	public void ActivateFocusUI(Nation nation)
+	{
+		CloseAllUI();
+		menu.SetActive(true);
+		activeTree = nation.focusTree;
+		activeNation = nation;
+
+		if (!buttons.ContainsKey(nation.nation)) PlaceFocusUI(activeTree, nation);
+
+		foreach (var button in buttons[nation.nation])
+		{
+			button.gameObject.SetActive(true);
+		}
+	}
+
+	public void CloseAllUI()
+	{
+		foreach (var tree in buttons)
+		{
+			foreach (var button in tree.Value)
+			{
+				button.gameObject.SetActive(false);
+			}
 		}
 	}
 
@@ -91,11 +121,13 @@ public class FocusDisplay : MonoBehaviour
 	{
 		var focus = activeTree.GetFocus(focusName);
 		var btn = GetButton(focus);
-		StartCoroutine(activeTree.AttemptCompletion(focus, activeNation, btn));
+		StartCoroutine(activeTree.AttemptCompletion(focus, activeNation, btn, OnFocusComplete, errorDisplay));
 	}
 
 	public FocusBtn GetButton(Focus focus)
 	{
-		foreach (var button in buttons) { if (button.focusName == focus.name) return button; } return null;
+		foreach (var button in buttons[activeNation.nation]) { if (button.focusName == focus.name) return button; } return null;
 	}
+
+	public void OnFocusComplete(Focus focus, Nation nation) { print(focus.name); print(nation); }
 }

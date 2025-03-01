@@ -14,7 +14,7 @@ public class MapRenderer : MonoBehaviour
 	public EconomyManager economony;
 	public MapBorderRenderer borderRenderer;
 
-	[Header("")]
+	[Space(1)]
 	public Vector2Int mapOffset;
 	public float scaleOffset;
 	public float seaThresshold = 0.5f;
@@ -111,14 +111,19 @@ public class MapRenderer : MonoBehaviour
 		float y = (position.y - map.height / 2 - mapOffset.y) * yScale;
 		return new Vector2(x, y);
 	}
+	public Vector2Int MapPositionViaDisplacement(Vector2Int position)
+	{
+		return position + new Vector2Int(map.width/2, map.height/2);
+	}
+	public Vector2Int MapPositionInOriginContext(Vector2 position) { return MapPosition(position) - new Vector2Int(map.width/2, map.height/2); }
 
+	
 	private void OnValidate()
 	{
 		if (mapRenderer == null) return;
 		mapRenderer.sharedMaterial.color = mapColor;
 		OnDrawModeChange();
 	}
-
 	public void OnDrawModeChange()
 	{
 		if (prevDrawMode != drawMode) economony.devlopmentMapChanged = true;

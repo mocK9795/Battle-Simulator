@@ -19,6 +19,9 @@ public class NationShowcase : MonoBehaviour
     public LabledText wealthDisplay;
 	float shownWealth;
 
+	public LabledText politicalPowerDisplay;
+	float shownPoliticalPower;
+
 	Nation nation = null;
 
 	private void Start()
@@ -43,10 +46,13 @@ public class NationShowcase : MonoBehaviour
 
 		shownWealth = GlobalData.SoftLerp(shownWealth, nation.wealth, updateSpeed);
         wealthDisplay.text.text = GlobalData.SetPrecision(shownWealth, valuePrecision).ToString() + " " + effects.symbol;
+	
+		shownPoliticalPower = GlobalData.SoftLerp(shownPoliticalPower, nation.politicalPower, updateSpeed);
+		politicalPowerDisplay.text.text = GlobalData.SetPrecision(shownPoliticalPower, valuePrecision).ToString();
 	}
 
 	public void OnFocusTreeButtonClick()
 	{
-		focusMenu.PlaceFocusUI(nation.focusTree, nation);
+		focusMenu.ActivateFocusUI(nation);
 	}
 }

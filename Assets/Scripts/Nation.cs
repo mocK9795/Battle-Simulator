@@ -22,13 +22,17 @@ public class Nation : MonoBehaviour
 		SetWarAssets();
 		SetWarAssetsColor();
 
-		if (focusTree == null) focusTree = new(GlobalData.genericTree);
-		else if (focusTree.tree.Count < 1) focusTree.tree = GlobalData.genericTree;
+		if (focusTree == null || focusTree.tree.Count < 1) focusTree = GlobalData.GetGenericFocusTree();
 	}
 
 	private void Update()
 	{
 		health = GetNationHealth();
+	}
+
+	public void ApplyDevlopmentBonus()
+	{
+
 	}
 
 	[ContextMenu("Set War Assets")]

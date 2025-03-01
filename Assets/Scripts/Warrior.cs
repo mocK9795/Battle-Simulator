@@ -6,6 +6,7 @@ using UnityEngine;
 public class Warrior : WarObject
 {
 	public float speed;
+	[HideInInspector] public float experience;
 
 	public Vector2 target;
 	[HideInInspector()] public Queue<Vector2> targetStack = new();
@@ -24,6 +25,7 @@ public class Warrior : WarObject
 		SetBody();
 
 		target = transform.position;
+		experience = GlobalData.baseExperience;
 	}
 
 	void SetBody()
@@ -121,11 +123,12 @@ public class Warrior : WarObject
 		WarObject enemy = Enemy(collision.gameObject);
 		if (enemy == null) return;
 
-		enemy.health -= damage * GlobalData.damageScale * Time.deltaTime;
+		enemy.health -= damage * GlobalData.damageScale * Time.deltaTime * experience;
 		if (body == null) print(body);
 		body.linearVelocity -= speed * forward * GlobalData.knockbackRatio;
 		
 		target = Vector2.Lerp(target, GlobalData.vector3(enemy.transform.position), Mathf.Clamp01(Time.deltaTime));
+		experience += GlobalData.experienceGain * Time.deltaTime;
 		hasAttacked = true;
 	}
 

@@ -3,6 +3,8 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class GlobalDataEditor : MonoBehaviour
 {
@@ -18,6 +20,11 @@ public class GlobalDataEditor : MonoBehaviour
 	public float aiWarriorAttackRange;
 	public float aiThinkSpeed;
 	public float damageScale;
+	public float basePoliticalPowerGain;
+	public float experienceGain;
+	public float baseExperience;
+
+	public Material lineMat;
 	public UnitModelData[] unitModelData;
 	public List<Focus> genericFocusTree = null;
 
@@ -41,6 +48,11 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.aiWarriorAttackRange = aiWarriorAttackRange;
 		GlobalData.aiThinkSpeed = aiThinkSpeed;
 		GlobalData.damageScale = damageScale;
+		GlobalData.basePoliticalPowerGain = basePoliticalPowerGain;
+		GlobalData.experienceGain = experienceGain;
+		GlobalData.baseExperience = baseExperience;
+
+		GlobalData.lineMat = lineMat;
 		GlobalData.unitModelData = unitModelData;
 		GlobalData.genericTree = genericFocusTree;
 	}
@@ -94,12 +106,17 @@ public static class GlobalData
 	public static float aiWarriorAttackRange;
 	public static float aiThinkSpeed;
 	public static float damageScale;
+	public static float basePoliticalPowerGain;
+	public static float experienceGain;
+	public static float baseExperience;
+
 
 	public static RecruitmentManager recruiter;
 	public static MapRenderer mapRenderer;
 	public static BattleManager battle;
 	public static WorldInformation worldInformation;
-	
+
+	public static Material lineMat;
 	public static UnitModelData[] unitModelData;
 	public static List<Focus> genericTree = null;
 
@@ -110,6 +127,7 @@ public static class GlobalData
 		for (int i = 0; i < points.Length; i++) { pointsV3[i] = vector3(points[i]); }
 		return pointsV3;
 	}
+	public static Vector3 vector3(Vector2 point, float z) {return new Vector3(point.x, point.y, z); }
 	public static Vector3 vector3((int, int) position) { return vector3(new Vector2(position.Item1, position.Item2)); }
 	public static Vector2 vector2(Vector3 vector3) { return new Vector2(vector3.x, vector3.y); }
 	public static Vector2[] vector2(Vector3[] points)
@@ -275,6 +293,8 @@ public static class GlobalData
 		float minLocalNoiseHeight = float.MaxValue;
 		float maxLocalNoiseHeight = float.MinValue;
 
+		float[,] normalizedMap = new float[width, height];
+
 		for (int y = 0; y < width; y++)
 		{
 			for (int x = 0; x < height; x++)
@@ -296,11 +316,20 @@ public static class GlobalData
 		{
 			for (int x = 0; x < height; x++)
 			{
-				noiseMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
+				normalizedMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
 			}
 		}
 
-		return noiseMap;
+		return normalizedMap;
+	}
+	public static FocusTree GetGenericFocusTree()
+	{
+		List<Focus> tree = new();
+		foreach (var focus in genericTree)
+		{
+			tree.Add(focus.Copy());
+		}
+		return new(tree);
 	}
 }
 

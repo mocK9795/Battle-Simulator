@@ -19,6 +19,9 @@ public class Player : MonoBehaviour
     public float step;
     public Vector3 minZoomRotation;
     public Vector3 maxZoomRotation;
+    public float dragThresshold;
+    float dragAmount;
+    bool isDraging;
 
     [Header("Selection Mode")]
     public float pathOptimizationThreshold;
@@ -42,12 +45,21 @@ public class Player : MonoBehaviour
     public Sprite inspectModeOn;
     bool inspect = false;
 
+    [Header("Contruct Mode")]
+    public ContructionMenu contructionMenu;
+    public Image contructImage;
+    public Sprite contructModeOn;
+    public Sprite contructModeOff;
+    bool contruction = false;
+
     List<Warrior> selectedWarriors = new();
     List<Warrior> lastSelected = new();
     Camera mainCamera;
     VisualEffects effects;
     BattleManager battle;
+    EconomyManager economy;
     RecruitmentManager recruiter;
+    MapRenderer mapRenderer;
     MapBorderRenderer mapBorderRenderer;
     Nation playerNation;
     bool selectMode = false;
@@ -59,6 +71,8 @@ public class Player : MonoBehaviour
         battle = FindFirstObjectByType<BattleManager>();
         recruiter = FindFirstObjectByType<RecruitmentManager>();
         mapBorderRenderer = FindFirstObjectByType<MapBorderRenderer>();
+        mapRenderer = FindFirstObjectByType<MapRenderer>();
+        economy = FindFirstObjectByType<EconomyManager>();
         lookSpeed = mainCamera.orthographicSize;
 
         playerNation = BattleManager.GetNation(nation);
@@ -99,6 +113,8 @@ public class Player : MonoBehaviour
         if (value.started) {
             GlobalData.mouseClickStartPoint = GlobalData.mousePosition;
             GlobalData.selectedWarrior = GetSelectedWarrior();
+            dragAmount = 0;
+            isDraging = false;
         }
 
         if (value.canceled)
@@ -106,7 +122,8 @@ public class Player : MonoBehaviour
             effects.ClearArrow();
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
-            if (GlobalData.selectedWarrior == null && inspect) OnInspect();
+            if (contruction && !isDraging) { OnContruct(); return; }
+            if (inspect && !isDraging) OnInspect();
             if (GlobalData.selectedWarrior == null && selectMode && !inspect) OnSelect();
             if (GlobalData.selectedWarrior == null) { GlobalData.mousePath.Clear(); return; }
 
@@ -221,7 +238,10 @@ public class Player : MonoBehaviour
     {
         if (GlobalData.mouseDown) GlobalData.mousePath.Add(GlobalData.mousePosition);
         if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null || selectMode) return;
-        transform.position += GlobalData.Inverse( value.ReadValue<Vector2>() ) * Time.deltaTime * lookSpeed;
+        var dislocation = GlobalData.Inverse(value.ReadValue<Vector2>()) * Time.deltaTime * lookSpeed;
+		transform.position += dislocation;
+        dragAmount += dislocation.magnitude;
+        if (dragAmount > dragThresshold) isDraging = true;
     }
 
     public void OnZoom(InputAction.CallbackContext value)
@@ -246,7 +266,6 @@ public class Player : MonoBehaviour
             ));
         lookSpeed = -transform.position.z * lookSpeedMultiplyier;
 	}
-
     void SetRotation()
     {
 		Quaternion newRotation = Quaternion.Lerp(
@@ -256,7 +275,6 @@ public class Player : MonoBehaviour
         );
 		transform.rotation = newRotation;
 	}
-
     public void MarchArmy() 
     {
         var playerNation = BattleManager.GetNation(nation);
@@ -315,6 +333,22 @@ public class Player : MonoBehaviour
 		if (inspect) inspectImage.sprite = inspectModeOn;
 		if (!inspect) inspectImage.sprite = inspectModeOff;
 	    mapBorderRenderer.SetColliderTrigerStatus(!inspect);
+    }
+
+    public void OnConstructClick()
+    {
+        contruction = !contruction;
+        if (contruction) { contructImage.sprite = contructModeOn; contructionMenu.Activate(); }
+        else {contructImage.sprite = contructModeOff; contructionMenu.menu.SetActive(false); }
+    }
+
+    public void OnContruct()
+    {
+        var position = WorldPosition(GlobalData.mousePosition);
+        var mapPosition = mapRenderer.MapPositionInOriginContext(position);
+        Site site = contructionMenu.site.Copy();
+        site.position = mapPosition;
+        economy.ContructSite(site, playerNation, mapPosition);
     }
 
     void ClearSelection()

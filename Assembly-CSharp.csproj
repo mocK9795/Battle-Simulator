@@ -68,10 +68,12 @@
     <Compile Include="Assets\Scripts\UI\ShowcaseItem.cs" />
     <Compile Include="Assets\Scripts\Border\Border.cs" />
     <Compile Include="Assets\Scripts\Border\BorderPointOrdering.cs" />
+    <Compile Include="Assets\UI\ErrorDisplay.cs" />
     <Compile Include="Assets\Scripts\EconomyManager.cs" />
     <Compile Include="Assets\Scripts\UI\LabledText.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\RecruitmentManager.cs" />
+    <Compile Include="Assets\Scripts\UI\ContructionMenu.cs" />
     <Compile Include="Assets\Scripts\Border\BorderDetection.cs" />
     <Compile Include="Assets\Scripts\UI\FocusDisplay.cs" />
     <Compile Include="Assets\Scripts\Warrior.cs" />
