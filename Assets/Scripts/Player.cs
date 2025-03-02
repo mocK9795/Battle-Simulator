@@ -333,7 +333,6 @@ public class Player : MonoBehaviour
 		inspect = !inspect;
 		if (inspect) inspectImage.sprite = inspectModeOn;
 		if (!inspect) inspectImage.sprite = inspectModeOff;
-	    mapBorderRenderer.SetColliderTrigerStatus(!inspect);
     }
 
     public void OnConstructClick()

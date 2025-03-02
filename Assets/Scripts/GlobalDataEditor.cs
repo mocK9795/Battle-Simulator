@@ -303,9 +303,9 @@ public static class GlobalData
 
 		float[,] normalizedMap = new float[width, height];
 
-		for (int y = 0; y < width; y++)
+		for (int y = 0; y < height; y++)
 		{
-			for (int x = 0; x < height; x++)
+			for (int x = 0; x < width; x++)
 			{
 				float noiseHeight = noiseMap[x, y];
 
@@ -320,9 +320,9 @@ public static class GlobalData
 			}
 		}
 
-		for (int y = 0; y < width; y++)
+		for (int y = 0; y < height; y++)
 		{
-			for (int x = 0; x < height; x++)
+			for (int x = 0; x < width; x++)
 			{
 				normalizedMap[x, y] = Mathf.InverseLerp(minLocalNoiseHeight, maxLocalNoiseHeight, noiseMap[x, y]);
 			}
