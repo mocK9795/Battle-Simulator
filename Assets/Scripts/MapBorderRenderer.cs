@@ -219,6 +219,13 @@ public class MapBorderRenderer : MonoBehaviour
             lineRenderers[i].positionCount = 0;
         }
     }
+
+    [ContextMenu("Destory All Borders")]
+    public void DestoryAllBorders()
+    {
+		Border[] borders = GetAllBorders();
+        foreach (var border in borders) {DestroyImmediate(border.gameObject); }
+	}
     public void SetBorderCollision(List<Vector2> borderPoints, GameObject parentObject)
     {
 		PolygonCollider2D collider = parentObject.GetComponent<PolygonCollider2D>();

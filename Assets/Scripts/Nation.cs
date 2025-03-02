@@ -15,6 +15,11 @@ public class Nation : MonoBehaviour
 	List<WarObject> warAssets = new List<WarObject>();
 	Announcement announcer;
 
+	private void OnValidate()
+	{
+		name = nation;
+	}
+
 	private void Start()
 	{
 		announcer = FindFirstObjectByType<Announcement>();

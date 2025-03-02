@@ -95,9 +95,10 @@ public class Player : MonoBehaviour
     
     public Nation GetSelectedNation()
     {
-        var selection = GetClickedObject();
-        if (selection == null) return null;
-        return selection.GetComponentInParent<Nation>();
+        var selectionPosition = mapRenderer.MapPosition(WorldPosition(GlobalData.mousePosition));
+        var selectionColor = mapRenderer.mapData[selectionPosition.x, selectionPosition.y];
+        var selectionNation = BattleManager.GetNation(selectionColor);
+        return selectionNation;
     }
 
     Collider2D GetClickedObject()

@@ -362,6 +362,17 @@ public class BattleManager : MonoBehaviour
 
 		return null;
 	}
+
+	public static Nation GetNation(Color color)
+	{
+		Nation[] allNations = GetAllNations();
+		foreach (Nation nation in allNations)
+		{
+			if (nation.nationColor == color) return nation;
+		}
+
+		return null;
+	}
 }
 
 [System.Serializable]
