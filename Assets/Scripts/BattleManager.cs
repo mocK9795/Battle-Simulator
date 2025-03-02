@@ -200,24 +200,24 @@ public class BattleManager : MonoBehaviour
 		foreach (var cap in capitals) {DestroyImmediate(cap.gameObject);}
 	}
 
-	[ContextMenu("Group Warriors")]
-	public void GroupWarriors()
+	[ContextMenu("Group War Objects")]
+	public void GroupWarObjects()
 	{
-		Warrior[] warriors = GetAllWarriors();
+		WarObject[] warObjects = GetAllWarObjects();
 		Nation[] nations = GetAllNations();
 		
-		foreach (Warrior warrior in warriors)
+		foreach (WarObject warObj in warObjects)
 		{
 			if (warriorGroupMode == WarriorGroupMode.Dump)
 			{
-				warrior.transform.parent = transform;
+				warObj.transform.parent = transform;
 				continue;
 			}
 
 			foreach (Nation nation in nations)
 			{
-				if (warrior.nation != nation.nation) continue;
-				warrior.transform.parent = nation.transform;
+				if (warObj.nation != nation.nation) continue;
+				warObj.transform.parent = nation.transform;
 			}
 		}
 	}

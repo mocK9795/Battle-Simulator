@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +23,8 @@ public class Player : MonoBehaviour
     public float dragThresshold;
     float dragAmount;
     bool isDraging;
+    [Tooltip("From how far away a model can be seen")]
+    public float modelRenderDist;
 
     [Header("Selection Mode")]
     public float pathOptimizationThreshold;
@@ -256,6 +259,7 @@ public class Player : MonoBehaviour
             mainCamera.orthographicSize = mainCamera.orthographicSize + zoomValue * zoomSpeed;
             mainCamera.orthographicSize = Mathf.Clamp(mainCamera.orthographicSize, minZoom, maxZoom);
             lookSpeed = mainCamera.orthographicSize * lookSpeedMultiplyier;
+            SetModelRendering();
             return;
         }
 
@@ -266,7 +270,17 @@ public class Player : MonoBehaviour
             Mathf.Clamp(transform.position.z, minZoom, maxZoom
             ));
         lookSpeed = -transform.position.z * lookSpeedMultiplyier;
+        SetModelRendering();
 	}
+
+    void SetModelRendering()
+    {
+        float dist = Mathf.Abs(transform.position.z);
+        WarObject[] allObjects = BattleManager.GetAllWarObjects();
+        if (dist > modelRenderDist) foreach (var obj in allObjects) { obj.SetModel(WarObject.ModelType.Sprite); }
+        else foreach (var obj in allObjects) { obj.SetModel(); }
+    }
+
     void SetRotation()
     {
 		Quaternion newRotation = Quaternion.Lerp(

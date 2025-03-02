@@ -46,7 +46,7 @@ public class RecruitmentManager : MonoBehaviour
 		nation.wealth -= cost;
         battle.CreateArmiesFromData(data, nation.nation);
 		battle.SetWarriorNationData();
-		battle.GroupWarriors();
+		battle.GroupWarObjects();
 	}
 
 	public float GetCost(WarriorData data)

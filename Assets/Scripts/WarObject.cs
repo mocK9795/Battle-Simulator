@@ -8,7 +8,7 @@ public class WarObject : MonoBehaviour
     [HideInInspector] public float maxHealth;
     public float damage;
 
-	public enum ModelType {Car, City, Warrior, Truck, Tank, Ship, Plane};
+	public enum ModelType {Car, City, Warrior, Truck, Tank, Ship, Plane, Sprite};
 	[Header("Model Type")]
 	public ModelType modelType;
 
@@ -65,7 +65,7 @@ public class WarObject : MonoBehaviour
 	public void Start()
 	{
 		maxHealth = health;
-		SetModel(GlobalData.FindModel(modelType));
+		SetModel(modelType);
 
 		if (GlobalData.battle != null) GlobalData.battle.SetWarriorNationData();
 	}
@@ -83,6 +83,7 @@ public class WarObject : MonoBehaviour
 			var children = GetComponentsInChildren<Transform>();
 			foreach (var child in children)
 			{
+				if (child == null) continue; // Somehow child value can be null
 				if (child.GetComponent<WarObject>() == null)
 				{
 					DestroyImmediate(child.gameObject);
@@ -110,6 +111,16 @@ public class WarObject : MonoBehaviour
 		}
 
 		spriteRenderer.enabled = false;
+	}
+
+	public void SetModel(ModelType modelVariant)
+	{
+		SetModel(GlobalData.FindModel(modelVariant));
+	}
+
+	public void SetModel()
+	{
+		SetModel(modelType);
 	}
 
 	void RemoveModel()

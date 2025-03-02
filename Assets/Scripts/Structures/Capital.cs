@@ -57,7 +57,7 @@ public class Capital : WarObject
 			nation = attacker.nation;
 			attacker = null;
 			battleManager.SetWarriorNationData();
-			battleManager.GroupWarriors();
+			battleManager.GroupWarObjects();
 		}
 	}
 

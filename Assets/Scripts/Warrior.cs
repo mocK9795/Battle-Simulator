@@ -81,14 +81,13 @@ public class Warrior : WarObject
 
 	public void SetTargetFromOffset(Vector2 offset)
 	{
-		targetStack.Enqueue(position + offset);
+		targetStack.Clear();
 		target = position + offset;
 	}
 
 	public void SetTarget(Vector2 target)
 	{
 		targetStack.Clear();
-		targetStack.Enqueue(target);
 		this.target = target;
 	}
 
