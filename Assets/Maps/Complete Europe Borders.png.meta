@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: a0cc7ceb95b890c48a28d16fa81a692b
+guid: 5226256b517fb0146b4a6294f29d326e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -3326620231179272040
-    second: Complete Europe Non Solid Color - Copy_0
+      213: 6421708289517820176
+    second: Complete Europe Borders_0
+  - first:
+      213: -5202541391414933624
+    second: Complete Europe Borders_1
+  - first:
+      213: 6327261616344571125
+    second: Complete Europe Borders_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,13 +132,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Complete Europe Non Solid Color - Copy_0
+      name: Complete Europe Borders_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 224
-        height: 153
+        x: 3
+        y: 2
+        width: 72
+        height: 18
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -141,8 +147,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 8908ee1668875d1d0800000000000000
-      internalID: -3326620231179272040
+      spriteID: 01914e76aad7e1950800000000000000
+      internalID: 6421708289517820176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Complete Europe Borders_1
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 2
+        width: 212
+        height: 151
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 88742733b2cdcc7b0800000000000000
+      internalID: -5202541391414933624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Complete Europe Borders_2
+      rect:
+        serializedVersion: 2
+        x: 113
+        y: 0
+        width: 13
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fc9e23bae2fec750800000000000000
+      internalID: 6327261616344571125
       vertices: []
       indices: 
       edges: []

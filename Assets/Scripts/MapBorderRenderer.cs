@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Diagnostics.Contracts;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,7 +14,6 @@ public class MapBorderRenderer : MonoBehaviour
     [Range(0f, 1f)]
     public float transparency;
     public Material borderMaterial;
-    public Texture2D map;
     public enum OutlineMode { ConvexHull, NearestPoint, Default, Polygon, MarchingSquares};
     public OutlineMode outlineMode;
     public bool onlySetCollision;
@@ -21,20 +22,22 @@ public class MapBorderRenderer : MonoBehaviour
     public LayerMask collisionExcludeLayers;
 
     public RawImage miniMapImage;
+    public MapRenderer mapRenderer;
 
     [ContextMenu("Draw Borders")]
     public void DrawAllBorders()
     {
         RemoveBorders();
-        Color[,] pixelData = GetPixelData(map);
+        Color[,] pixelData = GetPixelData(mapRenderer.map);
         Nation[] nations = BattleManager.GetAllNations();
-        var rawBorderPoints = BorderDetection.GetBorderPoints(map);
+        var rawBorderPoints = BorderDetection.GetBorderPoints(mapRenderer.map);
         var mergedBorderPoints = MergeBordersByColor(rawBorderPoints, pixelData);
         Dictionary<Nation, int> nationLineRendererCounts = new();
         Dictionary<Nation, List<List<Vector2Int>>> nationBorderPoints = new();
         for (int i = 0; i < nations.Length; i++)
         {
             Nation nation = nations[i];
+            if (!mergedBorderPoints.ContainsKey(nation.nationColor)) nation.nationColor = GlobalData.Closest(mergedBorderPoints.Keys.ToArray(), nation.nationColor);
             nationBorderPoints.Add(nation, mergedBorderPoints[nation.nationColor]);
             nationLineRendererCounts.Add(nation, nationBorderPoints[nation].Count);
         }
@@ -255,11 +258,11 @@ public class MapBorderRenderer : MonoBehaviour
 	}
     public void ChangeColorOwnership(Color targetColor, Color changeColor, Vector2Int coordinate, float radius)
     {
-        Color[,] pixelData = GetPixelData(map);
+        Color[,] pixelData = GetPixelData(mapRenderer.map);
         pixelData = ChangeColorOwnership(pixelData, targetColor, changeColor, coordinate, radius);
-        map = SetPixelData(map, pixelData);
+        mapRenderer.map = SetPixelData(mapRenderer.map, pixelData);
 
-        miniMapImage.texture = map;
+        miniMapImage.texture = mapRenderer.map;
         DrawAllBorders();
     }
 	public void SetColliderTrigerStatus(bool status)
@@ -275,7 +278,7 @@ public class MapBorderRenderer : MonoBehaviour
     }
     private void Start()
 	{
-        miniMapImage.texture = map;
+        miniMapImage.texture = mapRenderer.map;
 	}
     public static Color RGB(Color c) { c.a = 1; return c; }
 

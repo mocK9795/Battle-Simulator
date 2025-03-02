@@ -90,7 +90,6 @@ public class MapRenderer : MonoBehaviour
 			SetMapTexture(devlopmentMap);
 
 			borderRenderer.onlySetCollision = false;
-			borderRenderer.map = map;
 			borderRenderer.DrawAllBorders();
 			borderRenderer.onlySetCollision = false;
 		}
@@ -188,5 +187,16 @@ public class MapRenderer : MonoBehaviour
 	{
 		drawMode = (DrawMode) value;
 		OnDrawModeChange();
+	}
+
+	[ContextMenu("Print Unique Colors")]
+	void PrintUniqueColors()
+	{
+		var uniqueColors = GetUniqueColors(MapBorderRenderer.GetPixelData(map));
+		foreach (Color color in uniqueColors)
+		{
+			print(color);
+		}
+		print(uniqueColors.Length);
 	}
 } 

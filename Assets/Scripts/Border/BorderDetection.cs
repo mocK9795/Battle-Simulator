@@ -5,30 +5,11 @@ public static class BorderDetection
 {
 	public static List<List<Vector2Int>> GetBorderPoints(Texture2D map)
 	{
-		Color[,] pixelData = GetPixelData(map);
+		Color[,] pixelData = MapBorderRenderer.GetPixelData(map);
 		List<List<Vector2Int>> regions = GetRegions(pixelData);
 		List<List<Vector2Int>> borders = GetBordersForRegions(regions, pixelData);
 
 		return borders;
-	}
-
-	public static Color[,] GetPixelData(Texture2D texture)
-	{
-		Color[] pixels = texture.GetPixels();
-		int width = texture.width;
-		int height = texture.height;
-
-		Color[,] pixelData = new Color[width, height];
-
-		for (int y = 0; y < height; y++)
-		{
-			for (int x = 0; x < width; x++)
-			{
-				pixelData[x, y] = pixels[y * width + x];
-			}
-		}
-
-		return pixelData;
 	}
 
 	public static List<List<Vector2Int>> GetRegions(Color[,] pixelData)

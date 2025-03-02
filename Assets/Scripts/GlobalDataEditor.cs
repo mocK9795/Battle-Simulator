@@ -168,6 +168,14 @@ public static class GlobalData
 
 		return distance1 < distance2 ? c1 : c2;
 	}
+
+	public static Color Closest(Color[] colors, Color target)
+	{
+		Color closest = colors[0];
+		foreach (var color in colors) { closest = Closest(color, closest, target); }
+		return closest;
+	}
+
 	public static float Distance(Color c1, Color c2)
 	{
 		float rDiff = c1.r - c2.r;
@@ -331,6 +339,8 @@ public static class GlobalData
 		}
 		return new(tree);
 	}
+
+	
 }
 
 
