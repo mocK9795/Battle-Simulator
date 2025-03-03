@@ -65,9 +65,7 @@ public class WarObject : MonoBehaviour
 	public void Start()
 	{
 		maxHealth = health;
-		SetModel(modelType);
-
-		if (GlobalData.battle != null) GlobalData.battle.SetWarriorNationData();
+		SetModel();
 	}
 
 	public void Update()
@@ -77,7 +75,9 @@ public class WarObject : MonoBehaviour
 
 	public void SetModel(UnitModelData modelData)
 	{
-		if (modelData == null) { RemoveModel(); return; }
+		if (modelData == null) { RemoveModel(); 
+			if(GlobalData.battle) GlobalData.battle.SetWarObjectColor(this); 
+			return; }
 		if (modelObj == null)
 		{
 			var children = GetComponentsInChildren<Transform>();
@@ -111,6 +111,8 @@ public class WarObject : MonoBehaviour
 		}
 
 		spriteRenderer.enabled = false;
+
+		if (GlobalData.battle) GlobalData.battle.SetWarObjectColor(this);
 	}
 
 	public void SetModel(ModelType modelVariant)

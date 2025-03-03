@@ -55,10 +55,15 @@ public class Nation : MonoBehaviour
 	[ContextMenu("Set War Assets Color")]
 	public void SetWarAssetsColor()
 	{
-		foreach (WarObject warAssets in warAssets)
+		foreach (WarObject warAsset in warAssets)
 		{
-			warAssets.color = nationColor;
+			SetWarAssetColor(warAsset);
 		}
+	}
+
+	public void SetWarAssetColor(WarObject warAsset)
+	{
+		warAsset.color = nationColor;
 	}
 
 	public Warrior[] GetArmy()

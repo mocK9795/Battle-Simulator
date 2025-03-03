@@ -160,6 +160,11 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
+	public void SetWarObjectColor(WarObject target)
+	{
+		GetNation(target.nation).SetWarAssetColor(target);
+	}
+
 	[ContextMenu("Spread Warriors")]
 	public void SpreadWarriors()
 	{

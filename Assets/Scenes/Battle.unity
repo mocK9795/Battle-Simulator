@@ -1527,7 +1527,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &51277759
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -1563,7 +1563,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &51277760
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2293,7 +2293,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &78946266
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2329,7 +2329,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &78946267
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -6562,7 +6562,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &211568503
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6598,7 +6598,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &211568504
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8362,7 +8362,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &249978007
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8398,7 +8398,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &249978008
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9485,7 +9485,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &292870666
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9521,7 +9521,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &292870667
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9981,7 +9981,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &297825562
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -10017,7 +10017,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &297825563
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -13527,7 +13527,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &383197056
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -13563,7 +13563,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &383197057
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -18946,7 +18946,7 @@ MonoBehaviour:
   minZoomRotation: {x: -45, y: 0, z: 0}
   maxZoomRotation: {x: 0, y: 0, z: 0}
   dragThresshold: 2.5
-  modelRenderDist: 50
+  modelRenderDist: 25
   pathOptimizationThreshold: 300
   selectModeButton: {fileID: 1336050091}
   selectModeOn: {fileID: 21300000, guid: 9a3caca7d9c781b47a6428e659b3050f, type: 3}
@@ -19855,7 +19855,7 @@ MonoBehaviour:
   capitalSprite: {fileID: 5199979006384268662, guid: ba3c0140f3621b84794dec4617b77d27, type: 3}
   capitalScale: 9
   capitalColliderScale: 0.09
-  capitalControllScale: 3
+  capitalControllScale: 1.17
   autoScaleCapitals: 1
   warriorCaptureTerritory: 1
   nations: []
@@ -26455,7 +26455,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &785207397
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -26491,7 +26491,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &785207398
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -29476,7 +29476,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &883468401
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -29512,7 +29512,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &883468402
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -31326,7 +31326,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &918384730
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -31362,7 +31362,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &918384731
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -32521,7 +32521,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &945413987
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -32557,7 +32557,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &945413988
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39080,7 +39080,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1091378860
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -39116,7 +39116,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1091378861
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -45034,7 +45034,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1313187984
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -45070,7 +45070,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1313187985
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -48156,7 +48156,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1392816494
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -48192,7 +48192,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1392816495
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -51837,7 +51837,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1488204604
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -51873,7 +51873,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1488204605
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -55452,7 +55452,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1613700574
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -55488,7 +55488,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1613700575
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -58296,7 +58296,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1686820426
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -58332,7 +58332,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1686820427
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -60459,7 +60459,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1729366675
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -60495,7 +60495,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1729366676
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -67175,7 +67175,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1883855457
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -67211,7 +67211,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1883855458
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -69819,7 +69819,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &1938280484
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -69855,7 +69855,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &1938280485
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -72573,7 +72573,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &2008722685
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -72609,7 +72609,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &2008722686
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -75866,7 +75866,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &2085867211
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -75902,7 +75902,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &2085867212
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -76915,7 +76915,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 0.09
+  m_Radius: 1.17
 --- !u!58 &2105959764
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -76951,7 +76951,7 @@ CircleCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
-  m_Radius: 3
+  m_Radius: 0.09
 --- !u!212 &2105959765
 SpriteRenderer:
   m_ObjectHideFlags: 0
