@@ -25,6 +25,8 @@ public class Player : MonoBehaviour
     bool isDraging;
     [Tooltip("From how far away a model can be seen")]
     public float modelRenderDist;
+    public float cameraLagFlickCancelThresshold;
+    //public Vector4 cameraLimit;
 
     [Header("Selection Mode")]
     public float pathOptimizationThreshold;
@@ -83,6 +85,8 @@ public class Player : MonoBehaviour
         {
             warrior.useAi = false;
         }
+        var ai = playerNation.GetComponent<AI>();
+        if (ai != null) ai.enabled = false;
 
     }
 
@@ -240,13 +244,19 @@ public class Player : MonoBehaviour
 
 	public void OnLook(InputAction.CallbackContext value)
     {
-        if (GlobalData.mouseDown) GlobalData.mousePath.Add(GlobalData.mousePosition);
-        if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null || selectMode) return;
+		if (GlobalData.mouseDown) GlobalData.mousePath.Add(GlobalData.mousePosition);
+		if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null || selectMode) return;
         var dislocation = GlobalData.Inverse(value.ReadValue<Vector2>()) * Time.deltaTime * lookSpeed;
+        if (dislocation.magnitude > cameraLagFlickCancelThresshold) return;
 		transform.position += dislocation;
         dragAmount += dislocation.magnitude;
         if (dragAmount > dragThresshold) isDraging = true;
-    }
+		//transform.position = new Vector3(
+	     //   Mathf.Clamp(transform.position.x, cameraLimit.x, cameraLimit.y),
+	     //   Mathf.Clamp(transform.position.y, cameraLimit.z, cameraLimit.w),
+	     //   transform.position.z
+	    //);
+	}
 
     public void OnZoom(InputAction.CallbackContext value)
     {

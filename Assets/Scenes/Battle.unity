@@ -245,6 +245,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4347073}
   - component: {fileID: 4347074}
+  - component: {fileID: 4347075}
   m_Layer: 0
   m_Name: Russia
   m_TagString: Untagged
@@ -290,6 +291,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &4347075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4347072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 4347074}
 --- !u!1 &7808488
 GameObject:
   m_ObjectHideFlags: 0
@@ -1079,6 +1093,7 @@ GameObject:
   m_Component:
   - component: {fileID: 37336455}
   - component: {fileID: 37336456}
+  - component: {fileID: 37336457}
   m_Layer: 0
   m_Name: Bulgaria
   m_TagString: Untagged
@@ -1124,6 +1139,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &37336457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 37336454}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 37336456}
 --- !u!21 &38478465
 Material:
   serializedVersion: 8
@@ -3983,6 +4011,7 @@ GameObject:
   m_Component:
   - component: {fileID: 123812624}
   - component: {fileID: 123812625}
+  - component: {fileID: 123812626}
   m_Layer: 0
   m_Name: Portugal
   m_TagString: Untagged
@@ -4028,6 +4057,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &123812626
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 123812623}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 123812625}
 --- !u!1 &132088208
 GameObject:
   m_ObjectHideFlags: 0
@@ -6063,6 +6105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 202268236}
   - component: {fileID: 202268237}
+  - component: {fileID: 202268238}
   m_Layer: 0
   m_Name: Romania
   m_TagString: Untagged
@@ -6108,6 +6151,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &202268238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202268235}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 202268237}
 --- !u!1 &203644937
 GameObject:
   m_ObjectHideFlags: 0
@@ -6446,6 +6502,7 @@ GameObject:
   m_Component:
   - component: {fileID: 211217220}
   - component: {fileID: 211217221}
+  - component: {fileID: 211217222}
   m_Layer: 0
   m_Name: Austria
   m_TagString: Untagged
@@ -6491,6 +6548,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &211217222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211217219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 211217221}
 --- !u!1 &211568500
 GameObject:
   m_ObjectHideFlags: 0
@@ -7549,6 +7619,7 @@ GameObject:
   m_Component:
   - component: {fileID: 237977579}
   - component: {fileID: 237977580}
+  - component: {fileID: 237977581}
   m_Layer: 0
   m_Name: Albania
   m_TagString: Untagged
@@ -7594,6 +7665,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &237977581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 237977578}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 237977580}
 --- !u!1 &238859501
 GameObject:
   m_ObjectHideFlags: 0
@@ -7827,6 +7911,7 @@ GameObject:
   m_Component:
   - component: {fileID: 242116699}
   - component: {fileID: 242116700}
+  - component: {fileID: 242116701}
   m_Layer: 0
   m_Name: Greece
   m_TagString: Untagged
@@ -7872,6 +7957,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &242116701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 242116698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 242116700}
 --- !u!114 &244974577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11611,6 +11709,7 @@ GameObject:
   m_Component:
   - component: {fileID: 334406816}
   - component: {fileID: 334406817}
+  - component: {fileID: 334406818}
   m_Layer: 0
   m_Name: Norway
   m_TagString: Untagged
@@ -11656,6 +11755,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &334406818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334406815}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 334406817}
 --- !u!21 &335241565
 Material:
   serializedVersion: 8
@@ -16000,7 +16112,7 @@ Transform:
   m_GameObject: {fileID: 444476406}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 7.251772, y: 13.360337, z: 0}
+  m_LocalPosition: {x: -161.50674, y: -59.66, z: 0}
   m_LocalScale: {x: 1.5384616, y: 1.5384616, z: 1.5384616}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -17134,6 +17246,7 @@ GameObject:
   m_Component:
   - component: {fileID: 487334928}
   - component: {fileID: 487334929}
+  - component: {fileID: 487334930}
   m_Layer: 0
   m_Name: Morroco
   m_TagString: Untagged
@@ -17179,6 +17292,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &487334930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487334927}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 487334929}
 --- !u!21 &493111929
 Material:
   serializedVersion: 8
@@ -18947,6 +19073,8 @@ MonoBehaviour:
   maxZoomRotation: {x: 0, y: 0, z: 0}
   dragThresshold: 2.5
   modelRenderDist: 25
+  cameraLagFlickCancelThresshold: 4
+  cameraLimit: {x: -10, y: 10, z: -10, w: 10}
   pathOptimizationThreshold: 300
   selectModeButton: {fileID: 1336050091}
   selectModeOn: {fileID: 21300000, guid: 9a3caca7d9c781b47a6428e659b3050f, type: 3}
@@ -19282,6 +19410,7 @@ GameObject:
   m_Component:
   - component: {fileID: 527643968}
   - component: {fileID: 527643969}
+  - component: {fileID: 527643970}
   m_Layer: 0
   m_Name: France
   m_TagString: Untagged
@@ -19327,6 +19456,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &527643970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 527643967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 527643969}
 --- !u!1 &529019822
 GameObject:
   m_ObjectHideFlags: 0
@@ -19856,7 +19998,7 @@ MonoBehaviour:
   capitalScale: 9
   capitalColliderScale: 0.09
   capitalControllScale: 1.17
-  autoScaleCapitals: 1
+  autoScaleCapitals: 0
   warriorCaptureTerritory: 1
   nations: []
   warriors:
@@ -20781,6 +20923,7 @@ GameObject:
   m_Component:
   - component: {fileID: 568919476}
   - component: {fileID: 568919477}
+  - component: {fileID: 568919478}
   m_Layer: 0
   m_Name: Sweeden
   m_TagString: Untagged
@@ -20826,6 +20969,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &568919478
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 568919475}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 568919477}
 --- !u!21 &570060771
 Material:
   serializedVersion: 8
@@ -32983,6 +33139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 958571148}
   - component: {fileID: 958571149}
+  - component: {fileID: 958571150}
   m_Layer: 0
   m_Name: Netherlands
   m_TagString: Untagged
@@ -33028,6 +33185,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &958571150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 958571147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 958571149}
 --- !u!21 &961563794
 Material:
   serializedVersion: 8
@@ -36118,7 +36288,7 @@ Transform:
   m_GameObject: {fileID: 1023064094}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 11.058515, y: -0.7393045, z: 0}
+  m_LocalPosition: {x: -157.7, y: -66.8, z: 0}
   m_LocalScale: {x: 1.5384616, y: 1.5384616, z: 1.5384616}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -38380,6 +38550,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1065263767}
   - component: {fileID: 1065263768}
+  - component: {fileID: 1065263769}
   m_Layer: 0
   m_Name: Swisserland
   m_TagString: Untagged
@@ -38425,6 +38596,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1065263769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065263766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1065263768}
 --- !u!1 &1066752796
 GameObject:
   m_ObjectHideFlags: 0
@@ -41758,6 +41942,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1195738958}
   - component: {fileID: 1195738959}
+  - component: {fileID: 1195738960}
   m_Layer: 0
   m_Name: Persia
   m_TagString: Untagged
@@ -41803,6 +41988,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1195738960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1195738957}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1195738959}
 --- !u!21 &1196339222
 Material:
   serializedVersion: 8
@@ -42096,6 +42294,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1205057539}
   - component: {fileID: 1205057540}
+  - component: {fileID: 1205057541}
   m_Layer: 0
   m_Name: Britain
   m_TagString: Untagged
@@ -42141,6 +42340,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1205057541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1205057538}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1205057540}
 --- !u!21 &1207749155
 Material:
   serializedVersion: 8
@@ -42365,6 +42577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1213779801}
   - component: {fileID: 1213779802}
+  - component: {fileID: 1213779803}
   m_Layer: 0
   m_Name: Denmark
   m_TagString: Untagged
@@ -42410,6 +42623,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1213779803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1213779800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1213779802}
 --- !u!1 &1219415527
 GameObject:
   m_ObjectHideFlags: 0
@@ -49408,7 +49634,7 @@ Transform:
   m_GameObject: {fileID: 1416064477}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10.722381, y: 12.251528, z: 0}
+  m_LocalPosition: {x: -158.03613, y: -53.809174, z: 0}
   m_LocalScale: {x: 1.5384616, y: 1.5384616, z: 1.5384616}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -55008,6 +55234,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1586581272}
   - component: {fileID: 1586581273}
+  - component: {fileID: 1586581274}
   m_Layer: 0
   m_Name: Germany
   m_TagString: Untagged
@@ -55053,6 +55280,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1586581274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1586581271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1586581273}
 --- !u!1 &1589685337
 GameObject:
   m_ObjectHideFlags: 0
@@ -60343,6 +60583,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1728214786}
   - component: {fileID: 1728214787}
+  - component: {fileID: 1728214788}
   m_Layer: 0
   m_Name: Ottoman Empire
   m_TagString: Untagged
@@ -60388,6 +60629,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1728214788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1728214785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1728214787}
 --- !u!1 &1729366672
 GameObject:
   m_ObjectHideFlags: 0
@@ -61119,6 +61373,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1746427864}
   - component: {fileID: 1746427865}
+  - component: {fileID: 1746427866}
   m_Layer: 0
   m_Name: Italy
   m_TagString: Untagged
@@ -61164,6 +61419,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1746427866
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1746427863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1746427865}
 --- !u!21 &1748333178
 Material:
   serializedVersion: 8
@@ -63307,7 +63575,7 @@ Transform:
   m_GameObject: {fileID: 1797208236}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 37.032085, y: 4.101339, z: 0}
+  m_LocalPosition: {x: 32.16, y: 7.01, z: 0}
   m_LocalScale: {x: 1.5384616, y: 1.5384616, z: 1.5384616}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -67059,6 +67327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1883671171}
   - component: {fileID: 1883671172}
+  - component: {fileID: 1883671173}
   m_Layer: 0
   m_Name: Belgium
   m_TagString: Untagged
@@ -67104,6 +67373,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1883671173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1883671170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1883671172}
 --- !u!1 &1883855454
 GameObject:
   m_ObjectHideFlags: 0
@@ -70137,6 +70419,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1918702167}
   - component: {fileID: 1918702168}
+  - component: {fileID: 1918702169}
   m_Layer: 0
   m_Name: Arabia
   m_TagString: Untagged
@@ -70182,6 +70465,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1918702169
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1918702166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1918702168}
 --- !u!21 &1922815401
 Material:
   serializedVersion: 8
@@ -71232,6 +71528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1940909726}
   - component: {fileID: 1940909727}
+  - component: {fileID: 1940909728}
   m_Layer: 0
   m_Name: Serbia
   m_TagString: Untagged
@@ -71277,6 +71574,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &1940909728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1940909725}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 1940909727}
 --- !u!21 &1941629593
 Material:
   serializedVersion: 8
@@ -78621,6 +78931,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2118172294}
   - component: {fileID: 2118172295}
+  - component: {fileID: 2118172296}
   m_Layer: 0
   m_Name: Spain
   m_TagString: Untagged
@@ -78666,6 +78977,19 @@ MonoBehaviour:
   politicalPower: 0
   focusTree:
     tree: []
+--- !u!114 &2118172296
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118172293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b8d0f29c82f004783985665610032c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nation: {fileID: 2118172295}
 --- !u!1 &2120939907
 GameObject:
   m_ObjectHideFlags: 0
