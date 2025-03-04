@@ -122,7 +122,7 @@ public class Warrior : WarObject
 		WarObject enemy = Enemy(collision.gameObject);
 		if (enemy == null) return;
 
-		enemy.health -= damage * GlobalData.damageScale * Time.deltaTime * experience;
+		enemy.health -= damage * GlobalData.damageScale * Time.deltaTime * experience * health;
 		if (body == null) print(body);
 		body.linearVelocity -= speed * forward * GlobalData.knockbackRatio;
 		

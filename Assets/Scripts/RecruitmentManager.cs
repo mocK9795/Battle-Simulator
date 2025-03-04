@@ -60,7 +60,7 @@ public class RecruitmentManager : MonoBehaviour
 		data = this.data;
 		ClearDetails();
 
-		CreateDetail("Health " + data.health.ToString());
+		CreateDetail("Man Power " + data.health.ToString());
 		SetModifierAction(CreateModifiers(), AddHealth, SubtractHealth);
 		CreateDetail("Damage " + data.damage.ToString());
 		SetModifierAction(CreateModifiers(), AddDamage, SubtractDamage);

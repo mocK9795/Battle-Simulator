@@ -83,6 +83,7 @@
     <Compile Include="Assets\Scripts\UI\NationShowcase.cs" />
     <Compile Include="Assets\Scripts\Structures\Capital.cs" />
     <Compile Include="Assets\Scripts\GlobalDataEditor.cs" />
+    <Compile Include="Assets\Scripts\UI\Popup.cs" />
     <Compile Include="Assets\Scripts\WarObject.cs" />
     <Compile Include="Assets\UI\CloseButton.cs" />
     <Compile Include="Assets\Scripts\VisualEffects.cs" />
