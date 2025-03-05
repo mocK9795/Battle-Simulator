@@ -78,8 +78,7 @@ public class AI : MonoBehaviour
 		foreach (var capital in capitals)
 		{
 			if (!capital.underSeige) continue;
-			if (capital.attacker == null) continue;
-			foreach (var warrior in warriors) { warrior.SetTarget(capital.attacker.transform.position); }
+			foreach (var warrior in warriors) { warrior.SetTarget(capital.transform.position); }
 		}
 	}
 

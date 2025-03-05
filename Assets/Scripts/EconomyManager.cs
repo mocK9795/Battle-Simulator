@@ -1,5 +1,5 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
 {
@@ -17,14 +17,14 @@ public class EconomyManager : MonoBehaviour
 
     [Space(1)]
     public MapRenderer mapRenderer;
-    public Texture2D devlopmentTexture;
-    public float devlopmentTextureScale;
+    public Texture2D populationTexture;
+    public float populationTextureScale;
     public float grantSpeed;
     float grantTimer;
     [HideInInspector]
-    public float[,] devlopmentMap;
+    public float[,] populationMap;
     public List<Site> contructionSites = new();
-    [HideInInspector] public bool devlopmentMapChanged;
+    [HideInInspector] public bool populationMapChanged;
     [HideInInspector] List<LineRenderer> lineRenderers;
 
 	private void Start()
@@ -85,17 +85,17 @@ public class EconomyManager : MonoBehaviour
     }
     public void DevlopArea(Vector2Int position, float value)
     {
-        devlopmentMap[position.x, position.y] += value;
-        devlopmentMapChanged = true;
+        populationMap[position.x, position.y] += value;
+        populationMapChanged = true;
 	}
     public float AverageDevlopment()
     { 
-        return TotalDevelopment() / devlopmentMap.LongLength;
+        return TotalDevelopment() / populationMap.LongLength;
     }
     public float TotalDevelopment()
     {
         float sum = 0;
-        foreach (var devlopment in devlopmentMap) { sum += devlopment; }
+        foreach (var devlopment in populationMap) { sum += devlopment; }
         return sum;
     }
     void DrawContructionSites()
@@ -163,9 +163,9 @@ public class EconomyManager : MonoBehaviour
 	[ContextMenu("Create Devlopment Map")]
     public void SetDevlopmentMap()
     {
-        Color[,] colorMap = MapBorderRenderer.GetPixelData(devlopmentTexture);
-        devlopmentMap = ConvertMap(colorMap, devlopmentTextureScale);
-        devlopmentMapChanged = true;
+        Color[,] colorMap = MapBorderRenderer.GetPixelData(populationTexture);
+        populationMap = ConvertMap(colorMap, populationTextureScale);
+        populationMapChanged = true;
     }
 
     [ContextMenu("Grant Wealth")]
@@ -184,7 +184,7 @@ public class EconomyManager : MonoBehaviour
                 Color color = mapColors[x, y];
                 foreach (Nation nation in nations)
                 {
-                    if (nation.nationColor == color) nation.wealth += devlopmentMap[x, y];
+                    if (nation.nationColor == color) nation.wealth += populationMap[x, y];
                 }
             }
         }

@@ -9,6 +9,7 @@ public class Nation : MonoBehaviour
 
 	public float wealth;
 	public float politicalPower;
+	public float manPower;
 
 	public FocusTree focusTree;
 

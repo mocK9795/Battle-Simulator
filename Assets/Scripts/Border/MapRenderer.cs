@@ -75,10 +75,10 @@ public class MapRenderer : MonoBehaviour
 	{
 		overlay.enabled = false;
 		if (drawMode == DrawMode.Default) SetMapTexture(map);
-		if (drawMode == DrawMode.DevlopmentMap && economony.devlopmentMapChanged)
+		if (drawMode == DrawMode.DevlopmentMap && economony.populationMapChanged)
 		{
 			overlay.enabled = true;
-			Texture2D devlopmentMap = GlobalData.CreateNoiseTexture(GlobalData.NormalizeLocalNoiseMap(economony.devlopmentMap));
+			Texture2D devlopmentMap = GlobalData.CreateNoiseTexture(GlobalData.NormalizeLocalNoiseMap(economony.populationMap));
 			SetMapTexture(devlopmentMap);
 			SetMapTexture(map, overlay);
 		}
@@ -114,7 +114,7 @@ public class MapRenderer : MonoBehaviour
 	}
 	public void OnDrawModeChange()
 	{
-		if (prevDrawMode != drawMode) economony.devlopmentMapChanged = true;
+		if (prevDrawMode != drawMode) economony.populationMapChanged = true;
 		prevDrawMode = drawMode;
 		SetMapTexture();
 	}

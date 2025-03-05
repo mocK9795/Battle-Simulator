@@ -7,7 +7,6 @@ public class Capital : WarObject
 	public float healRate;
 	MapRenderer mapRenderer;
 	BattleManager battleManager;
-	[HideInInspector()] public WarObject attacker = null;
 
 	public bool underSeige = false;
 
@@ -39,35 +38,19 @@ public class Capital : WarObject
 
 	private new void Update()
 	{
+		base.Update();
 		health = Mathf.Min(health + healRate * Time.deltaTime, maxHealth);
-
-		if (health < 0)
-		{
-			if (attacker == null) { health = GlobalData.capitalChangeHealth; return; }
-
-			Nation country = BattleManager.GetNation(nation);
-			Color nationColor = country.nationColor;
-			Nation enemyCountry = BattleManager.GetNation(attacker.nation);
-			Color enemyColor = enemyCountry.nationColor;
-
-			mapRenderer.CapitalChange(nationColor, enemyColor, mapRenderer.MapPosition(transform.position), controllRadius);
-
-
-			health = GlobalData.capitalChangeHealth;
-			nation = attacker.nation;
-			attacker = null;
-			battleManager.SetWarriorNationData();
-			battleManager.GroupWarObjects();
-		}
 	}
 
-	public void OnCollisionStay2D(Collision2D collision)
+	public new void Capture(string captureNation)
 	{
-		if (collision.collider == null) return;
-		WarObject enemy = collision.collider.GetComponent<WarObject>();
-		if (enemy == null) return;
-		if (enemy.nation == nation) return;
-		attacker = enemy;
+		Nation country = BattleManager.GetNation(nation);
+		Color nationColor = country.nationColor;
+		Nation enemyCountry = BattleManager.GetNation(captureNation);
+		Color enemyColor = enemyCountry.nationColor;
+
+		mapRenderer.CapitalChange(nationColor, enemyColor, mapRenderer.MapPosition(transform.position), controllRadius);
+		base.Capture(captureNation);
 	}
 
 	private void OnCollisionEnter2D(Collision2D collision)

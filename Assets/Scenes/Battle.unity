@@ -289,6 +289,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &4347075
@@ -1137,6 +1138,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &37336457
@@ -1664,10 +1666,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &54607844
 GameObject:
@@ -2217,6 +2219,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -2430,10 +2433,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!21 &80516568
 Material:
@@ -2725,6 +2728,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -2912,6 +2916,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -3099,6 +3104,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -4055,6 +4061,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &123812626
@@ -4721,6 +4728,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -6149,6 +6157,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &202268238
@@ -6546,6 +6555,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &211217222
@@ -6741,10 +6751,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!21 &212979314
 Material:
@@ -7036,6 +7046,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -7663,6 +7674,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &237977581
@@ -7955,6 +7967,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &242116701
@@ -8569,10 +8582,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &252830261
 GameObject:
@@ -9692,10 +9705,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &293074064
 GameObject:
@@ -9851,6 +9864,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -10188,10 +10202,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &298077046
 GameObject:
@@ -11753,6 +11767,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &334406818
@@ -12907,6 +12922,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -13748,10 +13764,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &384705008
 GameObject:
@@ -13994,6 +14010,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -16004,6 +16021,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -16237,6 +16255,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -17290,6 +17309,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &487334930
@@ -18365,6 +18385,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -18638,6 +18659,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -19481,6 +19503,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &527643970
@@ -20995,6 +21018,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &568919478
@@ -21310,6 +21334,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -22303,6 +22328,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -23607,6 +23633,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -25298,6 +25325,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -26748,10 +26776,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!114 &785771575
 MonoBehaviour:
@@ -27679,6 +27707,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -29018,6 +29047,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -29470,6 +29500,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -29769,10 +29800,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &884639283
 GameObject:
@@ -30015,6 +30046,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -31619,10 +31651,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &920158540
 GameObject:
@@ -32000,6 +32032,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -32369,6 +32402,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -32814,10 +32848,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &948425982
 GameObject:
@@ -33211,6 +33245,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &958571150
@@ -33522,6 +33557,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -34215,6 +34251,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -34488,6 +34525,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -36080,6 +36118,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -36441,6 +36480,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -36674,6 +36714,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -37003,6 +37044,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -38623,6 +38665,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1065263769
@@ -38878,6 +38921,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -39402,10 +39446,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &1097988559
 GameObject:
@@ -40639,6 +40683,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -40826,6 +40871,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -42015,6 +42061,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1195738960
@@ -42367,6 +42414,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1205057541
@@ -42650,6 +42698,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1213779803
@@ -44211,6 +44260,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -45403,10 +45453,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!21 &1314347852
 Material:
@@ -46278,6 +46328,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -46798,6 +46849,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -47257,6 +47309,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -47444,6 +47497,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -47804,6 +47858,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -48525,10 +48580,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!21 &1393910812
 Material:
@@ -48730,6 +48785,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -49004,6 +49060,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -49793,6 +49850,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -50240,6 +50298,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -50836,6 +50895,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -52206,10 +52266,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!21 &1488231405
 Material:
@@ -53462,6 +53522,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -53832,6 +53893,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -54471,6 +54533,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -55312,6 +55375,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1586581274
@@ -55835,10 +55899,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &1615899668
 GameObject:
@@ -56581,6 +56645,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -57022,6 +57087,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -57445,6 +57511,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -57769,6 +57836,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -58679,10 +58747,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &1687662295
 GameObject:
@@ -60263,6 +60331,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -60661,6 +60730,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1728214788
@@ -60856,10 +60926,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &1735978721
 GameObject:
@@ -61451,6 +61521,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1746427866
@@ -61895,6 +61966,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -62747,6 +62819,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -63547,6 +63620,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -63734,6 +63808,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -65261,6 +65336,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -66679,6 +66755,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -66866,6 +66943,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -67318,6 +67396,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -67405,6 +67484,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1883671173
@@ -67600,10 +67680,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!21 &1885189997
 Material:
@@ -70095,6 +70175,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -70497,6 +70578,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1918702169
@@ -70716,6 +70798,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -70903,6 +70986,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -71461,10 +71545,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &1939876668
 GameObject:
@@ -71606,6 +71690,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &1940909728
@@ -72048,6 +72133,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -73024,6 +73110,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -74304,10 +74391,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!1 &2011506005
 GameObject:
@@ -74731,6 +74818,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -75177,6 +75265,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -77597,10 +77686,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!21 &2087058146
 Material:
@@ -77785,11 +77874,11 @@ MonoBehaviour:
   contructionValueValue: 214.2857
   symbol: "\xA3"
   mapRenderer: {fileID: 2093198763}
-  devlopmentTexture: {fileID: 2800000, guid: 3fc6c01994073cb40bc2a78c223bd99b, type: 3}
-  devlopmentTextureScale: 1
+  populationTexture: {fileID: 0}
+  populationTextureScale: 0
   grantSpeed: 7
   contructionSites: []
-  devlopmentMapChanged: 1
+  populationMapChanged: 0
 --- !u!1 &2093927045
 GameObject:
   m_ObjectHideFlags: 0
@@ -78646,10 +78735,10 @@ MonoBehaviour:
   maxHealth: 0
   damage: 0
   modelType: 1
+  type: 0
   sphere: {fileID: 0}
   controllRadius: 0
   healRate: 0
-  attacker: {fileID: 0}
   underSeige: 0
 --- !u!21 &2108841481
 Material:
@@ -78901,6 +78990,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -79084,6 +79174,7 @@ MonoBehaviour:
   health: 0
   wealth: 0
   politicalPower: 0
+  manPower: 0
   focusTree:
     tree: []
 --- !u!114 &2118172296
@@ -79791,6 +79882,7 @@ MonoBehaviour:
   maxHealth: 0
   damage: 2
   modelType: 2
+  type: 0
   sphere: {fileID: 0}
   speed: 3
   experience: 0
@@ -80104,23 +80196,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9082586405705782086, guid: 87c387f1e2b28f84888ffa512ff39718, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9082586405705782086, guid: 87c387f1e2b28f84888ffa512ff39718, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9082586405705782086, guid: 87c387f1e2b28f84888ffa512ff39718, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 9082586405705782086, guid: 87c387f1e2b28f84888ffa512ff39718, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -50
       objectReference: {fileID: 0}
     - target: {fileID: 9122781807086344282, guid: 87c387f1e2b28f84888ffa512ff39718, type: 3}
       propertyPath: m_Name
       value: Popup
+      objectReference: {fileID: 0}
+    - target: {fileID: 9122781807086344282, guid: 87c387f1e2b28f84888ffa512ff39718, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

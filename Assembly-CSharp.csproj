@@ -86,6 +86,7 @@
     <Compile Include="Assets\Scripts\UI\Popup.cs" />
     <Compile Include="Assets\Scripts\WarObject.cs" />
     <Compile Include="Assets\UI\CloseButton.cs" />
+    <Compile Include="Assets\Scripts\Structures\Factory.cs" />
     <Compile Include="Assets\Scripts\VisualEffects.cs" />
     <Compile Include="Assets\Scripts\UI\Focus.cs" />
   </ItemGroup>

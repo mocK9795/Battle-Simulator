@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class WarObject : MonoBehaviour
@@ -8,9 +9,12 @@ public class WarObject : MonoBehaviour
     [HideInInspector] public float maxHealth;
     public float damage;
 
-	public enum ModelType {Car, City, Warrior, Truck, Tank, Ship, Plane, Sprite};
+	public enum ModelType {Car, City, Warrior, Truck, Tank, Ship, Plane, Sprite, Factory};
 	[Header("Model Type")]
 	public ModelType modelType;
+
+	public enum ObjectType {Warrior, Structure}
+	[HideInInspector] public ObjectType type;
 
 	[HideInInspector]
 	public Sprite sprite
@@ -70,7 +74,15 @@ public class WarObject : MonoBehaviour
 
 	public void Update()
 	{
-		if (health < 0) Destroy(gameObject);
+		if(type == ObjectType.Warrior && health < 0 ) Destroy(gameObject);
+	}
+
+	public void Capture(string captureNation)
+	{
+		if (type == ObjectType.Structure && health > 0) return;
+		health = GlobalData.capitalChangeHealth;
+		nation = captureNation;
+		SetModel();
 	}
 
 	public void SetModel(UnitModelData modelData)
