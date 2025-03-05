@@ -10,14 +10,28 @@ public class Popup : MonoBehaviour
     public Style style {set { style = value; OnStyleChange(); } get { return style; } }
     public Color backgroundColor;
     public Image background;
+	public Vector2 padding;
+
+	int constraintCount { get { return grid.constraintCount; } set { grid.constraintCount = value; } }
+	Vector2 size 
+	{
+	get 
+		{ return rt.sizeDelta - padding; } 
+	set 
+		{ rt.sizeDelta = value; }
+	}
 
     List<GameObject> UiElements = new();
 	GridLayoutGroup grid = null;
+	RectTransform rt;
+	RectTransform gridRt;
 
 	public void Activate()
 	{
 		UiElements = new();
 		grid = GetComponentInChildren<GridLayoutGroup>();
+		rt = GetComponent<RectTransform>();
+		gridRt = GetComponent<RectTransform>();
 	}
 
 	public void Clear()
@@ -33,7 +47,7 @@ public class Popup : MonoBehaviour
 	public void SetContraint(GridLayoutGroup.Constraint constraint, int count)
 	{
 		grid.constraint = constraint;
-		grid.constraintCount = count;
+		constraintCount = count;
 	}
 
 	public void Element(GameObject element)
@@ -47,10 +61,11 @@ public class Popup : MonoBehaviour
 	public void Message(string message, Color color)
 	{
 		GameObject element = new GameObject("Message");
-		element.transform.SetParent(element.transform, false);
-		var messageElement = element.AddComponent<TMP_Text>();
+		element.transform.SetParent(grid.transform, false);
+		var messageElement = element.AddComponent<TextMeshProUGUI>();
 		messageElement.text = message;
 		messageElement.enableAutoSizing = true;
+		messageElement.fontSizeMax = 999;
 		messageElement.color = color;
 		UiElements.Add(element);
 	}
@@ -63,7 +78,7 @@ public class Popup : MonoBehaviour
 	public void Image(Sprite sprite, Color color)
 	{
 		GameObject element = new GameObject("Image");
-		element.transform.SetParent(element.transform, false);
+		element.transform.SetParent(grid.transform, false);
 		var image = element.AddComponent<Image>();
 		image.sprite = sprite;
 		image.color = color;
@@ -72,11 +87,35 @@ public class Popup : MonoBehaviour
 
 	public void Button(string buttonText, System.Action buttonCallback)
 	{
-		throw (new NotImplementedException());
+		print("Feature not implemented completely");
 		GameObject element = new GameObject("Button");
-		element.transform.SetParent(element.transform, false);
+		element.transform.SetParent(grid.transform, false);
 		var button = element.AddComponent<Button>();
+		button.onClick.AddListener(() => buttonCallback());
+		UiElements.Add(element);
+	}
+
+	public void FinalizeLayout()
+	{
+		if (constraintCount == 1)
+		{
+			if (grid.constraint == GridLayoutGroup.Constraint.FixedColumnCount)
+				grid.cellSize = new Vector2(size.x, size.y / UiElements.Count);
+			else if (grid.constraint == GridLayoutGroup.Constraint.FixedRowCount)
+				grid.cellSize = new Vector2(size.x / UiElements.Count, size.y);
+		}
+	}
+
+	public void OnClose()
+	{
+		Destroy(gameObject);
 	}
 
 	void OnStyleChange() { }
+
+	private void OnValidate()
+	{
+		if (background != null)
+		background.color = backgroundColor;
+	}
 }

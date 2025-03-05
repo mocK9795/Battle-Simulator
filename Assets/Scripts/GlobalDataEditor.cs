@@ -24,6 +24,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float experienceGain;
 	public float baseExperience;
 
+	public GameObject popupPrefab;
 	public Material lineMat;
 	public UnitModelData[] unitModelData;
 	public List<Focus> genericFocusTree = null;
@@ -52,6 +53,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.experienceGain = experienceGain;
 		GlobalData.baseExperience = baseExperience;
 
+		GlobalData.popupPrefab = popupPrefab;
 		GlobalData.lineMat = lineMat;
 		GlobalData.unitModelData = unitModelData;
 		GlobalData.genericTree = genericFocusTree;
@@ -116,6 +118,7 @@ public static class GlobalData
 	public static BattleManager battle;
 	public static WorldInformation worldInformation;
 
+	public static GameObject popupPrefab;
 	public static Material lineMat;
 	public static UnitModelData[] unitModelData;
 	public static List<Focus> genericTree = null;

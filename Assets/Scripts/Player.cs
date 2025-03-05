@@ -133,6 +133,7 @@ public class Player : MonoBehaviour
             if (inspect && !isDraging) OnInspect();
             if (GlobalData.selectedWarrior == null && selectMode && !inspect) OnSelect();
             if (GlobalData.selectedWarrior == null) { GlobalData.mousePath.Clear(); return; }
+            if (!isDraging) { OpenWarriorPopup(GlobalData.selectedWarrior); return; }
 
             var path = WorldPosition(GlobalData.mousePath.ToArray());
             if (pathDrawMode == PathDrawMode.Optimize) path = GlobalData.vector2(BorderPointOrdering.OptimizePath(GlobalData.vector3(path)));
@@ -149,6 +150,21 @@ public class Player : MonoBehaviour
             }
             GlobalData.mousePath.Clear();
         }
+    }
+
+
+    public void OpenWarriorPopup(Warrior warrior) 
+    {
+        if (GlobalData.popupPrefab == null) return;
+        var popupObj = Instantiate(GlobalData.popupPrefab, FindFirstObjectByType<Canvas>().transform);
+        var popup = popupObj.GetComponent<Popup>();
+       
+        popup.Activate();
+        popup.SetContraint(GridLayoutGroup.Constraint.FixedColumnCount, 1);
+        popup.Message("Manpower " + warrior.health.ToString() + "/" + warrior.maxHealth.ToString());
+        popup.Message("Damage " + warrior.damage.ToString());
+        popup.Message("Speed " + warrior.speed.ToString());
+        popup.FinalizeLayout();
     }
 
     void OnSelect()
@@ -244,12 +260,16 @@ public class Player : MonoBehaviour
 	public void OnLook(InputAction.CallbackContext value)
     {
 		if (GlobalData.mouseDown) GlobalData.mousePath.Add(GlobalData.mousePosition);
+
+		var dislocation = GlobalData.Inverse(value.ReadValue<Vector2>()) * Time.deltaTime * lookSpeed;
+		if (dragAmount > dragThresshold) isDraging = true;
+		dragAmount += dislocation.magnitude;
+
 		if (!GlobalData.mouseDown || GlobalData.selectedWarrior != null || selectMode) return;
-        var dislocation = GlobalData.Inverse(value.ReadValue<Vector2>()) * Time.deltaTime * lookSpeed;
+
         if (dislocation.magnitude > cameraLagFlickCancelThresshold) return;
 		transform.position += dislocation;
-        dragAmount += dislocation.magnitude;
-        if (dragAmount > dragThresshold) isDraging = true;
+
 		//transform.position = new Vector3(
 	     //   Mathf.Clamp(transform.position.x, cameraLimit.x, cameraLimit.y),
 	     //   Mathf.Clamp(transform.position.y, cameraLimit.z, cameraLimit.w),

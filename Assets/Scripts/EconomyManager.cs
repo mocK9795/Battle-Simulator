@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class EconomyManager : MonoBehaviour
 {
     public GameObject lineRendererContainer;
-    [Tooltip("Size of one pixel on the map")] public float stateSize;
+    [Tooltip("Size of one pixel on the map")] public Vector2 stateSize;
     public float lines;
     public float lineWidth;
     public float lineZ;
@@ -104,48 +104,48 @@ public class EconomyManager : MonoBehaviour
 		foreach (var contructionArea in contructionSites)
 		{
             Vector2Int site = contructionArea.position;
-			float x = site.x * stateSize;
-			float y = site.y * stateSize;
+			float x = site.x * stateSize.x;
+			float y = site.y * stateSize.y;
 			for (int i = 0; i < lines; i++)
 			{
 				totalLines += 1;
 				if (totalLines > lineRenderers.Count - 1) AddLineRenderer();
 
 				Vector2 posA = new(
-					site.x * stateSize, y
+					site.x * stateSize.x, y
 					);
 				Vector2 posB = new(
-					x, site.y * stateSize
+					x, site.y * stateSize.y
 					);
 
 				lineRenderers[totalLines].positionCount = 2;
 				lineRenderers[totalLines].SetPosition(0, GlobalData.vector3(posA, lineZ));
 				lineRenderers[totalLines].SetPosition(1, GlobalData.vector3(posB, lineZ));
 
-				x += stateSize / lines;
-				y += stateSize / lines;
+				x += stateSize.x / lines;
+				y += stateSize.y / lines;
 			}
 
-			x = site.x * stateSize;
-			y = site.y * stateSize;
+			x = site.x * stateSize.x;
+			y = site.y * stateSize.y;
 			for (int i = 0; i < lines; i++)
 			{
 				totalLines += 1;
 				if (totalLines > lineRenderers.Count - 1) AddLineRenderer();
 
 				Vector2 posA = new(
-					x, site.y * stateSize + stateSize
+					x, site.y * stateSize.y + stateSize.y
 					);
 				Vector2 posB = new(
-					site.x * stateSize + stateSize, y
+					site.x * stateSize.x + stateSize.x, y
 					);
 
 				lineRenderers[totalLines].positionCount = 2;
 				lineRenderers[totalLines].SetPosition(0, GlobalData.vector3(posA, lineZ));
 				lineRenderers[totalLines].SetPosition(1, GlobalData.vector3(posB, lineZ));
 
-				x += stateSize / lines;
-				y += stateSize / lines;
+				x += stateSize.x / lines;
+				y += stateSize.y / lines;
 			}
 		}
 	}
