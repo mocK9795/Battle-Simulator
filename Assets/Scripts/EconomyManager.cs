@@ -1,4 +1,6 @@
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
 public class EconomyManager : MonoBehaviour
@@ -77,13 +79,29 @@ public class EconomyManager : MonoBehaviour
             site.completion += Time.deltaTime;
             if (site.completion > site.contructionTime)
             {
-                DevlopArea(mapRenderer.MapPositionViaDisplacement(site.position), site.contructionValue);
+                PopulateArea(mapRenderer.MapPositionViaDisplacement(site.position), site.contructionValue);
 				completions.Add(site);
 			}
 		}
         foreach (var site in completions) { contructionSites.Remove(site); }
     }
-    public void DevlopArea(Vector2Int position, float value)
+
+    void ContructBuilding(Site site)
+    {
+        var pos = mapRenderer.MapPositionViaDisplacement(site.position);
+		Nation parentNation = BattleManager.GetNation(mapRenderer.mapData[pos.x, pos.y]);
+        SpawnStructure<Factory>(mapRenderer.WorldPosition(pos), WarObject.ModelType.Factory, new(parentNation.nation, GlobalData.capitalChangeHealth, 0));
+    }
+
+    public void SpawnStructure<T>(Vector3 position, WarObject.ModelType model, WarObjectData objectData) where T : WarObject
+    {
+        var warObjParent = new GameObject(model.ToString());
+        var warObject = warObjParent.AddComponent<T>();
+        warObject.AssignData(objectData);
+        warObject.modelType = model;
+    }
+
+    public void PopulateArea(Vector2Int position, float value)
     {
         populationMap[position.x, position.y] += value;
         populationMapChanged = true;

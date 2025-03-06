@@ -311,7 +311,6 @@ public class BattleManager : MonoBehaviour
 		UnitModelData modelData = GlobalData.FindModel(model);
 		foreach (var unit in applyObjects)
 		{
-			unit.SetModel(modelData);
 			unit.modelType = model;
 		}
 	}

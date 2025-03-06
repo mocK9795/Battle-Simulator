@@ -98,11 +98,11 @@ public class WarObject : MonoBehaviour
 				if (child == null) continue; // Somehow child value can be null
 				if (child.GetComponent<WarObject>() == null)
 				{
-					DestroyImmediate(child.gameObject);
+					Destroy(child.gameObject);
 				}
 			}
 		}
-		else DestroyImmediate(modelObj);
+		else Destroy(modelObj);
 		
 		modelObj = Instantiate(modelData.model);
 		modelObj.transform.parent = transform;
@@ -141,5 +141,12 @@ public class WarObject : MonoBehaviour
 	{
 		DestroyImmediate(modelObj);
 		spriteRenderer.enabled = true;
+	}
+
+	public void AssignData(WarObjectData data)
+	{
+		health = data.health;
+		damage = data.damage;
+		nation = data.nation;
 	}
 }

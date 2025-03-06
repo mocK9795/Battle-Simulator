@@ -5,6 +5,7 @@ using System.Linq;
 using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
+using Unity.VisualScripting;
 
 public class GlobalDataEditor : MonoBehaviour
 {
@@ -351,9 +352,12 @@ public static class GlobalData
 public class UnitModelData
 {
 	public WarObject.ModelType modelType;
-	public GameObject model;
+	public GameObject[] models;
+	[HideInInspector]
+	public GameObject model {get { return models[UnityEngine.Random.Range(0, models.Length - 1)]; } }
 	public Vector3 rotation;
 	public Vector3 scale;
+	public float heightFromGround;
 	[Tooltip("For Circle Collider Only X Paramater Matters")]
 	public Vector2 box;
 	public Vector2 boxOffset;
