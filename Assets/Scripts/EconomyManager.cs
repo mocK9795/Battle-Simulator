@@ -61,7 +61,7 @@ public class EconomyManager : MonoBehaviour
 		var factories = BattleManager.GetAll<Factory>();
 		foreach (var factory in factories)
 		{
-			BattleManager.GetNation(factory.nation).wealth += factory.TakeOuput();
+			BattleManager.GetNation(factory.nation).wealth += factory.TakeOuput() * GlobalData.factoryOutputValue;
 		}
 		foreach (var nation in BattleManager.GetAllNations())
 		{
@@ -110,7 +110,7 @@ public class EconomyManager : MonoBehaviour
 		Nation parentNation = BattleManager.GetNation(mapRenderer.mapData[pos.x, pos.y]);
         var factory = SpawnStructure<Factory>(mapRenderer.WorldPosition(pos), WarObject.ModelType.Factory, new(parentNation.nation, GlobalData.capitalChangeHealth, 0));
         factory.efficiency = site.efficency;
-        factory.production = site.capacity;
+        factory.health = site.capacity;
     }
 
     public T SpawnStructure<T>(Vector3 position, WarObject.ModelType model, WarObjectData objectData) where T : WarObject

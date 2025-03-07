@@ -25,10 +25,10 @@ public class ContructionMenu : MonoBehaviour
 	{
 		menuTransform.anchoredPosition = Vector2.Lerp(menuTransform.anchoredPosition, onScreenPosition, Mathf.Clamp01(Time.deltaTime * animationTime));
 
-		valueText.text = site.efficency.ToString();
-        timeText.text = site.capacity.ToString();
-        costText.text = economyManager.SiteCost(site).ToString() + " " + economyManager.symbol;
         site = EconomyManager.NormalizeSiteData(site);
+		valueText.text = site.efficency.ToString();
+		timeText.text = site.capacity.ToString();
+		costText.text = economyManager.SiteCost(site).ToString() + " " + economyManager.symbol;
 	}
 
     public void Activate()

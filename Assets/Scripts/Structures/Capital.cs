@@ -44,6 +44,7 @@ public class Capital : WarObject
 
 	public new void Capture(string captureNation)
 	{
+		if (health > 0) return;
 		Nation country = BattleManager.GetNation(nation);
 		Color nationColor = country.nationColor;
 		Nation enemyCountry = BattleManager.GetNation(captureNation);

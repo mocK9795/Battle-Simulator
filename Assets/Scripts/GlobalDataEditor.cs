@@ -25,6 +25,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float experienceGain;
 	public float baseExperience;
 	public float baseWealthGain;
+	public float factoryOutputValue;
 
 	public GameObject popupPrefab;
 	public Material lineMat;
@@ -55,6 +56,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.experienceGain = experienceGain;
 		GlobalData.baseExperience = baseExperience;
 		GlobalData.baseWealthGain = baseWealthGain;
+		GlobalData.factoryOutputValue = factoryOutputValue;
 
 		GlobalData.popupPrefab = popupPrefab;
 		GlobalData.lineMat = lineMat;
@@ -115,7 +117,7 @@ public static class GlobalData
 	public static float experienceGain;
 	public static float baseExperience;
 	public static float baseWealthGain;
-
+	public static float factoryOutputValue;
 
 	public static RecruitmentManager recruiter;
 	public static MapRenderer mapRenderer;
@@ -354,6 +356,7 @@ public class UnitModelData
 {
 	public WarObject.ModelType modelType;
 	public GameObject model;
+	public Sprite modelSprite;
 	public Vector3 rotation;
 	public Vector3 scale;
 	public float heightFromGround;

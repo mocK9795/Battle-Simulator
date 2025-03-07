@@ -125,6 +125,8 @@ public class WarObject : MonoBehaviour
 			sphere.offset = modelData.boxOffset;
 		}
 
+		if (modelData.modelSprite != null)
+			spriteRenderer.sprite = modelData.modelSprite;
 		spriteRenderer.enabled = false;
 
 		if (GlobalData.battle) GlobalData.battle.SetWarObjectColor(this);

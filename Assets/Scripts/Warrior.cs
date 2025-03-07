@@ -123,7 +123,9 @@ public class Warrior : WarObject
 		if (enemy == null) return;
 
 		enemy.health -= damage * GlobalData.damageScale * Time.deltaTime * experience * health;
-		enemy.Capture(nation);
+		if (enemy is Capital) ((Capital)enemy).Capture(nation);
+		else enemy.Capture(nation);
+		
 		if (body == null) print(body);
 		body.linearVelocity -= speed * forward * GlobalData.knockbackRatio;
 		
