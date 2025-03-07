@@ -17,39 +17,42 @@ public class AI : MonoBehaviour
 		nation.SetWarAssets();
 		if (nation.GetWarAssets().Length < 1) Destroy(gameObject);
 
-		PositionWarriors();
+		Vector2Int[] mapPoints = GetNationArea(nation.nationColor);
+
+		PositionWarriors(mapPoints);
 		SendReEnforcements();
 		GaurdCapital();
 		RecruitWarriors();
 	}
 
-	void PositionWarriors() 
+	public static Vector2Int[] GetNationArea(Color color)
+	{
+		int width = GlobalData.mapRenderer.map.width;
+		int height = GlobalData.mapRenderer.map.height;
+
+		List<Vector2Int> area = new();
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				if (GlobalData.mapRenderer.mapData[x, y]  == color) area.Add(new Vector2Int(x, y));
+			}
+		}
+
+		return area.ToArray();
+	}
+
+	void PositionWarriors(Vector2Int[] area) 
 	{
 		var army = nation.GetArmy();
 		if (army.Length < 4) return;
-		int skip = GlobalData.mapRenderer.mapData.Length / army.Length;
-		int skipCount = 0;
-		int armyIndex = 0;
-		bool complete = false;
-		for (int y = 0; y < army.Length; y++)
+		
+		int step = area.Length / army.Length;
+		for (int i = 0; i < area.Length; i+= step)
 		{
-			for (int x = 0; x < army.Length; x++)
-			{
-				Color color = GlobalData.mapRenderer.mapData[x, y];
-				if (color == nation.nationColor)
-				{
-					skipCount++;
-					if (skipCount < skip) continue;
-					army[armyIndex].target = GlobalData.mapRenderer.WorldPosition(new(x, y));
-					armyIndex++;
-					if (armyIndex >= army.Length)
-					{
-						complete = true;
-						break;
-					}
-				}
-			}
-			if (complete) break;
+			if (i >= army.Length) break;
+			army[i].SetTarget(GlobalData.mapRenderer.WorldPosition(area[i]));
 		}
 	}
 
@@ -87,7 +90,6 @@ public class AI : MonoBehaviour
 		float buyCount = budgetData.x;
 		var buyData = CaculateBestAttributes(budget, worldData);
 		if (IsBelowAverage(buyData, worldData)) return;
-		var cost = GlobalData.recruiter.GetCost(buyData);
 		for (int i = 0; i < buyCount; i++)
 		{
 			GlobalData.recruiter.RecruitArmy(nation, buyData);
