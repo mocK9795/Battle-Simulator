@@ -110,7 +110,7 @@ public class WarObject : MonoBehaviour
 		modelObj = Instantiate(modelData.model);
 		modelObj.transform.parent = transform;
 		
-		modelObj.transform.localPosition = Vector3.zero;
+		modelObj.transform.localPosition = Vector3.forward * modelData.heightFromGround;
 		modelObj.transform.rotation = Quaternion.Euler(modelData.rotation);
 		modelObj.transform.localScale = modelData.scale;
 

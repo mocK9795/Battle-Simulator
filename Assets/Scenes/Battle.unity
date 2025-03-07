@@ -19934,7 +19934,7 @@ MonoBehaviour:
     model: {fileID: 1967919662417837112, guid: 62af5bdbb508bae4ebafa0a99cfead5c, type: 3}
     rotation: {x: -0, y: 180, z: 180}
     scale: {x: 18, y: 18, z: 29.825539}
-    heightFromGround: 0
+    heightFromGround: -0.3
     box: {x: 0.96, y: 0.96}
     boxOffset: {x: 0, y: 0}
   - modelType: 8
