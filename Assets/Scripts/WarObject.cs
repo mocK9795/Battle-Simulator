@@ -70,16 +70,19 @@ public class WarObject : MonoBehaviour
 	{
 		maxHealth = health;
 		SetModel();
+
+		if (this is Warrior) type = ObjectType.Warrior;
+		if (this is Capital || this is Factory) type = ObjectType.Structure;
 	}
 
 	public void Update()
 	{
-		if(type == ObjectType.Warrior && health < 0 ) Destroy(gameObject);
+		if(type == ObjectType.Warrior && health < 0) Destroy(gameObject);
 	}
 
 	public void Capture(string captureNation)
 	{
-		if (type == ObjectType.Structure && health > 0) return;
+		if (type == ObjectType.Warrior || health > 0) return;
 		health = GlobalData.capitalChangeHealth;
 		nation = captureNation;
 		SetModel();

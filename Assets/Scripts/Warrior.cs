@@ -24,7 +24,6 @@ public class Warrior : WarObject
 		base.Start();
 		SetBody();
 
-		type = ObjectType.Warrior;
 		target = transform.position;
 		experience = GlobalData.baseExperience;
 	}

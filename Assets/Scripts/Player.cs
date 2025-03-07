@@ -161,7 +161,7 @@ public class Player : MonoBehaviour
        
         popup.Activate();
         popup.SetContraint(GridLayoutGroup.Constraint.FixedColumnCount, 1);
-        popup.Message("Manpower " + warrior.health.ToString() + "/" + warrior.maxHealth.ToString());
+        popup.Message("Manpower " + warrior.health.ToString());
         popup.Message("Damage " + warrior.damage.ToString());
         popup.Message("Speed " + warrior.speed.ToString());
         popup.FinalizeLayout();
