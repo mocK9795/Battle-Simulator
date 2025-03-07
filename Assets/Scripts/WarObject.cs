@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 public class WarObject : MonoBehaviour
 {
@@ -63,6 +64,12 @@ public class WarObject : MonoBehaviour
 			{
 				renderer.material.color = value;
 			}
+		}
+
+		get
+		{
+			if (spriteRenderer != null) { return spriteRenderer.color; }
+			else return BattleManager.GetNation(nation).nationColor;
 		}
 	}
 

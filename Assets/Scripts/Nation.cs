@@ -69,7 +69,6 @@ public class Nation : MonoBehaviour
 
 	public Warrior[] GetArmy()
 	{
-		SetWarAssets();
 		List<Warrior> army = new();
 		foreach (var asset in warAssets)
 		{

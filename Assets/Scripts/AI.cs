@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using Mono.Cecil.Cil;
 
 public class AI : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class AI : MonoBehaviour
 		if (timer < GlobalData.aiThinkSpeed) return;
 		timer = 0;
 
+		nation.SetWarAssets();
+		if (nation.GetWarAssets().Length < 1) Destroy(gameObject);
+
 		PositionWarriors();
 		SendReEnforcements();
 		GaurdCapital();
@@ -22,37 +26,30 @@ public class AI : MonoBehaviour
 	void PositionWarriors() 
 	{
 		var army = nation.GetArmy();
-
-		if (army.Length < 1) return;
-
-		List<Vector2> posiblePositions = new();
-		for (int y = 0; y<GlobalData.mapRenderer.map.height; y++)
+		if (army.Length < 4) return;
+		int skip = GlobalData.mapRenderer.mapData.Length / army.Length;
+		int skipCount = 0;
+		int armyIndex = 0;
+		bool complete = false;
+		for (int y = 0; y < army.Length; y++)
 		{
-			for (int x = 0; x <  GlobalData.mapRenderer.map.width; x++)
+			for (int x = 0; x < army.Length; x++)
 			{
-				var color = GlobalData.mapRenderer.mapData[x, y];
-				if (color != nation.nationColor) continue;
-				posiblePositions.Add(
-					GlobalData.mapRenderer.WorldPosition(
-						new Vector2Int(x, y)
-						));
+				Color color = GlobalData.mapRenderer.mapData[x, y];
+				if (color == nation.nationColor)
+				{
+					skipCount++;
+					if (skipCount < skip) continue;
+					army[armyIndex].target = GlobalData.mapRenderer.WorldPosition(new(x, y));
+					armyIndex++;
+					if (armyIndex >= army.Length)
+					{
+						complete = true;
+						break;
+					}
+				}
 			}
-		}
-		if (posiblePositions.Count < 1) return;
-		List<Vector2> scatteredPositions = GlobalData.SelectScatteredPoints(posiblePositions, army.Length);
-		foreach (var warrior in army)
-		{
-			float leastDistance = float.MaxValue;
-			Vector2 closestPosition = Vector2.one;
-			foreach (var position in scatteredPositions)
-			{
-				float distance = Vector2.Distance(position, warrior.transform.position);
-				if (distance > leastDistance) continue;
-				closestPosition = position;
-				leastDistance = distance;
-			}
-			warrior.SetTarget(closestPosition);
-			scatteredPositions.Remove(closestPosition);
+			if (complete) break;
 		}
 	}
 

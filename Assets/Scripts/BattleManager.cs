@@ -24,7 +24,8 @@ public class BattleManager : MonoBehaviour
 	public bool autoScaleCapitals;
 
 	[Header("Territory Change")]
-	public bool warriorCaptureTerritory;
+	public float changeRate;
+	float changeTimer;
 
 	[Header("Creation Data")]
 	public NationData[] nations;
@@ -40,15 +41,17 @@ public class BattleManager : MonoBehaviour
 
 	private void Update()
 	{
-		if (warriorCaptureTerritory)
+		changeTimer += Time.deltaTime;
+		if (changeTimer > changeRate)
 		{
+			changeTimer = 0;
 			var allWarrior = GetAllWarriors();
 			Color[] colors = new Color[allWarrior.Length];
 			Vector2Int[] positions = new Vector2Int[allWarrior.Length];
 			for (int i = 0; i < allWarrior.Length; i++)
 			{
 				positions[i] = mapRenderer.MapPosition(allWarrior[i].transform.position);
-				colors[i] = allWarrior[i].GetComponent<SpriteRenderer>().color;
+				colors[i] = allWarrior[i].color;
 			}
 
 			mapRenderer.SetColors(colors, positions);
@@ -346,15 +349,15 @@ public class BattleManager : MonoBehaviour
 	}
 	public static Warrior[] GetAllWarriors()
 	{
-		return FindObjectsByType<Warrior>(FindObjectsSortMode.InstanceID);
+		return FindObjectsByType<Warrior>(FindObjectsSortMode.None);
 	}
 	public static Capital[] GetAllCapitals()
 	{
-		return FindObjectsByType<Capital>(FindObjectsSortMode.InstanceID);
+		return FindObjectsByType<Capital>(FindObjectsSortMode.None);
 	}
 	public static WarObject[] GetAllWarObjects()
 	{
-		return FindObjectsByType<WarObject>(FindObjectsSortMode.InstanceID);
+		return FindObjectsByType<WarObject>(FindObjectsSortMode.None);
 	}
 	public static Nation GetNation(string nationName)
 	{
@@ -369,7 +372,7 @@ public class BattleManager : MonoBehaviour
 
 	public static T[] GetAll<T>() where T : Component
 	{
-		return FindObjectsByType<T>(FindObjectsSortMode.InstanceID);
+		return FindObjectsByType<T>(FindObjectsSortMode.None);
 	}
 
 	public static Nation GetNation(Color color)

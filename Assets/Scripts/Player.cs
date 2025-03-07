@@ -11,9 +11,9 @@ public class Player : MonoBehaviour
     public float zoomSpeed;
     public float minZoom;
     public float maxZoom;
-    public enum InputMode {Direct, Raycast};
+    public enum InputMode { Direct, Raycast };
     public InputMode inputMode = InputMode.Direct;
-    public enum PathDrawMode {Direct, Optimize};
+    public enum PathDrawMode { Direct, Optimize };
     public PathDrawMode pathDrawMode = PathDrawMode.Direct;
     [Tooltip("How precise the raycast is")]
     public float step;
@@ -98,7 +98,7 @@ public class Player : MonoBehaviour
         if (warrior.nation == nation) return warrior;
         return null;
     }
-    
+
     public Nation GetSelectedNation()
     {
         var selectionPosition = mapRenderer.MapPosition(WorldPosition(GlobalData.mousePosition));
@@ -138,14 +138,14 @@ public class Player : MonoBehaviour
             var path = WorldPosition(GlobalData.mousePath.ToArray());
             if (pathDrawMode == PathDrawMode.Optimize) path = GlobalData.vector2(BorderPointOrdering.OptimizePath(GlobalData.vector3(path)));
 
-			if (!selectMode)
+            if (!selectMode)
             {
                 GlobalData.selectedWarrior.SetTarget(path);
                 GlobalData.selectedWarrior = null;
             }
             if (selectMode)
             {
-                foreach (var warrior in selectedWarriors) {warrior.SetTarget(path);}
+                foreach (var warrior in selectedWarriors) { warrior.SetTarget(path[path.Length - 1]); }
                 ClearSelection();
             }
             GlobalData.mousePath.Clear();
@@ -153,12 +153,12 @@ public class Player : MonoBehaviour
     }
 
 
-    public void OpenWarriorPopup(Warrior warrior) 
+    public void OpenWarriorPopup(Warrior warrior)
     {
         if (GlobalData.popupPrefab == null) return;
         var popupObj = Instantiate(GlobalData.popupPrefab, FindFirstObjectByType<Canvas>().transform);
         var popup = popupObj.GetComponent<Popup>();
-       
+
         popup.Activate();
         popup.SetContraint(GridLayoutGroup.Constraint.FixedColumnCount, 1);
         popup.Message("Manpower " + warrior.health.ToString());
@@ -171,14 +171,14 @@ public class Player : MonoBehaviour
     {
         Vector2 startPoint = WorldPosition(GlobalData.mouseClickStartPoint);
         Vector2 endPoint = WorldPosition(GlobalData.mouseClickEndPoint);
-		Vector2 boxCenter = (startPoint + endPoint) / 2;
-		Vector2 boxSize = new Vector2(Mathf.Abs(endPoint.x - startPoint.x), Mathf.Abs(endPoint.y - startPoint.y));
+        Vector2 boxCenter = (startPoint + endPoint) / 2;
+        Vector2 boxSize = new Vector2(Mathf.Abs(endPoint.x - startPoint.x), Mathf.Abs(endPoint.y - startPoint.y));
 
         lastSelected = new(selectedWarriors);
         ClearSelection();
 
         Collider2D[] selectedObjects = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f);
-        foreach (var obj in selectedObjects) { 
+        foreach (var obj in selectedObjects) {
             Warrior warrior = obj.GetComponent<Warrior>();
             if (warrior == null) continue;
             if (warrior.nation != nation) continue;
@@ -212,7 +212,7 @@ public class Player : MonoBehaviour
     }
     public Vector2[] WorldPosition(Vector2[] positions)
     {
-        for (int i = 0; i < positions.Length; i++) { positions[i] = WorldPosition(positions[i]);}
+        for (int i = 0; i < positions.Length; i++) { positions[i] = WorldPosition(positions[i]); }
         return positions;
     }
 
@@ -222,7 +222,7 @@ public class Player : MonoBehaviour
         SetRotation();
 
         if (GlobalData.mouseDown && GlobalData.selectedWarrior != null && !inspect)
-		{
+        {
             var path = WorldPosition(GlobalData.mousePath.ToArray());
             if (pathDrawMode == PathDrawMode.Optimize)
             {
@@ -237,18 +237,18 @@ public class Player : MonoBehaviour
                     GlobalData.mousePath.Add(end);
                 }
             }
-			effects.DrawArrow(path);
+            effects.DrawArrow(path);
         }
 
         if (GlobalData.mouseDown && GlobalData.selectedWarrior == null && selectMode && !inspect)
         {
-			Vector2 startPoint = WorldPosition(GlobalData.mouseClickStartPoint);
-			Vector2 endPoint = WorldPosition(GlobalData.mousePosition);
-			Vector2 boxCenter = (startPoint + endPoint) / 2;
-			Vector2 boxSize = new Vector2(Mathf.Abs(endPoint.x - startPoint.x), Mathf.Abs(endPoint.y - startPoint.y));
+            Vector2 startPoint = WorldPosition(GlobalData.mouseClickStartPoint);
+            Vector2 endPoint = WorldPosition(GlobalData.mousePosition);
+            Vector2 boxCenter = (startPoint + endPoint) / 2;
+            Vector2 boxSize = new Vector2(Mathf.Abs(endPoint.x - startPoint.x), Mathf.Abs(endPoint.y - startPoint.y));
 
             effects.DrawBox(boxCenter, boxSize);
-		}
+        }
         else
         {
             effects.ClearBox();

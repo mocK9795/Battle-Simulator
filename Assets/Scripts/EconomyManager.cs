@@ -31,7 +31,7 @@ public class EconomyManager : MonoBehaviour
 
 	private void Start()
 	{
-        SetDevlopmentMap();
+        SetPopulationMap();
         UpdatePopulation();
         GrantPoliticalPower();
 
@@ -42,7 +42,7 @@ public class EconomyManager : MonoBehaviour
     {
         grantTimer += Time.deltaTime;
         if (grantTimer > grantSpeed) {
-            UpdatePopulation(); 
+            //UpdatePopulation(); 
             GrantPoliticalPower();
             GrantWealth();
 
@@ -202,28 +202,26 @@ public class EconomyManager : MonoBehaviour
         lineRenderers.Add(renderer);
     }
 
-	[ContextMenu("Create Devlopment Map")]
-    public void SetDevlopmentMap()
+	[ContextMenu("Create Population Map")]
+    public void SetPopulationMap()
     {
         Color[,] colorMap = MapBorderRenderer.GetPixelData(populationTexture);
         populationMap = ConvertMap(colorMap, populationTextureScale);
         populationMapChanged = true;
     }
 
-    [ContextMenu("Grant Wealth")]
     public void UpdatePopulation()
     {
         var nations = BattleManager.GetAllNations();
-        Color[,] mapColors = MapBorderRenderer.GetPixelData(mapRenderer.map);
 
-        int width = mapColors.GetLength(0);
-        int height = mapColors.GetLength(1);
+        int width = mapRenderer.mapData.GetLength(0);
+        int height = mapRenderer.mapData.GetLength(1);
 
         for (int y = 0; y < height; y++)
         {
             for (int x = 0; x < width; x++)
             {
-                Color color = mapColors[x, y];
+                Color color = mapRenderer.mapData[x, y];
                 foreach (Nation nation in nations)
                 {
                     if (nation.nationColor == color) nation.manPower += populationMap[x, y];
