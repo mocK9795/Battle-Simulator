@@ -27,12 +27,12 @@ public class EconomyManager : MonoBehaviour
     public float[,] populationMap;
     public List<Site> contructionSites = new();
     [HideInInspector] public bool populationMapChanged;
-    [HideInInspector] List<LineRenderer> lineRenderers;
+    List<LineRenderer> lineRenderers;
 
 	private void Start()
 	{
         SetDevlopmentMap();
-        GrantWealth();
+        UpdatePopulation();
         GrantPoliticalPower();
 
         lineRenderers = new();
@@ -42,8 +42,12 @@ public class EconomyManager : MonoBehaviour
     {
         grantTimer += Time.deltaTime;
         if (grantTimer > grantSpeed) {
-            GrantWealth(); GrantPoliticalPower();
-            grantTimer = 0; }
+            UpdatePopulation(); 
+            GrantPoliticalPower();
+            GrantWealth();
+
+            grantTimer = 0;
+        }
 
 
         foreach (var line in lineRenderers) { line.positionCount = 0;}
@@ -51,10 +55,24 @@ public class EconomyManager : MonoBehaviour
         if (mapRenderer.drawMode == MapRenderer.DrawMode.DevlopmentMap) DrawContructionSites();
         ContructSites();
     }
+
+    public void GrantWealth()
+    {
+		var factories = BattleManager.GetAll<Factory>();
+		foreach (var factory in factories)
+		{
+			BattleManager.GetNation(factory.nation).wealth += factory.TakeOuput();
+		}
+		foreach (var nation in BattleManager.GetAllNations())
+		{
+			nation.wealth += GlobalData.baseWealthGain;
+		}
+	}
+
 	public static Site NormalizeSiteData(Site site)
 	{
-		site.contructionValue = Mathf.Max(site.contructionValue, 0.1f);
-		site.contructionTime = Mathf.Max(site.contructionTime, 3f);
+		site.efficency = Mathf.Max(site.efficency, 0.1f);
+		site.capacity = Mathf.Max(site.capacity, 3f);
 		return site;
 	}
 	public void ContructSite(Site site, Nation nation, Vector2Int position)
@@ -69,7 +87,7 @@ public class EconomyManager : MonoBehaviour
     }
     public float SiteCost(Site site) 
     {
-        return (site.contructionValue * contructionValueValue) - (site.contructionTime * contructionTimeValue);
+        return (site.efficency * contructionValueValue) + (site.capacity * contructionTimeValue);
     }   
     void ContructSites()
     {
@@ -77,28 +95,34 @@ public class EconomyManager : MonoBehaviour
         foreach (var site in contructionSites)
         {
             site.completion += Time.deltaTime;
-            if (site.completion > site.contructionTime)
+            if (site.completion > site.capacity)
             {
-                PopulateArea(mapRenderer.MapPositionViaDisplacement(site.position), site.contructionValue);
+                FinishSite(site);
 				completions.Add(site);
 			}
 		}
         foreach (var site in completions) { contructionSites.Remove(site); }
     }
 
-    void ContructBuilding(Site site)
+    void FinishSite(Site site)
     {
         var pos = mapRenderer.MapPositionViaDisplacement(site.position);
 		Nation parentNation = BattleManager.GetNation(mapRenderer.mapData[pos.x, pos.y]);
-        SpawnStructure<Factory>(mapRenderer.WorldPosition(pos), WarObject.ModelType.Factory, new(parentNation.nation, GlobalData.capitalChangeHealth, 0));
+        var factory = SpawnStructure<Factory>(mapRenderer.WorldPosition(pos), WarObject.ModelType.Factory, new(parentNation.nation, GlobalData.capitalChangeHealth, 0));
+        factory.efficiency = site.efficency;
+        factory.production = site.capacity;
     }
 
-    public void SpawnStructure<T>(Vector3 position, WarObject.ModelType model, WarObjectData objectData) where T : WarObject
+    public T SpawnStructure<T>(Vector3 position, WarObject.ModelType model, WarObjectData objectData) where T : WarObject
     {
         var warObjParent = new GameObject(model.ToString());
         var warObject = warObjParent.AddComponent<T>();
+        warObjParent.AddComponent<SpriteRenderer>();
+        warObjParent.AddComponent<BoxCollider2D>();
+        warObjParent.transform.position = position;
         warObject.AssignData(objectData);
         warObject.modelType = model;
+        return warObject;
     }
 
     public void PopulateArea(Vector2Int position, float value)
@@ -187,7 +211,7 @@ public class EconomyManager : MonoBehaviour
     }
 
     [ContextMenu("Grant Wealth")]
-    public void GrantWealth()
+    public void UpdatePopulation()
     {
         var nations = BattleManager.GetAllNations();
         Color[,] mapColors = MapBorderRenderer.GetPixelData(mapRenderer.map);
@@ -202,7 +226,7 @@ public class EconomyManager : MonoBehaviour
                 Color color = mapColors[x, y];
                 foreach (Nation nation in nations)
                 {
-                    if (nation.nationColor == color) nation.wealth += populationMap[x, y];
+                    if (nation.nationColor == color) nation.manPower += populationMap[x, y];
                 }
             }
         }
@@ -258,16 +282,16 @@ public class EconomyManager : MonoBehaviour
 public class Site
 {
     public Vector2Int position;
-    public float contructionValue;
-    public float contructionTime;
+    public float efficency;
+    public float capacity;
     public float completion;
 
     public Site Copy()
     {
         Site site = new Site();
         site.position = position;
-        site.contructionValue = contructionValue;
-        site.contructionTime = contructionTime;
+        site.efficency = efficency;
+        site.capacity = capacity;
         site.completion = completion;
         return site;
     }

@@ -25,8 +25,8 @@ public class ContructionMenu : MonoBehaviour
 	{
 		menuTransform.anchoredPosition = Vector2.Lerp(menuTransform.anchoredPosition, onScreenPosition, Mathf.Clamp01(Time.deltaTime * animationTime));
 
-		valueText.text = site.contructionValue.ToString();
-        timeText.text = site.contructionTime.ToString();
+		valueText.text = site.efficency.ToString();
+        timeText.text = site.capacity.ToString();
         costText.text = economyManager.SiteCost(site).ToString() + " " + economyManager.symbol;
         site = EconomyManager.NormalizeSiteData(site);
 	}
@@ -39,21 +39,21 @@ public class ContructionMenu : MonoBehaviour
 
 	public void OnValueIncrease()
     {
-        site.contructionValue += 0.1f;
+        site.efficency += 0.1f;
     }
 
     public void OnTimeIncrease()
     {
-        site.contructionTime += 3;
+        site.capacity += 3;
     }
 
     public void OnValueDecrease()
     {
-        site.contructionValue -= 0.1f;
+        site.efficency -= 0.1f;
     }
 
     public void OnTimeDecrease()
     {
-        site.contructionTime -= 3;
+        site.capacity -= 3;
     }
 }

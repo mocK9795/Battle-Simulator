@@ -24,6 +24,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float basePoliticalPowerGain;
 	public float experienceGain;
 	public float baseExperience;
+	public float baseWealthGain;
 
 	public GameObject popupPrefab;
 	public Material lineMat;
@@ -53,6 +54,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.basePoliticalPowerGain = basePoliticalPowerGain;
 		GlobalData.experienceGain = experienceGain;
 		GlobalData.baseExperience = baseExperience;
+		GlobalData.baseWealthGain = baseWealthGain;
 
 		GlobalData.popupPrefab = popupPrefab;
 		GlobalData.lineMat = lineMat;
@@ -112,6 +114,7 @@ public static class GlobalData
 	public static float basePoliticalPowerGain;
 	public static float experienceGain;
 	public static float baseExperience;
+	public static float baseWealthGain;
 
 
 	public static RecruitmentManager recruiter;
@@ -343,8 +346,6 @@ public static class GlobalData
 		}
 		return new(tree);
 	}
-
-	
 }
 
 

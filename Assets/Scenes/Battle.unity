@@ -12582,9 +12582,9 @@ RectTransform:
   - {fileID: 1712382690}
   m_Father: {fileID: 1896817697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260, y: -335.315}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 520, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &350672249
@@ -18882,7 +18882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Time
+  m_text: Manpower
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -18909,7 +18909,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 73.75
+  m_fontSize: 57.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -19913,6 +19913,7 @@ MonoBehaviour:
   basePoliticalPowerGain: 1
   experienceGain: 0
   baseExperience: 1
+  baseWealthGain: 10
   popupPrefab: {fileID: 9122781807086344282, guid: 87c387f1e2b28f84888ffa512ff39718, type: 3}
   lineMat: {fileID: 2100000, guid: 08fc1cc8af1886548810a35fe9df8726, type: 2}
   unitModelData:
@@ -19938,10 +19939,10 @@ MonoBehaviour:
     box: {x: 0.96, y: 0.96}
     boxOffset: {x: 0, y: 0}
   - modelType: 8
-    model: {fileID: 919132149155446097, guid: e013140aa874ee54896715fbeacaf2d5, type: 3}
-    rotation: {x: 270.01978, y: 0, z: 0}
-    scale: {x: 600, y: 600, z: 300}
-    heightFromGround: 0
+    model: {fileID: 2878730678920266763, guid: 6ebd4fca9a7646f4aa2aa3a585318cdb, type: 3}
+    rotation: {x: -0, y: 180, z: 180}
+    scale: {x: 100, y: 100, z: 50}
+    heightFromGround: -1
     box: {x: 0.96, y: 0.96}
     boxOffset: {x: 0, y: 0}
   genericFocusTree:
@@ -24716,9 +24717,9 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1896817697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260, y: -75}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 520, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &701055760
@@ -25493,9 +25494,9 @@ RectTransform:
   - {fileID: 132088209}
   m_Father: {fileID: 1896817697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260, y: -950.315}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 519.93, y: 188.74}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!21 &730424904
@@ -38516,8 +38517,8 @@ MonoBehaviour:
   menuTransform: {fileID: 1896817697}
   site:
     position: {x: 0, y: 0}
-    contructionValue: 0
-    contructionTime: 0
+    efficency: 0
+    capacity: 0
     completion: 0
   offScreenPosition: {x: 260, y: 0}
   onScreenPosition: {x: -260, y: 0}
@@ -68386,7 +68387,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1896817697
 RectTransform:
   m_ObjectHideFlags: 0
@@ -72632,7 +72633,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Value
+  m_text: Efficency
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -72659,7 +72660,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 73.75
+  m_fontSize: 64.1
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -78592,9 +78593,9 @@ RectTransform:
   - {fileID: 1224246157}
   m_Father: {fileID: 1896817697}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 260, y: -670.63}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 520, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2103917797

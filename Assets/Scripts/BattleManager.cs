@@ -367,6 +367,11 @@ public class BattleManager : MonoBehaviour
 		return null;
 	}
 
+	public static T[] GetAll<T>() where T : Component
+	{
+		return FindObjectsByType<T>(FindObjectsSortMode.InstanceID);
+	}
+
 	public static Nation GetNation(Color color)
 	{
 		Nation[] allNations = GetAllNations();
