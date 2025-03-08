@@ -19123,7 +19123,7 @@ MonoBehaviour:
   minZoomRotation: {x: -45, y: 0, z: 0}
   maxZoomRotation: {x: 0, y: 0, z: 0}
   dragThresshold: 2.5
-  modelRenderDist: 25
+  modelRenderDist: 20
   cameraLagFlickCancelThresshold: 4
   pathOptimizationThreshold: 300
   selectModeButton: {fileID: 1336050091}

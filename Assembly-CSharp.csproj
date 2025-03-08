@@ -91,6 +91,7 @@
     <Compile Include="Assets\Scripts\Structures\Factory.cs" />
     <Compile Include="Assets\Scripts\VisualEffects.cs" />
     <Compile Include="Assets\Scripts\UI\Focus.cs" />
+    <Compile Include="Assets\Scripts\UI\ArmyButton.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

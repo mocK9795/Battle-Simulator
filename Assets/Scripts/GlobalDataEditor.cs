@@ -124,6 +124,7 @@ public static class GlobalData
 	public static float baseWealthGain;
 	public static float factoryOutputValue;
 	public static float spriteOutlineValue;
+	public static bool showModel;
 
 	public static RecruitmentManager recruiter;
 	public static MapRenderer mapRenderer;

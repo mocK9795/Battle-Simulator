@@ -34,8 +34,10 @@ public class Player : MonoBehaviour
     public Sprite selectModeOff;
     public Sprite warriorSelectedSprite;
     public Sprite warriorSprite;
+    [HideInInspector]
+	public bool selectMode = false;
 
-    [Header("Enable Unit AI")]
+	[Header("Enable Unit AI")]
     public Image enableUnitAiButton;
     public Sprite unitAiOn;
     public Sprite unitAiOff;
@@ -56,7 +58,8 @@ public class Player : MonoBehaviour
     public Sprite contructModeOff;
     bool contruction = false;
 
-    List<Warrior> selectedWarriors = new();
+    [HideInInspector]
+    public List<Warrior> selectedWarriors = new();
     List<Warrior> lastSelected = new();
     Camera mainCamera;
     VisualEffects effects;
@@ -66,7 +69,6 @@ public class Player : MonoBehaviour
     MapRenderer mapRenderer;
     MapBorderRenderer mapBorderRenderer;
     Nation playerNation;
-    bool selectMode = false;
 
     private void Start()
     {
@@ -307,6 +309,7 @@ public class Player : MonoBehaviour
     {
         float dist = Mathf.Abs(transform.position.z);
         WarObject[] allObjects = BattleManager.GetAllWarObjects();
+        GlobalData.showModel = dist > modelRenderDist;
         if (dist > modelRenderDist) foreach (var obj in allObjects) { obj.SetModel(WarObject.ModelType.Sprite); }
         else foreach (var obj in allObjects) { obj.SetModel(); }
     }

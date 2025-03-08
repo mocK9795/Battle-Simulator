@@ -85,7 +85,9 @@ public class WarObject : MonoBehaviour
 		spriteRenderer.material = GlobalData.spriteMat;
 		outline = false;
 		maxHealth = health;
+		if (GlobalData.showModel)
 		SetModel();
+		else SetModel(ModelType.Sprite);
 
 		if (this is Warrior) type = ObjectType.Warrior;
 		if (this is Structure) type = ObjectType.Structure;
