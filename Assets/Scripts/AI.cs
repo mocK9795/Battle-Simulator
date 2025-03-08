@@ -14,12 +14,10 @@ public class AI : MonoBehaviour
 		if (timer < GlobalData.aiThinkSpeed) return;
 		timer = 0;
 
-		nation.SetWarAssets();
-		if (nation.GetWarAssets().Length < 1) Destroy(gameObject);
 
-		Vector2Int[] mapPoints = GetNationArea(nation.nationColor);
+		//Vector2Int[] mapPoints = GetNationArea(nation.nationColor);
+		//PositionWarriors(mapPoints);
 
-		PositionWarriors(mapPoints);
 		SendReEnforcements();
 		GaurdCapital();
 		RecruitWarriors();

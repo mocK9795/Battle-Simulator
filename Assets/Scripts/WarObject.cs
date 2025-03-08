@@ -46,6 +46,13 @@ public class WarObject : MonoBehaviour
 		get { return GetComponent<SpriteRenderer>(); }
 	}
 
+	public bool outline { get { return spriteRenderer.material.GetFloat("_Thickness") > 0; } 
+		set {
+			if (value) spriteRenderer.material.SetFloat("_Thickness", GlobalData.spriteOutlineValue);
+			else spriteRenderer.material.SetFloat("_Thickness", 0);
+		}
+	}
+
 	[HideInInspector]
 	public Rigidbody2D body
 	{
@@ -75,11 +82,13 @@ public class WarObject : MonoBehaviour
 
 	public void Start()
 	{
+		spriteRenderer.material = GlobalData.spriteMat;
+		outline = false;
 		maxHealth = health;
 		SetModel();
 
 		if (this is Warrior) type = ObjectType.Warrior;
-		if (this is Capital || this is Factory) type = ObjectType.Structure;
+		if (this is Structure) type = ObjectType.Structure;
 	}
 
 	public void Update()

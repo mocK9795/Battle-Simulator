@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Factory : WarObject
+public class Factory : Structure
 {
     [Tooltip("Amount of Energy the factory uses per unit of production")]
     public float efficiency;

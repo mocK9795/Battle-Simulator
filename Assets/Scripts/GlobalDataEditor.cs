@@ -26,9 +26,12 @@ public class GlobalDataEditor : MonoBehaviour
 	public float baseExperience;
 	public float baseWealthGain;
 	public float factoryOutputValue;
+	[Range(0, 0.3f)]
+	public float spriteOutlineValue;
 
 	public GameObject popupPrefab;
 	public Material lineMat;
+	public Material spriteMat;
 	public UnitModelData[] unitModelData;
 	public List<Focus> genericFocusTree = null;
 
@@ -57,9 +60,11 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.baseExperience = baseExperience;
 		GlobalData.baseWealthGain = baseWealthGain;
 		GlobalData.factoryOutputValue = factoryOutputValue;
+		GlobalData.spriteOutlineValue = spriteOutlineValue;
 
 		GlobalData.popupPrefab = popupPrefab;
 		GlobalData.lineMat = lineMat;
+		GlobalData.spriteMat = spriteMat;
 		GlobalData.unitModelData = unitModelData;
 		GlobalData.genericTree = genericFocusTree;
 	}
@@ -118,6 +123,7 @@ public static class GlobalData
 	public static float baseExperience;
 	public static float baseWealthGain;
 	public static float factoryOutputValue;
+	public static float spriteOutlineValue;
 
 	public static RecruitmentManager recruiter;
 	public static MapRenderer mapRenderer;
@@ -126,6 +132,7 @@ public static class GlobalData
 
 	public static GameObject popupPrefab;
 	public static Material lineMat;
+	public static Material spriteMat;
 	public static UnitModelData[] unitModelData;
 	public static List<Focus> genericTree = null;
 

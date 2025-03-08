@@ -182,6 +182,7 @@ public class Player : MonoBehaviour
             Warrior warrior = obj.GetComponent<Warrior>();
             if (warrior == null) continue;
             if (warrior.nation != nation) continue;
+            warrior.outline = true;
             selectedWarriors.Add(warrior);
         }
     }
@@ -396,6 +397,7 @@ public class Player : MonoBehaviour
 
     void ClearSelection()
     {
+        foreach (var warrior in selectedWarriors) warrior.outline = false;
         selectedWarriors.Clear();
     }
 

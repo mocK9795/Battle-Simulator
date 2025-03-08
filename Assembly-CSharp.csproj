@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\UI\ShowcaseItem.cs" />
     <Compile Include="Assets\Scripts\Border\Border.cs" />
     <Compile Include="Assets\Scripts\Border\BorderPointOrdering.cs" />
+    <Compile Include="Assets\Scripts\UI\ArmyManagement.cs" />
     <Compile Include="Assets\UI\ErrorDisplay.cs" />
     <Compile Include="Assets\Scripts\EconomyManager.cs" />
     <Compile Include="Assets\Scripts\UI\LabledText.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Assets\Scripts\Border\BorderDetection.cs" />
     <Compile Include="Assets\Scripts\UI\FocusDisplay.cs" />
     <Compile Include="Assets\Scripts\Warrior.cs" />
+    <Compile Include="Assets\Scripts\Structures\Structure.cs" />
     <Compile Include="Assets\Scripts\AI.cs" />
     <Compile Include="Assets\Scripts\UI\FocusBtn.cs" />
     <Compile Include="Assets\Scripts\Announcement.cs" />
@@ -95,8 +97,10 @@
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile-2-Pass.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
+    <None Include="Assets\Fantasy Skybox FREE\Readme.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
+    <None Include="Assets\Fantasy Skybox FREE\ReleaseNotes.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\SDFFunctions.hlsl" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />

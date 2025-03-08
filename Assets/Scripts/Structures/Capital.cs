@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Capital : WarObject
+public class Capital : Structure
 {
 	[Header("Capital Settings")]
 	public float controllRadius;
