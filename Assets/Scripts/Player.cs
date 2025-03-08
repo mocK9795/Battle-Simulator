@@ -68,6 +68,7 @@ public class Player : MonoBehaviour
     RecruitmentManager recruiter;
     MapRenderer mapRenderer;
     MapBorderRenderer mapBorderRenderer;
+    ArmyManagement armyManagement;
     Nation playerNation;
 
     private void Start()
@@ -79,6 +80,7 @@ public class Player : MonoBehaviour
         mapBorderRenderer = FindFirstObjectByType<MapBorderRenderer>();
         mapRenderer = FindFirstObjectByType<MapRenderer>();
         economy = FindFirstObjectByType<EconomyManager>();
+        armyManagement = FindFirstObjectByType<ArmyManagement>();
         lookSpeed = mainCamera.orthographicSize;
 
         playerNation = BattleManager.GetNation(nation);
@@ -128,6 +130,7 @@ public class Player : MonoBehaviour
 
         if (value.canceled)
         {
+            armyManagement.OnClick();
             effects.ClearArrow();
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
