@@ -21,4 +21,5 @@ public class MobileControls : MonoBehaviour
 	{
 		player.OnZoom(1 * zoomScale);
 	}
+
 }

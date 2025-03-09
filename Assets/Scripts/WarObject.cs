@@ -1,6 +1,4 @@
-using JetBrains.Annotations;
 using UnityEngine;
-using static UnityEngine.Rendering.DebugUI;
 
 public class WarObject : MonoBehaviour
 {
@@ -107,7 +105,7 @@ public class WarObject : MonoBehaviour
 	public void SetModel(UnitModelData modelData)
 	{
 		if (modelData == null) { RemoveModel(); 
-			if(GlobalData.battle) GlobalData.battle.SetWarObjectColor(this); 
+			if(GlobalData.battle != null) GlobalData.battle.SetWarObjectColor(this); 
 			return; }
 		if (modelObj == null)
 		{
@@ -145,7 +143,7 @@ public class WarObject : MonoBehaviour
 			spriteRenderer.sprite = modelData.modelSprite;
 		spriteRenderer.enabled = false;
 
-		if (GlobalData.battle) GlobalData.battle.SetWarObjectColor(this);
+		if (GlobalData.battle != null) GlobalData.battle.SetWarObjectColor(this);
 	}
 
 	public void SetModel(ModelType modelVariant)
@@ -160,7 +158,7 @@ public class WarObject : MonoBehaviour
 
 	void RemoveModel()
 	{
-		DestroyImmediate(modelObj);
+		Destroy(modelObj);
 		spriteRenderer.enabled = true;
 	}
 

@@ -210,7 +210,10 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Complete Europe Borders_0: 6421708289517820176
+      Complete Europe Borders_1: -5202541391414933624
+      Complete Europe Borders_2: 6327261616344571125
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using UnityEngine.Rendering;
 using System.Collections;
 
 public class ArmyManagement : MonoBehaviour

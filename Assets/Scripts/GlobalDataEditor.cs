@@ -3,9 +3,6 @@ using UnityEngine.InputSystem;
 using System.Collections.Generic;
 using System.Linq;
 using System;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using Unity.VisualScripting;
 
 public class GlobalDataEditor : MonoBehaviour
 {
@@ -127,6 +124,7 @@ public static class GlobalData
 	public static float factoryOutputValue;
 	public static float spriteOutlineValue;
 	public static float structureSpacing;
+	static bool startCaused = false;
 
 	public static RecruitmentManager recruiter;
 	public static MapRenderer mapRenderer;
@@ -284,6 +282,7 @@ public static class GlobalData
 	}
 	public static UnitModelData FindModel(WarObject.ModelType modelType)
 	{
+		if (!startCaused) BattleManager.GetAll<GlobalDataEditor>()[0].SetGlobalData();
 		foreach (var modelData in unitModelData) {if (modelType == modelData.modelType) return modelData; }
 		return null;
 	}
@@ -366,6 +365,7 @@ public static class GlobalData
 	}
 	public static FocusTree GetGenericFocusTree()
 	{
+		if (!startCaused) BattleManager.GetAll<GlobalDataEditor>()[0].SetGlobalData();
 		List<Focus> tree = new();
 		foreach (var focus in genericTree)
 		{
