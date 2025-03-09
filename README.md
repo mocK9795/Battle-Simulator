@@ -1,0 +1,1 @@
+This is a game, which I made for fun, it's kind of a clone of HOI4 but now I'm going to take this game in another direction. As of writing this (9-March-2025) I am also considering granting the player the ability to controll warriors.
