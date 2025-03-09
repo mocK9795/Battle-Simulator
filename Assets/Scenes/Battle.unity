@@ -6103,108 +6103,6 @@ Material:
     - _TrueColor: {r: 0.2767295, g: 0.2767295, b: 0.2767295, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
---- !u!1001 &200877629
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 1734060826}
-    m_Modifications:
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -100
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6891564368566942515, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-      propertyPath: m_Name
-      value: Army Button 2
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
---- !u!224 &200877630 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4902806014935995159, guid: e8893d9435a9edc418e32edf24d1e70f, type: 3}
-  m_PrefabInstance: {fileID: 200877629}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &202268235
 GameObject:
   m_ObjectHideFlags: 0
@@ -19379,6 +19277,7 @@ MonoBehaviour:
   contructModeOn: {fileID: -7889522682113690354, guid: 55621e71d255fa044b2dfef16e831cc7, type: 3}
   contructModeOff: {fileID: 21300000, guid: ae76a35a0f9b2634db1765a146203bde, type: 3}
   selectedWarriors: []
+  lastSelected: []
 --- !u!21 &521155301
 Material:
   serializedVersion: 8
@@ -33643,10 +33542,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 959218024212249566}
   - {fileID: 451148876}
   - {fileID: 1046091528}
   - {fileID: 1905210094}
+  - {fileID: 959218024212249566}
   m_Father: {fileID: 1698419856}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -38116,7 +38015,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 1046091529}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -39024,6 +38923,7 @@ MonoBehaviour:
   container: {fileID: 1734060825}
   taskbar: {fileID: 963281569}
   player: {fileID: 519420035}
+  armyGroupCount: 9
 --- !u!21 &1064055073
 Material:
   serializedVersion: 8
@@ -61768,8 +61668,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 200877630}
+  m_Children: []
   m_Father: {fileID: 1698419856}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -70878,7 +70777,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1056460552}
         m_TargetAssemblyTypeName: ArmyManagement, Assembly-CSharp
-        m_MethodName: OnArmyAdd
+        m_MethodName: OnGridOpen
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

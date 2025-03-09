@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class Player : MonoBehaviour
 {
@@ -60,7 +61,6 @@ public class Player : MonoBehaviour
 
     [HideInInspector]
     public List<Warrior> selectedWarriors = new();
-    List<Warrior> lastSelected = new();
     Camera mainCamera;
     VisualEffects effects;
     BattleManager battle;
@@ -69,6 +69,7 @@ public class Player : MonoBehaviour
     MapRenderer mapRenderer;
     MapBorderRenderer mapBorderRenderer;
     ArmyManagement armyManagement;
+    EventSystem eventSystem;
     Nation playerNation;
 
     private void Start()
@@ -81,6 +82,7 @@ public class Player : MonoBehaviour
         mapRenderer = FindFirstObjectByType<MapRenderer>();
         economy = FindFirstObjectByType<EconomyManager>();
         armyManagement = FindFirstObjectByType<ArmyManagement>();
+        eventSystem = FindFirstObjectByType<EventSystem>();
         lookSpeed = mainCamera.orthographicSize;
 
         playerNation = BattleManager.GetNation(nation);
@@ -134,9 +136,12 @@ public class Player : MonoBehaviour
             effects.ClearArrow();
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
+            if (eventSystem.IsPointerOverGameObject()) return;
+            print("Pass");
             if (contruction && !isDraging) { OnContruct(); return; }
             if (inspect && !isDraging) OnInspect();
             if (GlobalData.selectedWarrior == null && selectMode && !inspect) OnSelect();
+            if (GlobalData.selectedWarrior == null && !selectMode && !inspect && !isDraging) MarchArmy();
             if (GlobalData.selectedWarrior == null) { GlobalData.mousePath.Clear(); return; }
             if (!isDraging) { OpenWarriorPopup(GlobalData.selectedWarrior); return; }
 
@@ -179,7 +184,6 @@ public class Player : MonoBehaviour
         Vector2 boxCenter = (startPoint + endPoint) / 2;
         Vector2 boxSize = new Vector2(Mathf.Abs(endPoint.x - startPoint.x), Mathf.Abs(endPoint.y - startPoint.y));
 
-        lastSelected = new(selectedWarriors);
         ClearSelection();
 
         Collider2D[] selectedObjects = Physics2D.OverlapBoxAll(boxCenter, boxSize, 0f);
@@ -328,12 +332,11 @@ public class Player : MonoBehaviour
 	}
     public void MarchArmy() 
     {
-        var playerNation = BattleManager.GetNation(nation);
-        foreach (var warrior in playerNation.GetArmy())
+        print(armyManagement.selectedWarriors.Count);
+        foreach (var warrior in armyManagement.selectedWarriors)
         {
-			Vector2 start = warrior.transform.position;
 			Vector2 mousePosition = WorldPosition(GlobalData.mousePosition);
-            warrior.SetTargetFromOffset(mousePosition - start);
+            warrior.SetTarget(mousePosition);
         }
     }
 
@@ -356,27 +359,6 @@ public class Player : MonoBehaviour
     {
         recruiter.RecruitArmy(playerNation, recruiter.data);
     }
-
-    public void OnUnitAiClick()
-    {
-        unitAi = !unitAi;
-        if (unitAi) enableUnitAiButton.sprite = unitAiOn;
-        else enableUnitAiButton.sprite = unitAiOff;
-
-        if (selectMode)
-        {
-            foreach (var selected in lastSelected)
-            {
-                selected.useAi = unitAi;
-			}
-            return;
-		}
-
-        var warriors = playerNation.GetArmy();
-        foreach (Warrior warrior in warriors) {
-            warrior.useAi = unitAi;
-		}
-	}
 
     public void OnSearchClick()
 	{
@@ -401,7 +383,7 @@ public class Player : MonoBehaviour
         economy.ContructSite(site, playerNation, mapPosition);
     }
 
-    void ClearSelection()
+    public void ClearSelection()
     {
         foreach (var warrior in selectedWarriors) warrior.outline = false;
         selectedWarriors.Clear();
@@ -410,6 +392,5 @@ public class Player : MonoBehaviour
     void FixSelection()
     {
         foreach (var warrior in selectedWarriors) { if (warrior == null) Destroy(warrior); }
-        foreach (var warrior in lastSelected) { if (warrior == null) Destroy(warrior); }
 	}
 }

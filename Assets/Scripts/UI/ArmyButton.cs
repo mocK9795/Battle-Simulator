@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class ArmyButton : MonoBehaviour
 {
-    public int id {get { return id; } set { id = value; idText.text = id.ToString(); } }
+    public int id {get { return privateId; } set { privateId = value; idText.text = privateId.ToString(); } }
+	int privateId;
     public TMP_Text idText;
 
 	private void Start()

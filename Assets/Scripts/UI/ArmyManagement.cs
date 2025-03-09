@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using UnityEngine.Rendering;
+using System.Collections;
 
 public class ArmyManagement : MonoBehaviour
 {
@@ -10,15 +11,22 @@ public class ArmyManagement : MonoBehaviour
     public GameObject container;
 	public GameObject taskbar;
     public Player player;
+	public int armyGroupCount;
     List<List<Warrior>> armyContainers;
 	int selectedArmy = 0;
-	float gridCloseDelay = 0.1f;
-	float gridCloseTimer;
+	float containerCloseDelay = 0.1f;
+	float timeSinceContainerClosed;
 	public List<Warrior> selectedWarriors { get { return armyContainers[selectedArmy]; } }
 
 	private void Start()
 	{
 		armyContainers = new();
+		var btns = new List<ArmyButton>(BattleManager.GetAll<ArmyButton>());
+		for (int i = 0; i < armyGroupCount; i++) 
+		{
+			if (i > btns.Count - 1) btns.Add(Instantiate(preset, container.transform).GetComponent<ArmyButton>());
+			btns[i].id = i; armyContainers.Add(new()); 
+		}
 	}
 
 	public void OnArmyAdd() 
@@ -26,16 +34,21 @@ public class ArmyManagement : MonoBehaviour
 		CleanArmyRefrences();
 		OnRemoveFromArmy();
 		armyContainers[selectedArmy].AddRange(player.selectedWarriors);
+		OutlineSelected(true);
+		player.ClearSelection();
 	}
+
+	void OutlineSelected(bool outline) 
+	{ foreach (var warrior in armyContainers[selectedArmy]) { warrior.outline = outline; } }
 
 	public void OnArmyClick(int index)
 	{
 		CleanArmyRefrences();
-		if (player.selectMode)
-		{
-			return;
-		}
+		if (index == selectedArmy) return;
+		OutlineSelected(false);
+		timeSinceContainerClosed = 0;
 		selectedArmy = index;
+		OutlineSelected(true);
 		activeObject.transform.SetParent(container.transform, false);
 		var selectedButton = FindButton(selectedArmy);
 		selectedButton.transform.SetParent(taskbar.transform, false);
@@ -65,8 +78,8 @@ public class ArmyManagement : MonoBehaviour
 		{
 			for (int i = 0; i < armyContainer.Count; i++)
 			{
-				if (armyContainer[i].gameObject.GetInstanceID() == warrior.GetInstanceID())
-				{ armyContainer.RemoveAt(i); return; }
+				if (armyContainer[i].gameObject.GetInstanceID() == warrior.gameObject.GetInstanceID())
+				{ armyContainer[i].outline = false; armyContainer.RemoveAt(i); return; }
 			}
 		}
 	}
@@ -84,18 +97,26 @@ public class ArmyManagement : MonoBehaviour
 
 	public void OnGridOpen()
 	{
-		gridCloseTimer = 0;
+		timeSinceContainerClosed = 0;
 		container.SetActive(true);
 	}
  
 	private void Update()
 	{
-		if (gridCloseTimer < gridCloseDelay) gridCloseTimer += Time.deltaTime;
+		if (timeSinceContainerClosed < containerCloseDelay) timeSinceContainerClosed += Time.deltaTime;
 	}
 
 	public void OnClick()
 	{
-		if (gridCloseTimer < gridCloseDelay) return;
+		if (timeSinceContainerClosed < containerCloseDelay) return;
+		StartCoroutine(DeactivateGrid());
+	}
+
+	IEnumerator DeactivateGrid()
+	{
+		yield return new WaitForSeconds(containerCloseDelay * .5f);
+		if (timeSinceContainerClosed < containerCloseDelay) yield break;
 		container.SetActive(false);
+		yield break;
 	}
 }
