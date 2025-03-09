@@ -141,7 +141,7 @@ public class MapBorderRenderer : MonoBehaviour
     }
 	public void DrawMapBorder(LineRenderer lineRenderer, List<Vector2Int> mapBorderPoints, Color[,] colorMap)
     {
-        List<Vector2> borderPoints = GlobalData.listVector2(mapBorderPoints);
+        List<Vector2> borderPoints = GlobalData.vector2(mapBorderPoints);
 
 		if (outlineMode == OutlineMode.ConvexHull)
         {
@@ -157,7 +157,7 @@ public class MapBorderRenderer : MonoBehaviour
         }
         else if (outlineMode == OutlineMode.MarchingSquares)
         {
-            borderPoints = GlobalData.listVector2(BorderPointOrdering.MarchingSquares(GlobalData.listVector2Int(borderPoints), colorMap));
+            borderPoints = GlobalData.vector2(BorderPointOrdering.MarchingSquares(GlobalData.vector2Int(borderPoints), colorMap));
         }
 
 		Vector3[] positions = new Vector3[borderPoints.Count];

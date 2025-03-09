@@ -317,6 +317,20 @@ public class BattleManager : MonoBehaviour
 			unit.modelType = model;
 		}
 	}
+
+	public static T GetNearest<T>(Vector2 position, WarObject self, float maxRadius) where T : WarObject
+	{
+		var nearbyObjects = Physics2D.OverlapCircleAll(position, maxRadius);
+		foreach (var obj in nearbyObjects)
+		{
+			if (self != null && obj.gameObject.GetInstanceID() == self.gameObject.GetInstanceID()) continue;
+			var component = obj.GetComponent<T>();
+			if (component == null) continue;
+			return component;
+		}
+
+		return null;
+	}
 	
 	public void ScaleCapital()
 	{

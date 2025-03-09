@@ -18,7 +18,7 @@ public class BorderPointOrdering : MonoBehaviour
 	}
 	public static List<Vector2> OrderBorderPoints(List<Vector2> borderPoints)
 	{
-		return GlobalData.listVector2(OrderBorderPoints(GlobalData.listVector2Int(borderPoints)));
+		return GlobalData.vector2(OrderBorderPoints(GlobalData.vector2Int(borderPoints)));
 	}
 	public static List<Vector2Int> ReconstructPolygon(List<Vector2Int> borderPoints, List<Vector2Int> convexHull)
 	{
@@ -150,9 +150,9 @@ public class BorderPointOrdering : MonoBehaviour
 	}
 	public static List<Vector2Int> GetConvexHull(List<Vector2Int> points)
 	{
-		List<Vector2> nonIntPoints = GlobalData.listVector2(points);
+		List<Vector2> nonIntPoints = GlobalData.vector2(points);
 		var nonIntHull = GetConvexHull(nonIntPoints);
-		return GlobalData.listVector2Int(nonIntHull);
+		return GlobalData.vector2Int(nonIntHull);
 	}
 	private static float Cross(Vector2 o, Vector2 a, Vector2 b)
 	{

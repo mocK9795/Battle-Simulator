@@ -38,13 +38,6 @@ public class Player : MonoBehaviour
     [HideInInspector]
 	public bool selectMode = false;
 
-	[Header("Enable Unit AI")]
-    public Image enableUnitAiButton;
-    public Sprite unitAiOn;
-    public Sprite unitAiOff;
-    public Sprite aiControlledUnitImage;
-    bool unitAi = false;
-
     [Header("Inspect Mode")]
     public NationShowcase showcase;
     public Image inspectImage;
@@ -92,7 +85,6 @@ public class Player : MonoBehaviour
         }
         var ai = playerNation.GetComponent<AI>();
         if (ai != null) ai.enabled = false;
-
     }
 
     public Warrior GetSelectedWarrior()
@@ -137,7 +129,6 @@ public class Player : MonoBehaviour
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
             if (eventSystem.IsPointerOverGameObject()) return;
-            print("Pass");
             if (contruction && !isDraging) { OnContruct(); return; }
             if (inspect && !isDraging) OnInspect();
             if (GlobalData.selectedWarrior == null && selectMode && !inspect) OnSelect();
@@ -316,7 +307,6 @@ public class Player : MonoBehaviour
     {
         float dist = Mathf.Abs(transform.position.z);
         WarObject[] allObjects = BattleManager.GetAllWarObjects();
-        GlobalData.showModel = dist > modelRenderDist;
         if (dist > modelRenderDist) foreach (var obj in allObjects) { obj.SetModel(WarObject.ModelType.Sprite); }
         else foreach (var obj in allObjects) { obj.SetModel(); }
     }
@@ -332,7 +322,6 @@ public class Player : MonoBehaviour
 	}
     public void MarchArmy() 
     {
-        print(armyManagement.selectedWarriors.Count);
         foreach (var warrior in armyManagement.selectedWarriors)
         {
 			Vector2 mousePosition = WorldPosition(GlobalData.mousePosition);
@@ -358,6 +347,15 @@ public class Player : MonoBehaviour
     public void OnRecruitConfirm()
     {
         recruiter.RecruitArmy(playerNation, recruiter.data);
+        RemoveUnitAi();
+    }
+
+    void RemoveUnitAi()
+    {
+        foreach (var obj in playerNation.GetArmy())
+        {
+            obj.useAi = false;
+        }
     }
 
     public void OnSearchClick()

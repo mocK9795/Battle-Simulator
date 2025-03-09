@@ -34,8 +34,8 @@ public class ArmyManagement : MonoBehaviour
 		CleanArmyRefrences();
 		OnRemoveFromArmy();
 		armyContainers[selectedArmy].AddRange(player.selectedWarriors);
-		OutlineSelected(true);
 		player.ClearSelection();
+		OutlineSelected(true);
 	}
 
 	void OutlineSelected(bool outline) 

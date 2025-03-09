@@ -28,6 +28,7 @@ public class GlobalDataEditor : MonoBehaviour
 	public float factoryOutputValue;
 	[Range(0, 0.3f)]
 	public float spriteOutlineValue;
+	public float structureSpacing;
 
 	public GameObject popupPrefab;
 	public Material lineMat;
@@ -61,6 +62,7 @@ public class GlobalDataEditor : MonoBehaviour
 		GlobalData.baseWealthGain = baseWealthGain;
 		GlobalData.factoryOutputValue = factoryOutputValue;
 		GlobalData.spriteOutlineValue = spriteOutlineValue;
+		GlobalData.structureSpacing = structureSpacing;
 
 		GlobalData.popupPrefab = popupPrefab;
 		GlobalData.lineMat = lineMat;
@@ -124,7 +126,7 @@ public static class GlobalData
 	public static float baseWealthGain;
 	public static float factoryOutputValue;
 	public static float spriteOutlineValue;
-	public static bool showModel;
+	public static float structureSpacing;
 
 	public static RecruitmentManager recruiter;
 	public static MapRenderer mapRenderer;
@@ -166,13 +168,28 @@ public static class GlobalData
 	{
 		return Inverse(vector3(value));
 	}
-	public static List<Vector2> listVector2(List<Vector2Int> points)
+	public static Color Inverse(Color value) {
+		Color color = new();
+		color.r = 1 - value.r;
+		color.g = 1 - value.g;
+		color.b = 1 - value.b;
+		color.a = 1 - value.a;
+		return color;
+	}
+	public static Color RGB(Color value)
+	{
+		Color color = Copy(value);
+		color.a = 1;
+		return color;
+	}
+	public static Color Copy(Color color) {return new(color.r, color.g, color.b, color.a); }
+	public static List<Vector2> vector2(List<Vector2Int> points)
 	{
 		List<Vector2> nonIntPoints = new();
 		foreach (Vector2Int point in points) { nonIntPoints.Add(new Vector2(point.x, point.y)); }
 		return nonIntPoints;
 	}
-	public static List<Vector2Int> listVector2Int(List<Vector2> points)
+	public static List<Vector2Int> vector2Int(List<Vector2> points)
 	{
 		List<Vector2Int> intPoints = new();
 		foreach (Vector2 point in points) { intPoints.Add(new Vector2Int(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y))); }

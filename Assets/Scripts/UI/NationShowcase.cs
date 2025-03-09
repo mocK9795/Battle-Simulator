@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NationShowcase : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class NationShowcase : MonoBehaviour
     public GameObject menuContainer;
 	public RectTransform menuTransform;
     public TMP_Text nationName;
+	public Image nationNameBackground;
+	public float backgroundTransparency;
 
     public LabledText wealthDisplay;
 	float shownWealth;
@@ -35,6 +38,10 @@ public class NationShowcase : MonoBehaviour
 		menuTransform.anchoredPosition = offScreenPosition;
         menuContainer.SetActive(true);
 		nationName.text = nation.nation;
+		Color color = GlobalData.Copy(nation.nationColor);
+		color.a = backgroundTransparency;
+		nationNameBackground.color = nation.nationColor;
+		nationNameBackground.color = color;
     }
 
 	private void Update()

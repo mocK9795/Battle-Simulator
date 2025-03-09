@@ -79,6 +79,7 @@ public class EconomyManager : MonoBehaviour
     {
         var realPositon = mapRenderer.MapPositionViaDisplacement(position);
         if (mapRenderer.mapData[realPositon.x, realPositon.y] != nation.nationColor) return;
+        if (BattleManager.GetNearest<Structure>(mapRenderer.WorldPosition(realPositon), null, GlobalData.structureSpacing) != null) return;
         site = NormalizeSiteData(site);
         var cost = SiteCost(site);
         if (cost > nation.wealth) return;
