@@ -1,11 +1,13 @@
 using UnityEngine;
 using System.Linq;
 using System.Collections.Generic;
+using System.Collections;
 
 public class AI : MonoBehaviour
 {
 	public Nation nation;
 	float timer;
+	bool updatePositions = true;
 
 	public void Update()
 	{
@@ -13,10 +15,10 @@ public class AI : MonoBehaviour
 		if (timer < GlobalData.aiThinkSpeed) return;
 		timer = 0;
 
-
-		//Vector2Int[] mapPoints = GetNationArea(nation.nationColor);
-		//PositionWarriors(mapPoints);
-
+		if (updatePositions)
+		{
+			StartCoroutine(PositionWarriors());
+		}
 		SendReEnforcements();
 		GaurdCapital();
 		RecruitWarriors();
@@ -40,17 +42,58 @@ public class AI : MonoBehaviour
 		return area.ToArray();
 	}
 
-	void PositionWarriors(Vector2Int[] area) 
+	IEnumerator PositionWarriors()
 	{
 		var army = nation.GetArmy();
-		if (army.Length < 4) return;
-		
-		int step = area.Length / army.Length;
-		for (int i = 0; i < area.Length; i+= step)
-		{
-			if (i >= army.Length) break;
-			army[i].SetTarget(GlobalData.mapRenderer.WorldPosition(area[i]));
+		if (army.Length < 1) {
+			updatePositions = true;
+			yield break; 
 		}
+
+		List<Vector2> posiblePositions = new();
+		for (int y = 0; y < GlobalData.mapRenderer.map.height; y++) {
+			yield return new WaitForEndOfFrame();
+			for (int x = 0; x < GlobalData.mapRenderer.map.width; x++)
+			{
+				var color = GlobalData.mapRenderer.mapData[x, y];
+				if (color != nation.nationColor) continue;
+				posiblePositions.Add(
+					GlobalData.mapRenderer.WorldPosition(
+						new Vector2Int(x, y)
+						));
+			}
+		}
+		
+		if (posiblePositions.Count < 1)
+		{
+			updatePositions = true;
+			yield break;
+		}
+
+		army = nation.GetArmy();
+		if (army.Length < 1)
+		{
+			updatePositions = true;
+			yield break;
+		}
+
+		List<Vector2> scatteredPositions = GlobalData.SelectScatteredPoints(posiblePositions, army.Length);
+		foreach (var warrior in army)
+		{
+			float leastDistance = float.MaxValue;
+			Vector2 closestPosition = Vector2.one;
+			foreach (var position in scatteredPositions)
+			{
+				if (warrior == null) break; // Somehow the value of warrior can be null
+				float distance = Vector2.Distance(position, warrior.transform.position);
+				if (distance > leastDistance) continue;
+				closestPosition = position;
+				leastDistance = distance;
+			}
+			warrior.SetTarget(closestPosition);
+			scatteredPositions.Remove(closestPosition);
+		}
+		updatePositions = true;
 	}
 
 	void SendReEnforcements()
