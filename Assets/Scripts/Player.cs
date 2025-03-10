@@ -65,7 +65,11 @@ public class Player : MonoBehaviour
     EventSystem eventSystem;
     Nation playerNation;
 
-    private void Start()
+	bool click;
+    bool started;
+    bool canceled;
+
+	private void Start()
     {
         mainCamera = GetComponent<Camera>();
         effects = FindFirstObjectByType<VisualEffects>();
@@ -114,17 +118,24 @@ public class Player : MonoBehaviour
 
     public void OnClick(InputAction.CallbackContext value)
     {
-        GlobalData.mouseDown = !value.canceled;
-        if (value.started) {
+        click = true;
+        started = value.started || value.performed;
+        canceled = value.canceled;
+	}
+
+	public void OnClick(bool started, bool canceled)
+    {
+        GlobalData.mouseDown = !canceled;
+        if (started) {
             GlobalData.mouseClickStartPoint = GlobalData.mousePosition;
             GlobalData.selectedWarrior = GetSelectedWarrior();
             dragAmount = 0;
             isDraging = false;
-        }
+			armyManagement.OnClick();
+		}
 
-        if (value.canceled)
+		if (canceled)
         {
-            armyManagement.OnClick();
             effects.ClearArrow();
             GlobalData.mouseClickEndPoint = GlobalData.mousePosition;
 
@@ -152,7 +163,6 @@ public class Player : MonoBehaviour
             GlobalData.mousePath.Clear();
         }
     }
-
 
     public void OpenWarriorPopup(Warrior warrior)
     {
@@ -221,6 +231,10 @@ public class Player : MonoBehaviour
     {
         FixSelection();
         SetRotation();
+        if (click) {
+            click = false;
+            OnClick(started, canceled);
+        }
 
         if (GlobalData.mouseDown && GlobalData.selectedWarrior != null && !inspect)
         {

@@ -4,13 +4,16 @@ using UnityEngine;
 public class EconomyManager : MonoBehaviour
 {
     public GameObject lineRendererContainer;
+    public enum ContructionDisplay {LineOverlay, Model}
+    public ContructionDisplay display;
     [Tooltip("Size of one pixel on the map")] public Vector2 stateSize;
     public float lines;
     public float lineWidth;
     public float lineZ;
     public Color lineColor;
+    public Transform modelContainer;
 
-    [Space(1)]
+	[Space(1)]
     public float contructionTimeValue;
     public float contructionValueValue;
     public string symbol;
@@ -26,8 +29,8 @@ public class EconomyManager : MonoBehaviour
     public List<Site> contructionSites = new();
     [HideInInspector] public bool populationMapChanged;
     List<LineRenderer> lineRenderers;
-
-	private void Start()
+	
+    private void Start()
 	{
         SetPopulationMap();
         UpdatePopulation();
@@ -50,7 +53,7 @@ public class EconomyManager : MonoBehaviour
 
         foreach (var line in lineRenderers) { line.positionCount = 0;}
 
-        if (mapRenderer.drawMode == MapRenderer.DrawMode.DevlopmentMap) DrawContructionSites();
+        if (display == ContructionDisplay.LineOverlay) DrawContructionSites();
         ContructSites();
     }
 
@@ -83,6 +86,15 @@ public class EconomyManager : MonoBehaviour
         if (cost > nation.wealth) return;
         nation.wealth -= cost;
         contructionSites.Add(site);
+
+        if (display == ContructionDisplay.Model){ 
+            var model = SpawnStructure<Structure>(
+                mapRenderer.WorldPosition(realPositon), 
+                WarObject.ModelType.ContructionSite, 
+                new(nation.nation, GlobalData.capitalChangeHealth, 0));
+            model.applyColorOnModel = false;
+            site.model = model.gameObject;
+		}
     }
     public float SiteCost(Site site) 
     {
@@ -110,6 +122,7 @@ public class EconomyManager : MonoBehaviour
         var factory = SpawnStructure<Factory>(mapRenderer.WorldPosition(pos), WarObject.ModelType.Factory, new(parentNation.nation, GlobalData.capitalChangeHealth, 0));
         factory.efficiency = site.efficency;
         factory.health = site.capacity;
+        Destroy(site.model);
     }
 
     public T SpawnStructure<T>(Vector3 position, WarObject.ModelType model, WarObjectData objectData) where T : WarObject
@@ -282,6 +295,7 @@ public class Site
     public float efficency;
     public float capacity;
     public float completion;
+    public GameObject model = null;
 
     public Site Copy()
     {

@@ -8,7 +8,7 @@ public class WarObject : MonoBehaviour
     [HideInInspector] public float maxHealth;
     public float damage;
 
-	public enum ModelType {Car, City, Warrior, Truck, Tank, Ship, Plane, Sprite, Factory};
+	public enum ModelType {Car, City, Warrior, Truck, Tank, Ship, Plane, Sprite, Factory, Shop, ContructionSite};
 	[Header("Model Type")]
 	public ModelType modelType;
 
@@ -44,6 +44,9 @@ public class WarObject : MonoBehaviour
 		get { return GetComponent<SpriteRenderer>(); }
 	}
 
+	[HideInInspector]
+	public bool applyColorOnModel = true;
+
 	public bool outline { get { return spriteRenderer.material.GetFloat("_Thickness") > 0; } 
 		set {
 			if (value) spriteRenderer.material.SetFloat("_Thickness", GlobalData.spriteOutlineValue);
@@ -63,7 +66,7 @@ public class WarObject : MonoBehaviour
 		set
 		{
 			if (spriteRenderer != null) {spriteRenderer.color =  value;}
-			if (model == null) return;
+			if (model == null || !applyColorOnModel) return;
 			Renderer[] renderers = model.GetComponentsInChildren<MeshRenderer>();
 			foreach (Renderer renderer in renderers)
 			{

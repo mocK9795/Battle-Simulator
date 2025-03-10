@@ -7,12 +7,13 @@ public class ArmyManagement : MonoBehaviour
     [Tooltip("Must have a text component (army number)")]
     public GameObject preset;
 	public GameObject activeObject;
+	public GameObject secondryObject;
     public GameObject container;
 	public GameObject taskbar;
     public Player player;
 	public int armyGroupCount;
     List<List<Warrior>> armyContainers;
-	int selectedArmy = 0;
+	public int selectedArmy = 0;
 	float containerCloseDelay = 0.1f;
 	float timeSinceContainerClosed;
 	public List<Warrior> selectedWarriors { get { return armyContainers[selectedArmy]; } }
@@ -48,9 +49,14 @@ public class ArmyManagement : MonoBehaviour
 		timeSinceContainerClosed = 0;
 		selectedArmy = index;
 		OutlineSelected(true);
-		activeObject.transform.SetParent(container.transform, false);
-		var selectedButton = FindButton(selectedArmy);
+		secondryObject.transform.SetParent(container.transform, false);
+		ArmyButton selectedButton;
+		var secondryButton = secondryObject.GetComponent<ArmyButton>();
+		if (selectedArmy == secondryButton.id)
+		selectedButton = secondryButton;
+		else selectedButton = FindButton(selectedArmy);
 		selectedButton.transform.SetParent(taskbar.transform, false);
+		secondryObject = activeObject;
 		activeObject = selectedButton.gameObject;
 	}
 
@@ -107,15 +113,13 @@ public class ArmyManagement : MonoBehaviour
 
 	public void OnClick()
 	{
-		if (timeSinceContainerClosed < containerCloseDelay) return;
 		StartCoroutine(DeactivateGrid());
 	}
 
 	IEnumerator DeactivateGrid()
 	{
-		yield return new WaitForSeconds(containerCloseDelay * .5f);
+		yield return new WaitForSeconds(containerCloseDelay);
 		if (timeSinceContainerClosed < containerCloseDelay) yield break;
 		container.SetActive(false);
-		yield break;
 	}
 }
