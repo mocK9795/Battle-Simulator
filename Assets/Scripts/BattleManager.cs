@@ -28,6 +28,7 @@ public class BattleManager : MonoBehaviour
 
 	[Header("Creation Data")]
 	public NationData[] nations;
+	public int warriorCount;
 	public WarriorData[] warriors;
 	public CapitalData capitalData;
 
@@ -103,7 +104,7 @@ public class BattleManager : MonoBehaviour
 		Nation nation = GetNation(nationName);
 		Capital[] capitals = nation.GetCapitals();
 		if (capitals != null) if (capitals.Length > 0) spawn = capitals[0].transform.position;
-		for (int i = 0; i < data.count; i++)
+		for (int i = 0; i < warriorCount; i++)
 		{
 			GameObject warriorObject = new GameObject(nationName + " " + i.ToString());
 			Warrior warrior = warriorObject.AddComponent<Warrior>();
@@ -180,31 +181,28 @@ public class BattleManager : MonoBehaviour
 		}
 	}
 
-	[ContextMenu("Delete Nations")]
-	public void RemoveNations()
+	public static void RemoveNations()
 	{
 		Nation[] allNations = GetAllNations();
 		foreach (Nation nation in allNations)
 		{
-			DestroyImmediate(nation.gameObject);
+			Destroy(nation.gameObject);
 		}
 	}
 
-	[ContextMenu("Delete Warriors")]
-	public void RemoveWarriors()
+	public static void RemoveWarriors()
 	{
 		Warrior[] allWarriors = GetAllWarriors();
 		foreach (Warrior warrior in allWarriors)
 		{
-			DestroyImmediate(warrior.gameObject);
+			Destroy(warrior.gameObject);
 		}
 	}
 
-	[ContextMenu("Delete Capitals")]
-	public void RemoveCapitals()
+	public static void RemoveCapitals()
 	{
 		var capitals = GetAllCapitals();
-		foreach (var cap in capitals) {DestroyImmediate(cap.gameObject);}
+		foreach (var cap in capitals) {Destroy(cap.gameObject);}
 	}
 
 	[ContextMenu("Group War Objects")]
@@ -408,19 +406,13 @@ public struct NationData
 }
 
 [System.Serializable]
-public struct WarriorData
+public class WarriorData : WarObjectData
 {
-	public float health;
 	public float speed;
-	public float damage;
-	public int count;
 
-	public WarriorData(float health, float speed, float damage, int count) : this()
+	public WarriorData(string nation, float health, float damage, float speed) : base(nation, health, damage)
 	{
-		this.health = health;
 		this.speed = speed;
-		this.damage = damage;
-		this.count = count;
 	}
 }
 
@@ -428,21 +420,16 @@ public struct WarriorData
 public struct CapitalData
 {
 	public float health;
-	public WarriorData data
-	{
-		get { return new WarriorData(health, 0, 0, 1); }
-		set { health = value.health; }
-	}
 }
 
 [System.Serializable]
-public struct WarObjectData
+public class WarObjectData
 {
 	public string nation;
 	public float health;
 	public float damage;
 
-	public WarObjectData(string nation, float health, float damage) : this()
+	public WarObjectData(string nation, float health, float damage)
 	{
 		this.nation = nation;
 		this.health = health;

@@ -154,6 +154,12 @@ public class Warrior : WarObject
 		transform.localScale = maxScale * Mathf.Max(health / GlobalData.healthToScaleRatio, GlobalData.minScale);
 	}
 
+	public void AssignData(WarriorData data)
+	{
+		speed = data.speed;
+		base.AssignData(data);
+	}
+
 	private void OnValidate()
 	{
 	}

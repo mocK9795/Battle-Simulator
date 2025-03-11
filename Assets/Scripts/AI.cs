@@ -143,7 +143,7 @@ public class AI : MonoBehaviour
 
 		return new(divisionLack, nation.wealth / divisionLack);
 	}
-	public bool IsBelowAverage(WarriorData data, WorldInformation worldData)
+	public bool IsBelowAverage(RecruitmentData data, WorldInformation worldData)
 	{
 		return GlobalData.recruiter.GetCost(data) 
 			> GlobalData.recruiter.GetCost(
@@ -153,15 +153,15 @@ public class AI : MonoBehaviour
 				data.count
 		));
 	}
-	WarriorData CaculateBestAttributes(float budget, WorldInformation worldData)
+	RecruitmentData CaculateBestAttributes(float budget, WorldInformation worldData)
 	{
-		WarriorData bestData = new WarriorData(0, worldData.averageSpeed, 0, 1);
+		RecruitmentData bestData = new RecruitmentData(0, 0, worldData.averageSpeed, 1);
 
 		for (int health = 1; health <= budget / GlobalData.recruiter.health; health++)
 		{
 			for (int damage = 1; damage <= budget / GlobalData.recruiter.damage; damage++)
 			{
-				WarriorData data = new(health, worldData.averageSpeed, damage, 1);
+				RecruitmentData data = new(health, damage, worldData.averageSpeed, 1);
 				float cost = GlobalData.recruiter.GetCost(data);
 				if (cost <= budget && (health > bestData.health || damage > bestData.damage))
 				{

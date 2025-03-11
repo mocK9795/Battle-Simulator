@@ -62,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\UI\MobileControls.cs" />
+    <Compile Include="Assets\Scripts\Save System\SSc79.cs" />
     <Compile Include="Assets\Scripts\Nation.cs" />
     <Compile Include="Assets\Scripts\BattleManager.cs" />
     <Compile Include="Assets\Scripts\Border\MapRenderer.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Assets\Scripts\Border\Border.cs" />
     <Compile Include="Assets\Scripts\Border\BorderPointOrdering.cs" />
     <Compile Include="Assets\Scripts\UI\ArmyManagement.cs" />
+    <Compile Include="Assets\Scripts\SaveManager.cs" />
     <Compile Include="Assets\UI\ErrorDisplay.cs" />
     <Compile Include="Assets\Scripts\EconomyManager.cs" />
     <Compile Include="Assets\Scripts\UI\LabledText.cs" />

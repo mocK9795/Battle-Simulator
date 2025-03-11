@@ -37880,6 +37880,7 @@ GameObject:
   - component: {fileID: 1039673163}
   - component: {fileID: 1039673162}
   - component: {fileID: 1039673161}
+  - component: {fileID: 1039673165}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -38122,6 +38123,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1039673165
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1039673160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f42fa59d1350514bb8c1575cf8bd5ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  saveName: TestSave1
 --- !u!1 &1040878056
 GameObject:
   m_ObjectHideFlags: 0
@@ -39664,37 +39678,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1066752796}
   m_Mesh: {fileID: 6041377522765385347, guid: 1e885d7391eb68b46afb3ccb582d4c0c, type: 3}
---- !u!1 &1071167147
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1071167148}
-  m_Layer: 0
-  m_Name: Other Object Container
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1071167148
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1071167147}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1073580219
 GameObject:
   m_ObjectHideFlags: 0
@@ -79265,7 +79248,7 @@ MonoBehaviour:
   lineWidth: 0.05
   lineZ: 0
   lineColor: {r: 0.161, g: 0.322, b: 0.188, a: 1}
-  modelContainer: {fileID: 1071167148}
+  modelContainer: {fileID: 0}
   contructionTimeValue: 0.03333333
   contructionValueValue: 214.2857
   symbol: "\xA3"
@@ -82002,4 +81985,3 @@ SceneRoots:
   - {fileID: 1494520455}
   - {fileID: 1686665041}
   - {fileID: 1056460546}
-  - {fileID: 1071167148}

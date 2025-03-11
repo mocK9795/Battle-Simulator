@@ -373,6 +373,43 @@ public static class GlobalData
 		}
 		return new(tree);
 	}
+
+	public static T[] ConvertTo1D<T>(T[,] array)
+	{
+		int width = array.GetLength(0);
+		int height = array.GetLength(1);
+		T[] result = new T[width * height];
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				result[y * width + x] = array[x, y];
+			}
+		}
+
+		return result;
+	}
+	
+	public static T[,] ConvertTo2D<T>(T[] array, int width, int height)
+	{
+		T[,] result = new T[width, height];
+
+		for (int y = 0; y < height; y++)
+		{
+			for (int x = 0; x < width; x++)
+			{
+				result[x, y] = array[y * width + x];
+			}
+		}
+
+		return result;
+	}
+
+	public static Vector2Int Size<T>(T[,] array)
+	{
+		return new(array.GetLength(0), array.GetLength(1));
+	}
 }
 
 

@@ -88,7 +88,7 @@ public class EconomyManager : MonoBehaviour
         contructionSites.Add(site);
 
         if (display == ContructionDisplay.Model){ 
-            var model = SpawnStructure<Structure>(
+            var model = SpawnObject<Structure>(
                 mapRenderer.WorldPosition(realPositon), 
                 WarObject.ModelType.ContructionSite, 
                 new(nation.nation, GlobalData.capitalChangeHealth, 0));
@@ -119,13 +119,13 @@ public class EconomyManager : MonoBehaviour
     {
         var pos = mapRenderer.MapPositionViaDisplacement(site.position);
 		Nation parentNation = BattleManager.GetNation(mapRenderer.mapData[pos.x, pos.y]);
-        var factory = SpawnStructure<Factory>(mapRenderer.WorldPosition(pos), WarObject.ModelType.Factory, new(parentNation.nation, GlobalData.capitalChangeHealth, 0));
+        var factory = SpawnObject<Factory>(mapRenderer.WorldPosition(pos), WarObject.ModelType.Factory, new(parentNation.nation, GlobalData.capitalChangeHealth, 0));
         factory.efficiency = site.efficency;
         factory.health = site.capacity;
         Destroy(site.model);
     }
 
-    public T SpawnStructure<T>(Vector3 position, WarObject.ModelType model, WarObjectData objectData) where T : WarObject
+    public static T SpawnObject<T>(Vector3 position, WarObject.ModelType model, WarObjectData objectData) where T : WarObject
     {
         var warObjParent = new GameObject(model.ToString());
         var warObject = warObjParent.AddComponent<T>();
@@ -136,8 +136,13 @@ public class EconomyManager : MonoBehaviour
         warObject.modelType = model;
         return warObject;
     }
-
-    public void PopulateArea(Vector2Int position, float value)
+	public static Warrior SpawnWarrior(Vector3 position, WarObject.ModelType model, WarriorData data) 
+	{
+        var warrior = SpawnObject<Warrior>(position, model, data);
+        warrior.AssignData(data);
+		return warrior;
+	}
+	public void PopulateArea(Vector2Int position, float value)
     {
         populationMap[position.x, position.y] += value;
         populationMapChanged = true;

@@ -21,7 +21,7 @@ public class RecruitmentManager : MonoBehaviour
 	public float damage;
 	public float speed;
 
-	public WarriorData data;
+	public RecruitmentData data;
 
 	[ContextMenu("Create Test Details")]
 	public void RunTest()
@@ -29,7 +29,7 @@ public class RecruitmentManager : MonoBehaviour
 		ShowDetails(data);
 	}
 
-	public WarriorData NormalizeData(WarriorData data)
+	public RecruitmentData NormalizeData(RecruitmentData data)
 	{
 		data.health = Mathf.Max(data.health, 1);
 		data.damage = Mathf.Max(data.damage, 1);
@@ -38,7 +38,7 @@ public class RecruitmentManager : MonoBehaviour
 		return data;
 	}
 
-	public void RecruitArmy(Nation nation, WarriorData data)
+	public void RecruitArmy(Nation nation, RecruitmentData data)
 	{
 		data = NormalizeData(data);
 		float cost = GetCost(data);
@@ -49,12 +49,12 @@ public class RecruitmentManager : MonoBehaviour
 		battle.GroupWarObjects();
 	}
 
-	public float GetCost(WarriorData data)
+	public float GetCost(RecruitmentData data)
 	{
 		return (data.health * health + data.damage * damage + data.speed * speed) * data.count; 
 	}
 
-	public void ShowDetails(WarriorData data)
+	public void ShowDetails(RecruitmentData data)
 	{
 		this.data = NormalizeData(data);
 		data = this.data;
@@ -172,6 +172,13 @@ public struct Pair<T>
 	get { return y; } 
 	set { y  = value; } 
 	} 
+}
 
-
+public class RecruitmentData : WarriorData
+{
+	public int count;
+	public RecruitmentData(float health, float damage, float speed, int count) : base("", health, damage, speed)
+	{
+		this.count = count;
+	}
 }
